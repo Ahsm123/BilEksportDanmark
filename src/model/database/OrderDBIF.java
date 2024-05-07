@@ -1,5 +1,10 @@
 package model.database;
+import java.sql.SQLException;
 
-public class OrderDBIF {
+import model.Order;
+
+public interface OrderDBIF {
+	
+	public void saveOrder(Order order) throws SQLException;
 
 }

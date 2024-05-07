@@ -1,5 +1,90 @@
 package model;
 
-public class Order {
+import java.util.ArrayList;
 
+public class Order {
+	
+	private int orderId;
+	private String date;
+	private double total;
+	private String deliveryAddress;
+	private boolean isDelivered;
+	private Employee employee;
+	private Customer customer;
+	private ArrayList<Copy> copys;
+	
+	public Order(Employee employee, Customer customer) {
+		
+		this.date = java.time.LocalDate.now().toString();
+		this.total = 0;
+		this.deliveryAddress = null;
+		this.isDelivered = false;
+		this.employee = employee;
+		this.customer = customer;
+		this.copys = new ArrayList<>();
+	}
+	
+	public void setId(int orderId) {
+		this.orderId = orderId;
+	}
+	public int getId() {
+		return orderId;
+	}
+
+//	public double getTotal() {
+//		double result = 0;
+//		for(Copy c : copys) {
+//			result += c.getPrice();
+//		}
+//		return result;
+//	}
+
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public String getDeliveryAddress() {
+		return deliveryAddress;
+	}
+
+	public void setDeliveryAddress(String deliveryAddress) {
+		this.deliveryAddress = deliveryAddress;
+	}
+
+	public boolean isDelivered() {
+		return isDelivered;
+	}
+
+	public void setDelivered(boolean isDelivered) {
+		this.isDelivered = isDelivered;
+	}
+
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	public ArrayList<Copy> getCopys() {
+		return copys;
+	}
+
+	public void setCopys(ArrayList<Copy> copys) {
+		this.copys = copys;
+	}
 }
