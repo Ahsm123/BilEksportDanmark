@@ -1,5 +1,6 @@
 package model.database;
+import model.Customer;
 
-public class CustomerDBIF {
-
+public interface CustomerDBIF {
+	public Customer findCustomer(String phoneNo) throws DataAccessException;
 }
