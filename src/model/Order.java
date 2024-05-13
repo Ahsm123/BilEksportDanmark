@@ -1,6 +1,6 @@
 package model;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Order {
 
@@ -10,7 +10,7 @@ public class Order {
 	private boolean isDelivered;
 	private Employee employee;
 	private Customer customer;
-	private ArrayList<Copy> copies;
+	private LinkedList<Copy> copies;
 
 	public Order(Employee employee, Customer customer) {
 
@@ -19,7 +19,7 @@ public class Order {
 		this.isDelivered = false;
 		this.employee = employee;
 		this.customer = customer;
-		this.copies = new ArrayList<>();
+		this.copies = new LinkedList<>();
 	}
 
 	public void addCopy(Copy copy) {
@@ -35,8 +35,7 @@ public class Order {
 	}
 
 	public double getTotalPrice() {
-		double result = copies.stream().mapToDouble(Copy::getPrice).sum();
-		return result;
+		return copies.stream().mapToDouble(Copy::getPrice).sum();
 	}
 
 	public String getDate() {
@@ -79,11 +78,11 @@ public class Order {
 		this.customer = customer;
 	}
 
-	public ArrayList<Copy> getCopies() {
+	public LinkedList<Copy> getCopies() {
 		return copies;
 	}
 
-	public void setCopies(ArrayList<Copy> copies) {
+	public void setCopies(LinkedList<Copy> copies) {
 		this.copies = copies;
 	}
 }
