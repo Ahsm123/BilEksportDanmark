@@ -9,7 +9,7 @@ import model.Person;
 
 public class CustomerDB implements CustomerDBIF {
 
-	private static final String FIND_CUSTOMER_BY_PHONE = "select c.id, c.street, c.streetno, c.cvr, c.ssn,"
+	private static final String FIND_CUSTOMER_BY_PHONE = "select c.id, c.cvr, c.ssn,"
 			+ " p.fname, p.lname, p.phone, p.email, p.type, da.street, da.streetno, pc.city, co.country from customer c "
 			+ " join person p on c.personid = p.id left join DeliveryAdress da on c.deliveryAdress = da.id"
 			+ " left join postalcode pc on da.postalcode = pc.postalcode "
@@ -37,31 +37,23 @@ public class CustomerDB implements CustomerDBIF {
 
 	//Combine name til en
 	//Combine Address til en
-	private Customer createCustomerObject(ResultSet rs, Person person) throws DataAccessException {
+	private Customer createCustomerObject(ResultSet rs, Person person) throws DataAccessException, SQLException {
 		Customer customer = new Customer(person);
-		try {
-
-			customer.setCvr(rs.getInt("cvr"));
-			
-
-			String address = "";
-			if (rs.getString("street") != null) {
-				address += rs.getString("street");
-			}
-			if (rs.getString("streetno") != null) {
-				address += " " + rs.getString("streetno");
-			}
-			if (rs.getString("city") != null) {
-				address += " " + rs.getString("city");
-			}
-			customer.setAdress(address);
-			customer.setCpr(rs.getInt("ssn"));
+		int cvr = rs.getInt("cvr");
+		if (cvr == 0) {
+			customer.setSsn(rs.getInt("ssn"));
+		} 
+		else {
+			customer.setCvr(cvr); 
 		}
 
-		catch (SQLException e) {
-			e.printStackTrace();
+		customer.setAdress(rs.getString("street") + " "
+				+ rs.getInt("streetNo") + " "
+				+ rs.getInt("postalCode") + " "
+				+ rs.getString("city") + " "
+				+ rs.getString("country"));
 
-		}
+
 		return customer;
 	}
 
@@ -69,7 +61,7 @@ public class CustomerDB implements CustomerDBIF {
 		String email = rs.getString("email");
 		String name = rs.getString("fname" + " " + rs.getString("lname"));
 		String phone = rs.getString("phone");
-		
+
 		return new Person(name, phone, email);
 	}
 
