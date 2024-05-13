@@ -29,9 +29,7 @@ public class OrderDB implements OrderDBIF {
 
 	}
 
-	public boolean confirmOrder(Order order) throws SQLException {
-
-		boolean success = false;
+	public void confirmOrder(Order order) throws SQLException {
 
 		saveOrder.setInt(1, order.getId());
 		saveOrder.setString(2, order.getDate());
@@ -41,7 +39,5 @@ public class OrderDB implements OrderDBIF {
 //		saveOrder.setInt(6, order.getEmployee().getId());
 //		saveOrder.setInt(7, order.getCustomer().getId());
 		saveOrder.setString(8, order.getDate());
-		
-		return success;
 	}
 }

@@ -24,20 +24,28 @@ public class Order {
 		this.copys = new ArrayList<>();
 	}
 	
+	public void addCopy(Copy copy) {
+		copys.add(copy);
+	}
+	
 	public void setId(int orderId) {
 		this.orderId = orderId;
 	}
 	public int getId() {
 		return orderId;
 	}
+	
+	public void setTotal(double total) {
+		this.total = getTotal();
+	}
 
-//	public double getTotal() {
-//		double result = 0;
-//		for(Copy c : copys) {
-//			result += c.getPrice();
-//		}
-//		return result;
-//	}
+	public double getTotal() {
+		double result = 0;
+		for(Copy copy : copys) {
+			result += copy.getPrice();
+		}
+		return result;
+	}
 
 
 	public String getDate() {
