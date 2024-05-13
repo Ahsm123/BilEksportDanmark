@@ -3,13 +3,13 @@ package model;
 public class Customer extends Person{
 	public int cvr;
 	public int cpr;
-	public String adress;
+	public String address;
 
-	public Customer(String Name, String phoneNo, int age, String email,int cvr, int cpr, String adress) {
-		super(Name, phoneNo, age, email);
+	public Customer(String name, String phoneNo, int age, String email,int cvr, int cpr, String adress) {
+		super(name, phoneNo, age, email);
 		this.cvr = cvr;
 		this.cpr = cpr;
-		this.adress = adress;
+		this.address = adress;
 	}
 
 	public int getCvr() {
