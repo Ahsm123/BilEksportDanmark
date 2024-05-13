@@ -6,12 +6,12 @@ public class Copy {
 	private String state;
 	private String modification;
 	private int kilometer;
-	private int color;
+	private String color;
 	private boolean taxReturn;
 	private boolean isInspected;
 	
 	public Copy(String vin,double price,String state,String modification,
-			int kilometer,int color,boolean taxReturn,boolean isInspected) {
+			int kilometer,String color,boolean taxReturn,boolean isInspected) {
 		
 		this.vin=vin;
 		this.price=price;
@@ -64,11 +64,11 @@ public class Copy {
 		this.kilometer = kilometer;
 	}
 
-	public int getColor() {
+	public String getColor() {
 		return color;
 	}
 
-	public void setColor(int color) {
+	public void setColor(String color) {
 		this.color = color;
 	}
 
@@ -84,7 +84,7 @@ public class Copy {
 		return isInspected;
 	}
 
-	public void setInspected(boolean isInspected) {
+	public void setIsInspected(boolean isInspected) {
 		this.isInspected = isInspected;
 	}
 	
