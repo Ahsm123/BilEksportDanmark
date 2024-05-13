@@ -35,8 +35,8 @@ public class Order {
 		return orderId;
 	}
 	
-	public void setTotal(double total) {
-		this.totalPrice = getTotal();
+	public void setTotal(double totalPrice) {
+		this.totalPrice = totalPrice;
 	}
 
 	public double getTotal() {
