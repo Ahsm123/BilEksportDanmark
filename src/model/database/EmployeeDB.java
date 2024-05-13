@@ -9,20 +9,20 @@ import model.Employee;
 import model.Person;
 
 public class EmployeeDB implements EmployeeDBIF {
-	private static final String FIND_BY_ID = "select e.id, e.salary, p.fname, p.lname, p.phone, p.email from employee e left join Person p on e.personId = p.id where e.id = ?;";
+	private static final String FIND_BY_ID = "select e.id, e.salary, p.fname, p.lname, p.phone, p.email from employee e left join person p on e.personId = p.id where e.id = ?;";
 	private PreparedStatement findById;
 	
 	public EmployeeDB() throws DataAccessException {
 		init();
 	}
-
+	
 	private void init() throws DataAccessException {
 		Connection connection = DBConnection.getInstance().getConnection();
 		try {
 			findById = connection.prepareStatement(FIND_BY_ID);
 		} 
 		catch(SQLException e) {
-			System.out.println("Couldnt connect to the database");
+			System.out.println("Couldn't connect to the database");
 		}
 	}
 	

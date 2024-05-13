@@ -10,7 +10,7 @@ import java.sql.Statement;
 public class DBConnection {
 	private Connection connection = null;
 	private static DBConnection dbConnection;
-
+	
 	private static final String DRIVERCLASS = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
 	private static final String DBNAME = "DMA-CSD-S231_10201992";
 	private static final String SERVERADDRESS = "hildur.ucn.dk";
