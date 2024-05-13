@@ -5,11 +5,11 @@ public class Customer extends Person{
 	public int cpr;
 	public String address;
 
-	public Customer(String name, String phoneNo, int age, String email,int cvr, int cpr, String address) {
-		super(name, phoneNo, age, email);
+	public Customer(String name, String phoneNo, int age, String email,int cvr, int cpr, String adress) {
+		super(name, phoneNo, email);
 		this.cvr = cvr;
 		this.cpr = cpr;
-		this.address = address;
+		this.address = adress;
 	}
 
 	public int getCvr() {
