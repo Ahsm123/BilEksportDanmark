@@ -1,18 +1,19 @@
 package model;
 
 public class Copy {
+	private int id;
 	private String vin;
 	private double price;
 	private String state;
 	private String modification;
 	private int kilometer;
-	private int color;
+	private String color;
 	private boolean taxReturn;
 	private boolean isInspected;
 	
-	public Copy(String vin,double price,String state,String modification,
-			int kilometer,int color,boolean taxReturn,boolean isInspected) {
-		
+	public Copy(int id, String vin,double price,String state,String modification,
+			int kilometer,String color,boolean taxReturn,boolean isInspected) {
+		this.id=id;
 		this.vin=vin;
 		this.price=price;
 		this.state=state;
@@ -22,6 +23,10 @@ public class Copy {
 		this.taxReturn=taxReturn;
 		this.isInspected=isInspected;
 		
+	}
+	
+	public int getId() {
+		return id;
 	}
 
 	public String getVin() {
@@ -64,11 +69,11 @@ public class Copy {
 		this.kilometer = kilometer;
 	}
 
-	public int getColor() {
+	public String getColor() {
 		return color;
 	}
 
-	public void setColor(int color) {
+	public void setColor(String color) {
 		this.color = color;
 	}
 
@@ -84,7 +89,7 @@ public class Copy {
 		return isInspected;
 	}
 
-	public void setInspected(boolean isInspected) {
+	public void setIsInspected(boolean isInspected) {
 		this.isInspected = isInspected;
 	}
 	

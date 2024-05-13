@@ -1,5 +1,11 @@
 package model.database;
 
-public class CarDBIF {
+
+import java.sql.SQLException;
+
+import model.Copy;
+
+public interface CarDBIF {
+	public Copy findCopy(String vin)throws SQLException;
 
 }

@@ -1,52 +1,42 @@
 package model;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Order {
-	
+
 	private int orderId;
 	private String date;
-	private double totalPrice;
 	private String deliveryAddress;
 	private boolean isDelivered;
 	private Employee employee;
 	private Customer customer;
-	private ArrayList<Copy> copies;
-	
+	private LinkedList<Copy> copies;
+
 	public Order(Employee employee, Customer customer) {
-		
+
 		this.date = java.time.LocalDate.now().toString();
-		this.totalPrice = 0;
 		this.deliveryAddress = null;
 		this.isDelivered = false;
 		this.employee = employee;
 		this.customer = customer;
-		this.copies = new ArrayList<>();
+		this.copies = new LinkedList<>();
 	}
-	
+
 	public void addCopy(Copy copy) {
 		copies.add(copy);
 	}
-	
+
 	public void setId(int orderId) {
 		this.orderId = orderId;
 	}
+
 	public int getId() {
 		return orderId;
 	}
-	
-	public void setTotal(double total) {
-		this.total = getTotal();
-	}
 
-	public double getTotal() {
-		double result = 0;
-		for(Copy copy : copies) {
-			result += copy.getPrice();
-		}
-		return result;
+	public double getTotalPrice() {
+		return copies.stream().mapToDouble(Copy::getPrice).sum();
 	}
-
 
 	public String getDate() {
 		return date;
@@ -88,11 +78,11 @@ public class Order {
 		this.customer = customer;
 	}
 
-	public ArrayList<Copy> getCopies() {
+	public LinkedList<Copy> getCopies() {
 		return copies;
 	}
 
-	public void setCopies(ArrayList<Copy> copies) {
+	public void setCopies(LinkedList<Copy> copies) {
 		this.copies = copies;
 	}
 }
