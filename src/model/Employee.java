@@ -4,10 +4,8 @@ public class Employee extends Person {
 	public int id;
 	public double salary;
 
-	public Employee(String name, String phoneNo, int age, String email) {
-		super(name, phoneNo, age, email);
-		this.id = id;
-		this.salary = salary;
+	public Employee(Person person) {
+		super(person.getName(), person.getPhoneNo(), person.getEmail());
 	}
 
 	public int getId() {

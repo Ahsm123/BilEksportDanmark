@@ -6,7 +6,7 @@ public class Customer extends Person{
 	public String address;
 
 	public Customer(String name, String phoneNo, int age, String email,int cvr, int cpr, String adress) {
-		super(name, phoneNo, age, email);
+		super(name, phoneNo, email);
 		this.cvr = cvr;
 		this.cpr = cpr;
 		this.address = adress;
