@@ -41,7 +41,7 @@ public class Order {
 
 	public double getTotal() {
 		double result = 0;
-		for(Copy copy : copys) {
+		for(Copy copy : copies) {
 			result += copy.getPrice();
 		}
 		return result;
