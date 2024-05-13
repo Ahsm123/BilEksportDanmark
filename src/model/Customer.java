@@ -11,6 +11,10 @@ public class Customer extends Person{
 		this.cpr = cpr;
 		this.address = adress;
 	}
+	
+	public Customer(Person person) {
+		super(person.getName(), person.getPhoneNo(), person.getEmail());
+	}
 
 	public int getCvr() {
 		return cvr;
