@@ -53,7 +53,7 @@ public class EmployeeDB {
 	public Person buildPersonObject(ResultSet rs) throws SQLException {
 		String email = rs.getString("email");
 		String name = rs.getString("fname" + " " + rs.getString("lname"));
-		String phone= rs.getString("phone");
+		String phone = rs.getString("phone");
 		
 		return new Person(name, phone, email);
 	}

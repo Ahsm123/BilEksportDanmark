@@ -6,7 +6,7 @@ public class Person {
 	public int age;
 	public String email;
 	
-	public Person (String Name, String phoneNo, String email) {
+	public Person (String name, String phoneNo, String email) {
 		this.name = name;
 		this.phoneNo = phoneNo;
 		this.email = email;
