@@ -6,7 +6,6 @@ public class Order {
 	
 	private int orderId;
 	private String date;
-	private double totalPrice;
 	private String deliveryAddress;
 	private boolean isDelivered;
 	private Employee employee;
@@ -16,7 +15,6 @@ public class Order {
 	public Order(Employee employee, Customer customer) {
 		
 		this.date = java.time.LocalDate.now().toString();
-		this.totalPrice = 0;
 		this.deliveryAddress = null;
 		this.isDelivered = false;
 		this.employee = employee;
@@ -35,11 +33,8 @@ public class Order {
 		return orderId;
 	}
 	
-	public void setTotal(double totalPrice) {
-		this.totalPrice = totalPrice;
-	}
 
-	public double getTotal() {
+	public double getTotalPrice() {
 		double result = 0;
 		for(Copy copy : copies) {
 			result += copy.getPrice();
