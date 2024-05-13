@@ -1,6 +1,7 @@
 package model;
 
 public class Copy {
+	private int id;
 	private String vin;
 	private double price;
 	private String state;
@@ -10,9 +11,9 @@ public class Copy {
 	private boolean taxReturn;
 	private boolean isInspected;
 	
-	public Copy(String vin,double price,String state,String modification,
+	public Copy(int id, String vin,double price,String state,String modification,
 			int kilometer,String color,boolean taxReturn,boolean isInspected) {
-		
+		this.id=id;
 		this.vin=vin;
 		this.price=price;
 		this.state=state;
@@ -22,6 +23,10 @@ public class Copy {
 		this.taxReturn=taxReturn;
 		this.isInspected=isInspected;
 		
+	}
+	
+	public int getId() {
+		return id;
 	}
 
 	public String getVin() {
