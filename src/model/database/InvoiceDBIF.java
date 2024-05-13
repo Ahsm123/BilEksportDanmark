@@ -6,6 +6,6 @@ import model.Invoice;
 import model.Order;
 
 public interface InvoiceDBIF {
-	void saveInvoiceInDB() throws SQLException, DataAccessException;
+	void saveInvoiceInDB(Order order) throws SQLException, DataAccessException;
 	
 }

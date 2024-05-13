@@ -3,6 +3,7 @@ package controller;
 import java.sql.SQLException;
 
 import model.Invoice;
+import model.Order;
 import model.database.DataAccessException;
 import model.database.InvoiceDB;
 
@@ -21,8 +22,8 @@ public class InvoiceCtrl {
 	}
 
 
-	public void saveInvoiceInDB() throws SQLException, DataAccessException {
-		 invoiceDB.saveInvoiceInDB();	
+	public void saveInvoiceInDB(Order order) throws SQLException, DataAccessException {
+		 invoiceDB.saveInvoiceInDB(order);	
 
 	}
 }

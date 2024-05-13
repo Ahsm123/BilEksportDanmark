@@ -28,7 +28,7 @@ public class InvoiceDB implements InvoiceDBIF {
 	}
 
 	@Override
-	public void saveInvoiceInDB() throws SQLException, DataAccessException {
+	public void saveInvoiceInDB(Order order) throws SQLException, DataAccessException {
 		DBConnection con = DBConnection.getInstance();
 		con.startTransaction();
 		Invoice invoice = new Invoice();
