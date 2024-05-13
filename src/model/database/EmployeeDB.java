@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import model.Employee;
 import model.Person;
 
-public class EmployeeDB {
+public class EmployeeDB implements EmployeeDBIF {
 	private static final String FIND_BY_ID = "select e.id, e.salary, p.fname, p.lname, p.phone, p.email from employee e left join Person p on e.personId = p.id where e.id = ?;";
 	private PreparedStatement findById;
 	
@@ -16,7 +16,7 @@ public class EmployeeDB {
 		init();
 	}
 
-	public void init() throws DataAccessException {
+	private void init() throws DataAccessException {
 		Connection connection = DBConnection.getInstance().getConnection();
 		try {
 			findById = connection.prepareStatement(FIND_BY_ID);
