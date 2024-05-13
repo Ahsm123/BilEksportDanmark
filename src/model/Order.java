@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 
 public class Order {
-	
+
 	private int orderId;
 	private String date;
 	private String deliveryAddress;
@@ -11,9 +11,9 @@ public class Order {
 	private Employee employee;
 	private Customer customer;
 	private ArrayList<Copy> copies;
-	
+
 	public Order(Employee employee, Customer customer) {
-		
+
 		this.date = java.time.LocalDate.now().toString();
 		this.deliveryAddress = null;
 		this.isDelivered = false;
@@ -21,27 +21,23 @@ public class Order {
 		this.customer = customer;
 		this.copies = new ArrayList<>();
 	}
-	
+
 	public void addCopy(Copy copy) {
 		copies.add(copy);
 	}
-	
+
 	public void setId(int orderId) {
 		this.orderId = orderId;
 	}
+
 	public int getId() {
 		return orderId;
 	}
-	
 
 	public double getTotalPrice() {
-		double result = 0;
-		for(Copy copy : copies) {
-			result += copy.getPrice();
-		}
+		double result = copies.stream().mapToDouble(Copy::getPrice).sum();
 		return result;
 	}
-
 
 	public String getDate() {
 		return date;
