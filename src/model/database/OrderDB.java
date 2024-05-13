@@ -6,38 +6,62 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import model.Copy;
 import model.Order;
 
 public class OrderDB implements OrderDBIF {
 
 	private Connection connection;
 	private PreparedStatement saveOrder;
-	// private static final String SAVE_ORDER_Q =
-
-//	public OrderDB() throws SQLException {
-//		try {
-//			connection = DBConnection.getInstance().getConnection();
-//			saveOrder = connection.prepareStatement(SAVE_ORDER_QUERY, Statement.RETURN_GENERATED_KEYS);
-//		}
-//		catch(Exception e) {
-//			throw new SQLException("Error", e);
-//		}
-//	}
+	private static final String SAVE_ORDER_Q =
+			"insert into \"Order\" (date, totalPrice, isDelivered, deliveryAddressId, customerId, employeeId)";
+	private PreparedStatement saveCopyOrder;
+	private static final String SAVE_COPY_ORDER_Q =
+			"insert into CopyOrder (copyId, orderId)";
+	
+	public OrderDB() throws SQLException {
+		try {
+			connection = DBConnection.getInstance().getConnection();
+			saveOrder = connection.prepareStatement(SAVE_ORDER_Q, Statement.RETURN_GENERATED_KEYS);
+			saveCopyOrder = connection.prepareStatement(SAVE_COPY_ORDER_Q);
+		}
+		catch(Exception e) {
+			throw new SQLException("Error", e);
+		}
+	}
 
 	@Override
-	public void saveOrder(Order order) throws SQLException {
-
+	public void saveOrder(Copy copy, Order order) throws SQLException {
+		if(confirmOrder(order)) {
+			for(Copy copy : order.getCopies()) {
+				saveCopyOrder(copy.getId(), order.getId());
+			}
+		}
 	}
 
+	private void saveCopyOrder(int copyId, int orderId) throws SQLException {
+		
+		saveCopyOrder.setInt(1, copyId);
+		saveCopyOrder.setInt(1, orderId);
+	}
+	@Override
 	public void confirmOrder(Order order) throws SQLException {
-
-		saveOrder.setInt(1, order.getId());
-		saveOrder.setString(2, order.getDate());
-//		saveOrder.setFloat(3, order.getTotal());
+		
+		
+		saveOrder.setString(1, order.getDate());
+		saveOrder.setDouble(2, order.getTotal());
+		saveOrder.setBoolean(3, order.isDelivered());
 		saveOrder.setString(4, order.getDeliveryAddress());
-		saveOrder.setBoolean(5, order.isDelivered());
-//		saveOrder.setInt(6, order.getEmployee().getId());
-//		saveOrder.setInt(7, order.getCustomer().getId());
-		saveOrder.setString(8, order.getDate());
+		saveOrder.setInt(5, order.getEmployee().getId());
+		saveOrder.setInt(6, order.getCustomer().getId());
+		
+		ResultSet keys = saveOrder.getGeneratedKeys();
+		if(keys.next()) {
+			order.setId(keys.getInt(1));
+		}
+		else {
+			throw new SQLException("Failed so set order id");
+		}
 	}
+
 }

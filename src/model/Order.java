@@ -6,26 +6,26 @@ public class Order {
 	
 	private int orderId;
 	private String date;
-	private double total;
+	private double totalPrice;
 	private String deliveryAddress;
 	private boolean isDelivered;
 	private Employee employee;
 	private Customer customer;
-	private ArrayList<Copy> copys;
+	private ArrayList<Copy> copies;
 	
 	public Order(Employee employee, Customer customer) {
 		
 		this.date = java.time.LocalDate.now().toString();
-		this.total = 0;
+		this.totalPrice = 0;
 		this.deliveryAddress = null;
 		this.isDelivered = false;
 		this.employee = employee;
 		this.customer = customer;
-		this.copys = new ArrayList<>();
+		this.copies = new ArrayList<>();
 	}
 	
 	public void addCopy(Copy copy) {
-		copys.add(copy);
+		copies.add(copy);
 	}
 	
 	public void setId(int orderId) {
@@ -88,11 +88,11 @@ public class Order {
 		this.customer = customer;
 	}
 
-	public ArrayList<Copy> getCopys() {
-		return copys;
+	public ArrayList<Copy> getCopies() {
+		return copies;
 	}
 
-	public void setCopys(ArrayList<Copy> copys) {
-		this.copys = copys;
+	public void setCopies(ArrayList<Copy> copies) {
+		this.copies = copies;
 	}
 }
