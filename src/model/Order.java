@@ -36,7 +36,7 @@ public class Order {
 	}
 	
 	public void setTotal(double total) {
-		this.total = getTotal();
+		this.totalPrice = getTotal();
 	}
 
 	public double getTotal() {
