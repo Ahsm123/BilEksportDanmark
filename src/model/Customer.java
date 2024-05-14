@@ -42,5 +42,15 @@ public class Customer extends Person{
 		this.address = adress;
 	}
 	
+	public String getCustomerType() {
+		String type = "";
+		if(ssn == 0) {
+			type = "Erhvervskunde";	
+		} else {
+			type = "Privatkunde";
+		}
+		return type;
+	}
+	
 
 }
