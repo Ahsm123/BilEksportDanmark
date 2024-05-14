@@ -52,4 +52,8 @@ public class OrderCtrl {
 		orderDB.saveOrder(currentOrder);
 		invoiceCtrl.saveInvoiceInDB(currentOrder);
 	}
+	
+	public Order getOrder() {
+		return currentOrder;
+	}
 }

@@ -67,7 +67,7 @@ public class OrderDB implements OrderDBIF {
 		saveOrder.setBoolean(3, order.isDelivered());
 		saveOrder.setString(4, order.getDeliveryAddress());
 		saveOrder.setInt(5, order.getEmployee().getId());
-//		saveOrder.setInt(6, order.getCustomer().getId());
+		saveOrder.setInt(6, order.getCustomer().getId());
 
 		int changedLines = saveOrder.executeUpdate();
 		if (changedLines > 0) {
