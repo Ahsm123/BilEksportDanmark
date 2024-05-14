@@ -1,5 +1,6 @@
 package controller;
 
+import model.Copy;
 import model.database.CarDBIF;
 
 public class CarCtrl {
@@ -8,8 +9,8 @@ public class CarCtrl {
 	
 	public CarCtrl() {}
 	
-	public String findCopy(String vin) {
-		return vin;
+	public Copy findCopy(String vin) {
+		return null;
 		
 	}
 	

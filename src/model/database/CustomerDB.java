@@ -53,7 +53,6 @@ public class CustomerDB implements CustomerDBIF {
 				+ rs.getString("city") + " "
 				+ rs.getString("country"));
 
-
 		return customer;
 	}
 
