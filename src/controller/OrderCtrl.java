@@ -48,7 +48,8 @@ public class OrderCtrl {
 
 	}
 
-	public void confirmOrder() throws SQLException {
-		
+	public void confirmOrder() throws SQLException, DataAccessException {
+		orderDB.saveOrder(currentOrder);
+		invoiceCtrl.saveInvoiceInDB(currentOrder);
 	}
 }
