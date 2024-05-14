@@ -71,7 +71,7 @@ public class MainPage extends JFrame {
 		panel.add(panel_3);
 		panel_3.setLayout(new CardLayout(0, 0));
 		
-		JButton btnProductMenu = new JButton("Produkt menu");
+		JButton btnProductMenu = new JButton("Bil menu");
 		panel_3.add(btnProductMenu, "name_8207516186800");
 		
 		JButton btnSalesAssistant = new JButton("Medarbejder menu");
@@ -80,7 +80,7 @@ public class MainPage extends JFrame {
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.NORTH);
 		
-		JLabel lblNewLabel = new JLabel("Vestbjerg byggecenter A/S");
+		JLabel lblNewLabel = new JLabel("BilEksport Danmark");
 		panel_1.add(lblNewLabel);
 	}
 

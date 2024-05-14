@@ -22,9 +22,12 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.awt.event.ActionEvent;
 
+import controller.CarCtrl;
 import controller.OrderCtrl;
+import model.Copy;
 import model.EmptyOrderException;
 import model.database.DataAccessException;
 
@@ -36,9 +39,14 @@ public class OrderInfo extends JFrame {
 	private JTextField barcodeField;
 	private JTextField textField_2;
 	private JPanel centerOfOL;
+	private LinkedList<JPanel> carPanels;
+	private CarCtrl carCtrl;
 	
 	public OrderInfo(OrderCtrl orderCtrl) {
 		this.orderCtrl = orderCtrl;
+		this.carCtrl = new CarCtrl();
+		this.carPanels = new LinkedList<>();
+		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -115,7 +123,7 @@ public class OrderInfo extends JFrame {
 		});
 		panel_2.add(btnOrderConfirm);
 		
-		// Orderline setup
+		// Setup til at have flere cars
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -128,14 +136,51 @@ public class OrderInfo extends JFrame {
 	
 	private void addCar() {
 		
+		// Todo state machine til input
+		String input = "";
+		try {
+			createCarPanel(carCtrl.findCopy(input));
+		}
+		catch (Exception e) {
+			
+		}	
 	}
 	
-	private void createOrderLine(String name, int quantity) {
+	private void createCarPanel(Copy copy) {
+		JPanel orderlinePanel = new JPanel();
+		centerOfOL.add(orderlinePanel);
+		orderlinePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
+		JLabel orderlineLabel = new JLabel(copy.getVin());
+		orderlinePanel.add(orderlineLabel);
+		
+		JButton btnDelete = new JButton("Fjern");
+		btnDelete.setBackground(Color.YELLOW);
+		
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				deletePanel(orderlinePanel, copy);
+			}
+		});
+		
+		orderlinePanel.add(btnDelete);
+		
+		orderlinePanel.revalidate();
 	}
 	
-	private void deletePanel() {
-		
+	private void deletePanel(JPanel panelToDelete, Copy copy) {
+		try {
+			orderCtrl.removeCopy(copy);
+			
+			panelToDelete.removeAll();
+			carPanels.remove(panelToDelete);
+			centerOfOL.remove(panelToDelete);
+			revalidate();
+			repaint();
+		}
+		catch (Exception e) {
+			
+		}	
 	}
 	
 	private void cancel() {

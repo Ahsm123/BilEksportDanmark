@@ -34,6 +34,21 @@ public class Order {
 		return orderId;
 	}
 
+	public void removeCopy(Copy copy) {
+		boolean found = false;
+		int i = -1;
+		while(!found && ++i < copies.size()) {
+			Copy currentCopy = copies.get(i);
+			if(currentCopy.equals(copy)) {
+				copies.remove(i);
+				found = true;
+			}
+		}
+		if(!found) {
+			throw new CopyNotInOrder("Bil med vin: " + copy.getVin() + " kan ikke fjernes");
+		}
+	}
+	
 	public double getTotalPrice() {
 		return copies.stream().mapToDouble(Copy::getPrice).sum();
 	}

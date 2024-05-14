@@ -31,6 +31,10 @@ public class OrderCtrl {
 		
 	}
 
+	public void removeCopy(Copy copy) {
+		currentOrder.removeCopy(copy);
+	}
+	
 	public Order createOrder(Customer customer) throws NullPointerException, DataAccessException {
 		if (customer != null) {
 			currentOrder = new Order(employee, customer);
