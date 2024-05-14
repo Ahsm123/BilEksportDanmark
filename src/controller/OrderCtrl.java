@@ -2,6 +2,7 @@ package controller;
 
 import model.Customer;
 import model.Employee;
+import model.EmptyOrderException;
 import model.Order;
 import model.database.DataAccessException;
 import model.database.OrderDB;
@@ -48,7 +49,10 @@ public class OrderCtrl {
 
 	}
 
-	public void confirmOrder() throws SQLException, DataAccessException {
+	public void confirmOrder() throws SQLException, DataAccessException, EmptyOrderException {
+		if(currentOrder.getCopies().isEmpty()) {
+			throw new EmptyOrderException("No cars in the order");
+		}
 		orderDB.saveOrder(currentOrder);
 		invoiceCtrl.saveInvoiceInDB(currentOrder);
 	}

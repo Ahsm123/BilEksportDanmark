@@ -95,14 +95,14 @@ public class OrderPrint extends JFrame {
 		JLabel lblOrderID = new JLabel("Ordre nr: " + order.getId());
 		panel_3.add(lblOrderID);
 		
-		JLabel lblDate = new JLabel("Dato: " + order.getOrderTime());
+		JLabel lblDate = new JLabel("Dato: " + order.getDate());
 		panel_3.add(lblDate);
 		
 		JPanel panel_11 = new JPanel();
 		panel_10.add(panel_11);
 		panel_11.setLayout(new GridLayout(1, 0, 0, 0));
 		
-		JLabel lblProductNameStatic = new JLabel("Produkt navn");
+		JLabel lblProductNameStatic = new JLabel("Vin nummer");
 		panel_11.add(lblProductNameStatic);
 		
 		JPanel panel_9 = new JPanel();
@@ -111,12 +111,6 @@ public class OrderPrint extends JFrame {
 		
 		JLabel lblPriceStatic = new JLabel("Pris");
 		panel_9.add(lblPriceStatic);
-		
-		JLabel lblQuantityStatic = new JLabel("Antal");
-		panel_9.add(lblQuantityStatic);
-		
-		JLabel lblSubTotalStatic = new JLabel("Subtotal");
-		panel_9.add(lblSubTotalStatic);
 		
 		JPanel panel_7 = new JPanel();
 		contentPane.add(panel_7, BorderLayout.SOUTH);

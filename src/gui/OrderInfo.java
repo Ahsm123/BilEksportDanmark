@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 import controller.OrderCtrl;
+import model.EmptyOrderException;
 import model.database.DataAccessException;
 
 public class OrderInfo extends JFrame {
@@ -147,11 +148,11 @@ public class OrderInfo extends JFrame {
 		try {
 			orderCtrl.confirmOrder();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (DataAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (EmptyOrderException e) {
+			// TODO: handle exception
 		}
 		
 		new OrderPrint(orderCtrl.getOrder()).setVisible(true);
