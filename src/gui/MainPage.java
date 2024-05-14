@@ -11,6 +11,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import model.database.DBConnection;
+import model.database.DataAccessException;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -40,6 +44,14 @@ public class MainPage extends JFrame {
 	 * Create the frame.
 	 */
 	public MainPage() {
+		
+		try {
+			DBConnection connection = DBConnection.getInstance();
+			connection.disconnect();
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
