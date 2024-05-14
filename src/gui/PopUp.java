@@ -31,8 +31,8 @@ public class PopUp extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public PopUp(OrderCtrl OrderCtrl, CustomerCtrl customerCtrl) {
-		this.orderCtrl = OrderCtrl;
+	public PopUp(OrderCtrl orderCtrl, CustomerCtrl customerCtrl) {
+		this.orderCtrl = orderCtrl;
 		this.customerCtrl = customerCtrl;
 		
 		setModal(true);
