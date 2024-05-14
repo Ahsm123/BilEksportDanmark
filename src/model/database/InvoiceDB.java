@@ -37,7 +37,6 @@ public class InvoiceDB implements InvoiceDBIF {
 		saveInvoice.setDouble(3, invoice.getTotal());
 		saveInvoice.setInt(4,invoice.getOrderId());
 
-
 		int changedLines = saveInvoice.executeUpdate();
 		if(changedLines > 0) {
 			ResultSet keys = saveInvoice.getGeneratedKeys();
@@ -47,17 +46,7 @@ public class InvoiceDB implements InvoiceDBIF {
 			else {
 				throw new SQLException("Failed to set orderid");
 			}
-			
-
 		}
 		con.commitTransaction();
-
 	}
-}
-
-
-
-
-
-
-	
+}	

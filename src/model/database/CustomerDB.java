@@ -39,16 +39,10 @@ public class CustomerDB implements CustomerDBIF {
 	//Combine Address til en
 	private Customer createCustomerObject(ResultSet rs, Person person) throws DataAccessException, SQLException {
 		Customer customer = new Customer(person);
-		int cvr = rs.getInt("cvr");
-		if (cvr == 0) {
-			customer.setSsn(rs.getInt("ssn"));
-		} 
-		else {
-			customer.setCvr(cvr); 
-		}
 		
+		customer.setSsn(rs.getInt("ssn"));
+		customer.setCvr(rs.getInt("cvr")); 
 		customer.setId(rs.getInt("id"));
-		
 		customer.setAdress(rs.getString("street") + " "
 				+ rs.getInt("streetNo") + " "
 				+ rs.getInt("postalCode") + " "
@@ -68,6 +62,9 @@ public class CustomerDB implements CustomerDBIF {
 
 	@Override
 	public Customer findCustomer(String phoneNo) throws DataAccessException {
+		DBConnection con = DBConnection.getInstance();
+		con.startTransaction();
+		
 		Customer res =  null;
 
 		try {
@@ -80,6 +77,8 @@ public class CustomerDB implements CustomerDBIF {
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
+		con.commitTransaction();
+		
 		return res;
 	}
 }
