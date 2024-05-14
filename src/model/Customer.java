@@ -1,17 +1,11 @@
 package model;
 
 public class Customer extends Person{
-	public int cvr;
-	public int cpr;
-	public String address;
+	private int id;
+	private int cvr;
+	private int ssn;
+	private String address;
 
-	public Customer(String name, String phoneNo, int age, String email,int cvr, int cpr, String adress) {
-		super(name, phoneNo, email);
-		this.cvr = cvr;
-		this.cpr = cpr;
-		this.address = adress;
-	}
-	
 	public Customer(Person person) {
 		super(person.getName(), person.getPhoneNo(), person.getEmail());
 	}
@@ -23,13 +17,21 @@ public class Customer extends Person{
 	public void setCvr(int cvr) {
 		this.cvr = cvr;
 	}
-
-	public int getCpr() {
-		return cpr;
+	
+	public int getId() {
+		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public void setCpr(int cpr) {
-		this.cpr = cpr;
+	public int getSsn() {
+		return ssn;
+	}
+
+	public void setSsn(int ssn) {
+		this.ssn = ssn;
 	}
 
 	public String getAdress() {
