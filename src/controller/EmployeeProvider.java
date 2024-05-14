@@ -1,17 +1,20 @@
 package controller;
 
 import model.Employee;
+import model.Person;
 
 public class EmployeeProvider {
 	private Employee employee;
 
 	public EmployeeProvider() {
+		Person person = new Person("Thomas", "@", "12345678");
+	
+		Employee employee = new Employee(person);
+		
 		employee.setId(1);
 		employee.setSalary(20000);
-		employee.setName("Thomas");
 		employee.setAge(20);
-		employee.setEmail("Thomas@bileksport.dk");
-		employee.setPhoneNo("12345678");
+
 
 	}
 
