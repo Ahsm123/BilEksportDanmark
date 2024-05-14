@@ -46,7 +46,9 @@ public class CustomerDB implements CustomerDBIF {
 		else {
 			customer.setCvr(cvr); 
 		}
-
+		
+		customer.setId(rs.getInt("id"));
+		
 		customer.setAdress(rs.getString("street") + " "
 				+ rs.getInt("streetNo") + " "
 				+ rs.getInt("postalCode") + " "
