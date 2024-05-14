@@ -162,7 +162,6 @@ public class OrderInfo extends JFrame {
 				deletePanel(orderlinePanel, copy);
 			}
 		});
-		
 		orderlinePanel.add(btnDelete);
 		
 		orderlinePanel.revalidate();
@@ -178,7 +177,7 @@ public class OrderInfo extends JFrame {
 			revalidate();
 			repaint();
 		}
-		catch (Exception e) {
+		catch (EmptyOrderException e) {
 			
 		}	
 	}
