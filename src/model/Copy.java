@@ -10,6 +10,8 @@ public class Copy {
 	private boolean taxReturn;
 	private boolean isInspected;
 	
+	public Copy(){}
+	
 	public Copy(String vin,double price,String state,String modification,
 			int kilometer,String color,boolean taxReturn,boolean isInspected) {
 		

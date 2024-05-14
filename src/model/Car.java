@@ -8,22 +8,24 @@ public class Car {
 	private String model;
 	private String fuelType;
 	private double co2Emission;
-	private int power;
+	private int hp;
 	private double acceleration;
 	private int topSpeed;
 	private String gearType;
 	private int noOfGears;
 	private ArrayList<Copy> copies;
 	
+	public Car(){}
+	
 	public Car(int milage,String manufacturer,String model,String fuelType,double co2Emission,
-			int power,double acceleration,int topSpeed,String gearType,int noOfGears){
+			int hp,double acceleration,int topSpeed,String gearType,int noOfGears){
 	
 		this.milage=milage;
 		this.manufacturer=manufacturer;
 		this.model=model;
 		this.fuelType=fuelType;
 		this.co2Emission=co2Emission;
-		this.power=power;
+		this.hp=hp;
 		this.acceleration=acceleration;
 		this.topSpeed=topSpeed;
 		this.gearType=gearType;
@@ -71,12 +73,12 @@ public class Car {
 		this.co2Emission = co2Emission;
 	}
 
-	public int getPower() {
-		return power;
+	public int getHp() {
+		return hp;
 	}
 
-	public void setPower(int power) {
-		this.power = power;
+	public void setHp(int hp) {
+		this.hp = hp;
 	}
 
 	public double getAcceleration() {
