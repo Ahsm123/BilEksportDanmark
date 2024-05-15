@@ -35,12 +35,8 @@ public class OrderCtrl {
 		currentOrder.removeCopy(copy);
 	}
 	
-	public Order createOrder(Customer customer) throws NullPointerException, DataAccessException {
-		if (customer != null) {
-			currentOrder = new Order(employee, customer);
-		} else {
-			throw new NullPointerException("No customer found");
-		}
+	public Order createOrder(String phoneNo) throws NullPointerException, DataAccessException {
+		currentOrder = new Order(employee, findCustomer(phoneNo));
 		return currentOrder;
 	}
 

@@ -17,4 +17,8 @@ public class CustomerCtrl {
 		return customerDB.findCustomer(phoneNo);
 	}
 	
+	public boolean doesCustomerExist(String phoneNo) throws DataAccessException {
+		return findCustomer(phoneNo) != null;
+	}
+	
 }
