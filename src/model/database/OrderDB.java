@@ -1,20 +1,18 @@
 package model.database;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import model.Order;
-
-//// 
 
 public class OrderDB implements OrderDBIF {
 
 	private Connection connection;
 	private PreparedStatement saveOrder;
-	private static final String SAVE_ORDER_Q = "insert into \"Order\" (date, totalPrice, isDelivered, deliveryAddressId, customerId, employeeId)";
 	private PreparedStatement saveCopyOrder;
+	private static final String SAVE_ORDER_Q = "insert into \"Order\" (date, totalPrice, isDelivered, deliveryAddressId, customerId, employeeId)";
 	private static final String SAVE_COPY_ORDER_Q = "insert into CopyOrder (copyId, orderId)";
 
 	public OrderDB() throws SQLException {
@@ -23,7 +21,7 @@ public class OrderDB implements OrderDBIF {
 			saveOrder = connection.prepareStatement(SAVE_ORDER_Q, Statement.RETURN_GENERATED_KEYS);
 			saveCopyOrder = connection.prepareStatement(SAVE_COPY_ORDER_Q);
 		} catch (Exception e) {
-			throw new SQLException("Error", e);
+			throw new SQLException("Error creating OrderDB", e);
 		}
 	}
 
@@ -53,8 +51,6 @@ public class OrderDB implements OrderDBIF {
 	}
 
 	private void saveCopyOrder(int copyId, int orderId) throws SQLException {
-
-		saveCopyOrder = connection.prepareStatement(SAVE_COPY_ORDER_Q);
 		saveCopyOrder.setInt(1, copyId);
 		saveCopyOrder.setInt(2, orderId);
 		saveCopyOrder.executeUpdate();
