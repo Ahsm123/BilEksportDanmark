@@ -3,7 +3,6 @@ package model;
 public class Person {
 	public String name;
 	public String phoneNo;
-	public int age;
 	public String email;
 	
 	public Person (String name, String phoneNo, String email) {
@@ -28,13 +27,6 @@ public class Person {
 		this.phoneNo = phoneNo;
 	}
 
-	public int getAge() {
-		return age;
-	}
-
-	public void setAge(int age) {
-		this.age = age;
-	}
 
 	public String getEmail() {
 		return email;
