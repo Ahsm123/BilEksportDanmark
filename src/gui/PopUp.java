@@ -3,6 +3,7 @@ package gui;
 import java.awt.BorderLayout;
 
 import java.awt.FlowLayout;
+import java.awt.HeadlessException;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -15,6 +16,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import controller.OrderCtrl;
+import model.database.DataAccessException;
 import controller.CustomerCtrl;
 
 public class PopUp extends JDialog {
@@ -78,18 +80,27 @@ public class PopUp extends JDialog {
 	}
 	
 	private void addCustomerToOrder() {
-//	    if (orderCtrl.addCustomerToOrder(textField.getText())) {
-//	    	new OrderInfo(orderCtrl).setVisible(true);
-//	    	
-//	        dispose();	       
-//	    } 
-//	    else {
-//
-//	    	if(customerCtrl.findCustomer(textField.getText()) == null) {
-//
-//	        JOptionPane.showMessageDialog(null, "Kunde eksisterer ikke", "Fejl", JOptionPane.PLAIN_MESSAGE);
-//	    	}
-//	    }
+	    try {
+	    	String phoneNo = textField.getText();
+			if(customerCtrl.doesCustomerExist(phoneNo)) {
+				orderCtrl.createOrder(phoneNo);
+				new OrderInfo(orderCtrl).setVisible(true);
+			    
+			    dispose();
+			}
+			else {
+				if(customerCtrl.findCustomer(textField.getText()) == null) {
+
+			    JOptionPane.showMessageDialog(null, "Kunde eksisterer ikke", "Fejl", JOptionPane.PLAIN_MESSAGE);
+				}
+			}
+		} 
+	    catch (HeadlessException e) {
+			JOptionPane.showMessageDialog(null, "Keyboard ikke supported", "Fejl", JOptionPane.PLAIN_MESSAGE);
+		} 
+	    catch (DataAccessException e) {
+			JOptionPane.showMessageDialog(null, "Database fejl", "Fejl", JOptionPane.PLAIN_MESSAGE);
+		}
 	}
 	
 	private void cancel() {

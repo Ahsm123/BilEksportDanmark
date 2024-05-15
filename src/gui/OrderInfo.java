@@ -42,7 +42,7 @@ public class OrderInfo extends JFrame {
 	private LinkedList<JPanel> carPanels;
 	private CarCtrl carCtrl;
 	
-	public OrderInfo(OrderCtrl orderCtrl) {
+	public OrderInfo(OrderCtrl orderCtrl, String phoneNo) {
 		this.orderCtrl = orderCtrl;
 		this.carCtrl = new CarCtrl();
 		this.carPanels = new LinkedList<>();

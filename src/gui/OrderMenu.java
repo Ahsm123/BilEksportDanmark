@@ -69,7 +69,7 @@ public class OrderMenu extends JFrame {
 		
 		btnOrderCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					createOrder();
+					showCustomerPopUp();
 			}
 		});
 		panel_2.add(btnOrderCreate, "name_254181741858900");
@@ -106,9 +106,7 @@ public class OrderMenu extends JFrame {
 		this.dispose();
 	}
 
-	private void createOrder() {		
-		//orderCtrl.createOrder();
-		
+	private void showCustomerPopUp() {		
 		new PopUp(orderCtrl, customerCtrl).setVisible(true);
 		
 		dispose();
