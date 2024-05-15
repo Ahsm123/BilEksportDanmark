@@ -136,35 +136,42 @@ public class OrderInfo extends JFrame {
 	}
 	
 	private void addCar(String input) {
-		
-		// Todo state machine til input
 		try {
-			createCarPanel(carCtrl.findCopy(input));
+			createCarPanel(input);
 		}
 		catch (Exception e) {
 			System.out.println("blyat");
 		}	
 	}
 	
-	private void createCarPanel(Copy copy) {
-		JPanel orderlinePanel = new JPanel();
-		centerOfOL.add(orderlinePanel);
-		orderlinePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
-		JLabel orderlineLabel = new JLabel(copy.getVin());
-		orderlinePanel.add(orderlineLabel);
-		
-		JButton btnDelete = new JButton("Fjern");
-		btnDelete.setBackground(Color.YELLOW);
-		
-		btnDelete.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				deletePanel(orderlinePanel, copy);
-			}
-		});
-		orderlinePanel.add(btnDelete);
-		
-		orderlinePanel.revalidate();
+	private void createCarPanel(String input) {
+		try {
+			orderCtrl.addCopy(input);
+			
+			Copy copy = carCtrl.findCopy(input);
+			
+			JPanel orderlinePanel = new JPanel();
+			centerOfOL.add(orderlinePanel);
+			orderlinePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+			
+			JLabel orderlineLabel = new JLabel(copy.getVin());
+			orderlinePanel.add(orderlineLabel);
+			
+			JButton btnDelete = new JButton("Fjern");
+			btnDelete.setBackground(Color.YELLOW);
+			
+			btnDelete.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					deletePanel(orderlinePanel, copy);
+				}
+			});
+			orderlinePanel.add(btnDelete);
+			
+			orderlinePanel.revalidate();
+		}
+		catch(DataAccessException e) {
+			System.out.println(e);
+		}
 	}
 	
 	private void deletePanel(JPanel panelToDelete, Copy copy) {

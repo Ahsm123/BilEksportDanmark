@@ -39,7 +39,7 @@ public class Order {
 		int i = -1;
 		while(!found && ++i < copies.size()) {
 			Copy currentCopy = copies.get(i);
-			if(currentCopy.equals(copy)) {
+			if(currentCopy.getVin().equals(copy.getVin())) {
 				copies.remove(i);
 				found = true;
 			}
