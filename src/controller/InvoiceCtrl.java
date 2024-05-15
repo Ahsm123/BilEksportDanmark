@@ -6,10 +6,11 @@ import model.Invoice;
 import model.Order;
 import model.database.DataAccessException;
 import model.database.InvoiceDB;
+import model.database.InvoiceDBIF;
 
 public class InvoiceCtrl {
 
-	private InvoiceDB invoiceDB;
+	private InvoiceDBIF invoiceDB;
 
 	public InvoiceCtrl()  {
 		try {

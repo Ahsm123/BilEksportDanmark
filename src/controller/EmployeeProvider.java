@@ -13,7 +13,6 @@ public class EmployeeProvider {
 		
 		employee.setId(1);
 		employee.setSalary(20000);
-		employee.setAge(20);
 
 
 	}

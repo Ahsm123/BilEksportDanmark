@@ -11,8 +11,7 @@ import model.database.*;
 import java.sql.*;
 
 public class InvoiceDB implements InvoiceDBIF {
-
-	private InvoiceDBIF invoiceDB;
+	
 	private PreparedStatement saveInvoice;
 	private static final String saveInvoiceQ = 
 			"INSERT INTO Invoice (id,paymentDate, total, orderId) VALUES (?, ?, ? ,?)";

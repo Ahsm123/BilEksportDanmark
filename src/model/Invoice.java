@@ -3,10 +3,10 @@ package model;
 import java.time.LocalDate;
 
 public class Invoice {
-	public int id;
-	public LocalDate paymentDate;
-	public double total;
-	public int orderId;
+	private int id;
+	private LocalDate paymentDate;
+	private double total;
+	private int orderId;
 
 	
 	public Invoice( LocalDate paymentDate, int id, double total, int orderId) {
