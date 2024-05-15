@@ -9,6 +9,7 @@ import model.database.OrderDB;
 import model.database.OrderDBIF;
 import java.sql.SQLException;
 import model.Copy;
+import model.CopyAlreadyInOrderException;
 
 public class OrderCtrl {
 	private OrderDBIF orderDB;
@@ -42,11 +43,13 @@ public class OrderCtrl {
 
 	public void addCopy(String vin) throws DataAccessException {
 		Copy copy = carCtrl.findCopy(vin);
-
-		if (copy != null) {
+		
+		if(!currentOrder.hasCopy(copy)) {
 			currentOrder.addCopy(copy);
 		}
-
+		else {
+			throw new CopyAlreadyInOrderException("Bil med vin: " + vin + " er allerede tilføjet");
+		}
 	}
 
 	public void confirmOrder() throws SQLException, DataAccessException, EmptyOrderException {

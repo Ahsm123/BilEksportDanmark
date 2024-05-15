@@ -4,12 +4,20 @@ public class Customer extends Person{
 	private int id;
 	private int cvr;
 	private int ssn;
+	private int deliveryAddressId;
 	private String address;
 
 	public Customer(Person person) {
 		super(person.getName(), person.getPhoneNo(), person.getEmail());
 	}
 
+	public void setDeliveryAddressId(int id) {
+		this.deliveryAddressId = id;
+	}
+	public int getDeliveryAddressId() {
+		return deliveryAddressId;
+	}
+	
 	public int getCvr() {
 		return cvr;
 	}

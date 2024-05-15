@@ -102,7 +102,6 @@ public class DBConnection {
 	}
 
 	public int executeInsertWithIdentity(PreparedStatement ps) throws DataAccessException {
-
 		int res = -1;
 		try {
 			res = ps.executeUpdate();

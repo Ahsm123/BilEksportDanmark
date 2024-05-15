@@ -10,7 +10,7 @@ import model.Person;
 public class CustomerDB implements CustomerDBIF {
 
 	private static final String FIND_CUSTOMER_BY_PHONE = "select c.id, c.cvr, c.ssn,"
-			+ " p.fname, p.lname, p.phone, p.email, p.type, da.street, da.streetno, pc.city, pc.postalCode, co.country from customer c "
+			+ " p.fname, p.lname, p.phone, p.email, p.type, da.street, da.streetno, pc.city, pc.postalCode, da.id as deliveryAddressId, co.country from customer c "
 			+ " join person p on c.personid = p.id left join DeliveryAdress da on c.deliveryAdress = da.id"
 			+ " left join postalcode pc on da.postalcode = pc.postalcode "
 			+ " left join country co on pc.city = co.city where p.phone = ?";
@@ -43,6 +43,7 @@ public class CustomerDB implements CustomerDBIF {
 		customer.setSsn(rs.getInt("ssn"));
 		customer.setCvr(rs.getInt("cvr")); 
 		customer.setId(rs.getInt("id"));
+		customer.setDeliveryAddressId(rs.getInt("deliveryAddressId"));
 		customer.setAdress(rs.getString("street") + " "
 				+ rs.getInt("streetNo") + " "
 				+ rs.getString("postalCode") + " "

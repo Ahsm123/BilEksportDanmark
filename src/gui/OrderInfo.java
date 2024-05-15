@@ -28,6 +28,7 @@ import java.awt.event.ActionEvent;
 import controller.CarCtrl;
 import controller.OrderCtrl;
 import model.Copy;
+import model.CopyAlreadyInOrderException;
 import model.EmptyOrderException;
 import model.database.DataAccessException;
 
@@ -140,7 +141,7 @@ public class OrderInfo extends JFrame {
 			createCarPanel(input);
 		}
 		catch (Exception e) {
-			System.out.println("blyat");
+			JOptionPane.showMessageDialog(null, e, "Fejl", JOptionPane.PLAIN_MESSAGE);
 		}	
 	}
 	

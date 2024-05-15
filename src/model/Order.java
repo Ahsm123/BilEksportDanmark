@@ -3,10 +3,10 @@ package model;
 import java.util.LinkedList;
 
 public class Order {
-
 	private int orderId;
 	private String date;
 	private String deliveryAddress;
+	
 	private boolean isDelivered;
 	private Employee employee;
 	private Customer customer;
@@ -25,6 +25,8 @@ public class Order {
 	public void addCopy(Copy copy) {
 		copies.add(copy);
 	}
+	
+	
 
 	public void setId(int orderId) {
 		this.orderId = orderId;
@@ -34,18 +36,33 @@ public class Order {
 		return orderId;
 	}
 
-	public void removeCopy(Copy copy) {
+	public boolean hasCopy(Copy copy) {
+		return copyPosition(copy) != -1;
+	}
+	
+	private int copyPosition(Copy copy) {
 		boolean found = false;
 		int i = -1;
 		while(!found && ++i < copies.size()) {
 			Copy currentCopy = copies.get(i);
 			if(currentCopy.getVin().equals(copy.getVin())) {
-				copies.remove(i);
 				found = true;
 			}
 		}
 		if(!found) {
-			throw new CopyNotInOrder("Bil med vin: " + copy.getVin() + " kan ikke fjernes");
+			return -1;
+		}
+		else {
+			return i;
+		}	
+	}
+	
+	public void removeCopy(Copy copy) {
+		if(hasCopy(copy)) {
+			copies.remove(copyPosition(copy));
+		}
+		else {
+			throw new CopyNotInOrder("Kan ikke fjerne bilen da den ikke er i ordren");
 		}
 	}
 	

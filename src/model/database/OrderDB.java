@@ -12,8 +12,8 @@ public class OrderDB implements OrderDBIF {
 	private Connection connection;
 	private PreparedStatement saveOrder;
 	private PreparedStatement saveCopyOrder;
-	private static final String SAVE_ORDER_Q = "insert into \"Order\" (date, totalPrice, isDelivered, deliveryAddressId, customerId, employeeId)";
-	private static final String SAVE_COPY_ORDER_Q = "insert into CopyOrder (copyId, orderId)";
+	private static final String SAVE_ORDER_Q = "insert into \"Order\" (\"date\", totalPrice, isDelivered, deliveryAdress, customerId, employeeId) values(?, ?, ?, ?, ?, ?)";
+	private static final String SAVE_COPY_ORDER_Q = "insert into CopyOrder (copyId, orderId) values (?, ?)";
 
 	public OrderDB() throws SQLException {
 		try {
@@ -29,14 +29,15 @@ public class OrderDB implements OrderDBIF {
 	public void saveOrder(Order order) throws SQLException, DataAccessException {
 		DBConnection con = DBConnection.getInstance();
 		con.startTransaction();
-		
+		System.out.println(order.getDate() + " " + order.getTotalPrice() + " " + order.isDelivered() + " " + order.getCustomer().getDeliveryAddressId() + " " + order.getCustomer().getId());
 		saveOrder.setString(1, order.getDate());
 		saveOrder.setDouble(2, order.getTotalPrice());
 		saveOrder.setBoolean(3, order.isDelivered());
-		saveOrder.setString(4, order.getDeliveryAddress());
-		saveOrder.setInt(5, order.getEmployee().getId());
-		saveOrder.setInt(6, order.getCustomer().getId());
-
+		saveOrder.setInt(4, order.getCustomer().getDeliveryAddressId());
+		saveOrder.setInt(5, order.getCustomer().getId());
+		//saveOrder.setInt(6, order.getEmployee().getId());
+		saveOrder.setInt(6, 1);
+		
 		order.setId(con.executeInsertWithIdentity(saveOrder));
 
 		order.getCopies().forEach(copy -> {
