@@ -42,7 +42,7 @@ public class OrderInfo extends JFrame {
 	private LinkedList<JPanel> carPanels;
 	private CarCtrl carCtrl;
 	
-	public OrderInfo(OrderCtrl orderCtrl, String phoneNo) {
+	public OrderInfo(OrderCtrl orderCtrl) {
 		this.orderCtrl = orderCtrl;
 		this.carCtrl = new CarCtrl();
 		this.carPanels = new LinkedList<>();
@@ -76,6 +76,7 @@ public class OrderInfo extends JFrame {
 		panel_3_1.add(lblBarcode);
 		
 		barcodeField = new JTextField();
+		barcodeField.setText("123456789abcdefgh");
 		barcodeField.setColumns(10);
 		panel_3_1.add(barcodeField);
 		
@@ -86,7 +87,7 @@ public class OrderInfo extends JFrame {
 		JButton btnConfirm = new JButton("Tilføj");
 		btnConfirm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				addCar();
+				addCar(barcodeField.getText());
 			}
 		});
 		panel_3_2.add(btnConfirm);
@@ -134,15 +135,14 @@ public class OrderInfo extends JFrame {
 		scrollPane.setViewportView(centerOfOL);
 	}
 	
-	private void addCar() {
+	private void addCar(String input) {
 		
 		// Todo state machine til input
-		String input = "";
 		try {
 			createCarPanel(carCtrl.findCopy(input));
 		}
 		catch (Exception e) {
-			
+			System.out.println("blyat");
 		}	
 	}
 	

@@ -1,6 +1,6 @@
 package model;
 
-public class Copy {
+public class Copy extends Car{
 	private int id;
 	private String vin;
 	private double price;
@@ -11,23 +11,12 @@ public class Copy {
 	private boolean taxReturn;
 	private boolean isInspected;
 	
-	public Copy(){}
 	
-	public Copy(int id,String vin,double price,String state,String modification,
-			int kilometer,String color,boolean taxReturn,boolean isInspected) {
-		
-		this.id=id;
-		this.vin=vin;
-		this.price=price;
-		this.state=state;
-		this.modification=modification;
-		this.kilometer=kilometer;
-		this.color=color;
-		this.taxReturn=taxReturn;
-		this.isInspected=isInspected;
-		
+	public Copy(int milage,String manufacturer,String model,String fuelType,double co2Emission,
+			int hp,double acceleration,int topSpeed,String gearType,int noOfGears) {
+		super(milage, manufacturer, model, fuelType, co2Emission,
+				hp, acceleration, topSpeed, gearType, noOfGears);
 	}
-	
 
 	public int getId() {
 		return id;

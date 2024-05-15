@@ -11,7 +11,7 @@ import model.Copy;
 
 public class CarDB implements CarDBIF {
 	
-	private static final String FIND_BY_VIN_Q = "SELECT c.*, cp.vin, cp.price, cp.state, cp.modification, cp.kilometer, cp.color, cp.car, cp.taxReturn, cp.isInspected FROM Car c LEFT JOIN Copy cp ON c.id = cp.id where vin = '?'";
+	private static final String FIND_BY_VIN_Q = "SELECT c.*, cp.vin, cp.price, cp.state, cp.modification, cp.kilometer, cp.color, cp.car, cp.taxReturn, cp.isInspected FROM Car c LEFT JOIN Copy cp ON c.id = cp.id where vin = ?";
 	
 	private PreparedStatement findByVinPs;
 	//	private PreparedStatement insertPs;
@@ -31,9 +31,20 @@ public class CarDB implements CarDBIF {
 		}
 	}
 	
-	private Copy buildCopy(ResultSet rs, Car car) throws DataAccessException{
-		Copy res = new Copy();
+	private Copy buildCopy(ResultSet rs) throws DataAccessException{
+		Copy result = null;
 		try {
+			Copy res = new Copy(rs.getInt("mileage"),
+					rs.getString("manufactorer"),
+					rs.getString("model"),
+					rs.getString("fuelType"),
+					rs.getDouble("co2Emission"),
+					rs.getInt("hp"),
+					rs.getDouble("acceleration"),
+					rs.getInt("topSpeed"),
+					rs.getString("gearType"),
+					rs.getInt("noOfGears"));
+			result = res;
 			res.setVin(rs.getString("vin"));
 			res.setPrice(rs.getDouble("price"));
 			res.setState(rs.getString("state"));
@@ -45,26 +56,7 @@ public class CarDB implements CarDBIF {
 		} catch (SQLException e) {
 			throw new DataAccessException("Error building common attributes", e);
 		} 
-		return res;
-	}
-	
-	private Car buildCar(ResultSet rs) throws DataAccessException{
-		Car res = new Car();
-		try {
-			res.setMilage(rs.getInt("milage"));
-			res.setManufacturer(rs.getString("manufacturer"));
-			res.setModel(rs.getString("model"));
-			res.setFuelType(rs.getString("fuelType"));
-			res.setCo2Emission(rs.getDouble("co2Emission"));
-			res.setHp(rs.getInt("hp"));
-			res.setAcceleration(rs.getDouble("acceleration"));
-			res.setTopSpeed(rs.getInt("topSpeed"));
-			res.setGearType(rs.getString("gearType"));
-			res.setNoOfGears(rs.getInt("noOfGears"));
-		} catch (SQLException e) {
-			throw new DataAccessException("Error building common attributes", e);
-		} 
-		return res;
+		return result;
 	}
 
 	@Override
@@ -75,7 +67,7 @@ public class CarDB implements CarDBIF {
 			ResultSet rs = findByVinPs.executeQuery();
 
 			if (rs.next()) {
-				res = buildCopy(rs, buildCar(rs));
+				res = buildCopy(rs);
 			}
 
 		} catch (SQLException e) {

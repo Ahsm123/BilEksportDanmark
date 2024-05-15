@@ -15,7 +15,7 @@ public class Car {
 	private int noOfGears;
 	private LinkedList<Copy> copies;
 	
-	public Car(){}
+
 	
 	public Car(int milage,String manufacturer,String model,String fuelType,double co2Emission,
 			int hp,double acceleration,int topSpeed,String gearType,int noOfGears){

@@ -49,6 +49,7 @@ public class PopUp extends JDialog {
 		}
 		{
 			textField = new JTextField();
+			textField.setText("12345678");
 			contentPanel.add(textField);
 			textField.setColumns(10);
 		}
@@ -70,7 +71,7 @@ public class PopUp extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						addCustomerToOrder();
+						createOrder();
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -79,7 +80,7 @@ public class PopUp extends JDialog {
 		}
 	}
 	
-	private void addCustomerToOrder() {
+	private void createOrder() {
 	    try {
 	    	String phoneNo = textField.getText();
 			if(customerCtrl.doesCustomerExist(phoneNo)) {
