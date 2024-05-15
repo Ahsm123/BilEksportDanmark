@@ -4,7 +4,10 @@ import model.Customer;
 import model.Employee;
 import model.EmptyOrderException;
 import model.Order;
+import model.database.CarDBIF;
+import model.database.CustomerDBIF;
 import model.database.DataAccessException;
+import model.database.InvoiceDBIF;
 import model.database.OrderDB;
 import model.database.OrderDBIF;
 import java.sql.SQLException;
@@ -19,8 +22,15 @@ public class OrderCtrl {
 	private Order currentOrder;
 	private Employee employee;
 
-	public OrderCtrl() throws DataAccessException, SQLException {
+	public OrderCtrl(OrderDBIF orderDB, CustomerDBIF customerDB, CarDBIF carDB, InvoiceDBIF invoiceDB) throws DataAccessException, SQLException {
 	
+		this.orderDB = new OrderDB();
+		this.customerCtrl = new CustomerCtrl();
+		this.carCtrl = new CarCtrl();
+		this.invoiceCtrl = new InvoiceCtrl();
+	}
+
+	public OrderCtrl() throws SQLException {
 		this.orderDB = new OrderDB();
 		this.customerCtrl = new CustomerCtrl();
 		this.carCtrl = new CarCtrl();

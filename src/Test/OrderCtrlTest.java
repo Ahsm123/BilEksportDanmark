@@ -1,64 +1,116 @@
-package Test;
-
-import controller.*;
-import model.database.*;
-import model.*;
+package test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.sql.SQLException;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
+
+import controller.OrderCtrl;
+import model.Customer;
+import model.EmptyOrderException;
+import model.Order;
+import model.database.DataAccessException;
 
 public class OrderCtrlTest {
 
-	OrderCtrl orderCtrl;
-	private Employee employee;
-	private EmployeeProvider employeeProvider;
-	private CopyProvider copyProvider;
+	private OrderCtrl orderCtrl;
 
-	@BeforeEach
-	void setUp() throws DataAccessException, SQLException {
-		orderCtrl = new OrderCtrl();
-		employeeProvider = new EmployeeProvider();
-		employee = employeeProvider.provideEmployee();
-		copyProvider = new CopyProvider();
+	@Before
+	public void setup() throws DataAccessException, SQLException {
+		CustomerDBStub customerDBStub = new CustomerDBStub();
+		CarDBStub carDBStub = new CarDBStub();
+		InvoiceDBStub invoiceDBStub = new InvoiceDBStub();
+		OrderDBStub orderDBStub = new OrderDBStub();
+
+		orderCtrl = new OrderCtrl(orderDBStub, customerDBStub, carDBStub, invoiceDBStub);
+	}
+
+	@Test
+	public void TC_01_testCreateOrderWithPhoneNumber() throws DataAccessException, EmptyOrderException, SQLException {
+		// Arrange
+		Customer customer = orderCtrl.findCustomer("12345678");
+		Order order = orderCtrl.createOrder("12345678");
+
+		// Act
+		orderCtrl.addCopy("abcdefgh1234");
+		orderCtrl.confirmOrder();
+
+		// Assert
+		assertNotNull("Customer should be found", customer);
+		assertNotNull("Order should be created", order);
+		assertEquals("Order should have one car", 1, order.getCopies().size());
 
 	}
 
 	@Test
-	void testCreateOrder() throws NullPointerException, DataAccessException {
+	public void TC_02_testCreateOrderWithoutPhoneNumber() throws DataAccessException {
+		// Arrange
+		Customer customer = orderCtrl.findCustomer("");
 
-		Person person1 = new Person("Thomas", "12345678", "email");
+		// Assert
+		assertNull("Customer should not be found", customer);
+	}
 
-		Customer customer = new Customer(person1);
+	@Test
+	public void TC_03_testCreateOrderWithPhoneNumberAndMultiplyCars()
+			throws DataAccessException, EmptyOrderException, SQLException {
 
-		Order currentOrder = orderCtrl.createOrder(customer);
+		// Arrange
+		Customer customer = orderCtrl.findCustomer("12345678");
+		Order order = orderCtrl.createOrder("12345678");
 
-		assertNotNull(currentOrder);
-		assertEquals(customer, currentOrder.getCustomer());
-		assertEquals(employee, currentOrder.getEmployee());
+		// Act
+		orderCtrl.addCopy("abcdefgh1234");
+		orderCtrl.addCopy("abcdefgh11235");
+		orderCtrl.confirmOrder();
+
+		// Assert
+		assertNotNull("Customer should be found", customer);
+		assertNotNull("Order should be created", order);
+		assertEquals("Order should have two cars", 2, order.getCopies().size());
 
 	}
 
 	@Test
-	void testAddCopyToOrder() throws DataAccessException {
-	
-		Person person1 = new Person("Thomas", "12345678", "email");
-	
-		Customer customer = new Customer(person1);
-	
-		Order currentOrder = orderCtrl.createOrder(customer);
-	
-		Copy copy = copyProvider.provideCopy();
-	
-		currentOrder.addCopy(copy);
-		
-		assertEquals(1, currentOrder.getCopies().size());
-		assertEquals(copy, currentOrder.getCopies().get(0));
-	
+	public void TC_04_testCreateOrderWithPhoneNumberAndSoldCar()
+			throws DataAccessException, EmptyOrderException, SQLException {
+
+		// Arrange
+		Customer customer = orderCtrl.findCustomer("12345678");
+		Order order = orderCtrl.createOrder("12345678");
+
+		// Act
+		orderCtrl.addCopy("null_value");
+		orderCtrl.confirmOrder();
+
+		// Assert
+		assertNotNull("Customer should be found", customer);
+		assertNotNull("Order should be created", order);
+		assertEquals("Order should have one car", 1, order.getCopies().size());
+
+	}
+
+	@Test
+	public void TC_04_testCreateOrderWithPhoneNumberAndSoldCarPlusOne()
+			throws DataAccessException, EmptyOrderException, SQLException {
+
+		// Arrange
+		Customer customer = orderCtrl.findCustomer("12345678");
+		Order order = orderCtrl.createOrder("12345678");
+
+		// Act
+		orderCtrl.addCopy("abcdefgh1234");
+		orderCtrl.addCopy("null_value");
+		orderCtrl.confirmOrder();
+
+		// Assert
+		assertNotNull("Customer should be found", customer);
+		assertNotNull("Order should be created", order);
+		assertEquals("Order should have one car", 1, order.getCopies().size());
+
 	}
 }
-;

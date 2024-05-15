@@ -36,7 +36,7 @@ public class OrderMenu extends JFrame {
 		try {
 			orderCtrl = new OrderCtrl();
 			customerCtrl = new CustomerCtrl();
-		} catch (DataAccessException | SQLException e) {
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
