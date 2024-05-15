@@ -14,7 +14,7 @@ public class InvoiceDB implements InvoiceDBIF {
 	
 	private PreparedStatement saveInvoice;
 	private static final String saveInvoiceQ = 
-			"INSERT INTO Invoice (id,paymentDate, total, orderId) VALUES (?, ?, ? ,?)";
+			"INSERT INTO Invoice (paymentDate, total, orderId) VALUES (?, ? ,?)";
 
 
 	public InvoiceDB() throws DataAccessException {
@@ -30,22 +30,13 @@ public class InvoiceDB implements InvoiceDBIF {
 	public void saveInvoiceInDB(Order order) throws SQLException, DataAccessException {
 		DBConnection con = DBConnection.getInstance();
 		con.startTransaction();
-		Invoice invoice = new Invoice();
-		saveInvoice.setInt(1, invoice.getId());
-		saveInvoice.setString(2, java.sql.Date.valueOf(invoice.getPaymentDate()).toString());
-		saveInvoice.setDouble(3, invoice.getTotal());
-		saveInvoice.setInt(4,invoice.getOrderId());
-
-		int changedLines = saveInvoice.executeUpdate();
-		if(changedLines > 0) {
-			ResultSet keys = saveInvoice.getGeneratedKeys();
-			if(keys.next()) {
-				invoice.setId(keys.getInt(1));
-			}
-			else {
-				throw new SQLException("Failed to set orderid");
-			}
-		}
+		
+		saveInvoice.setString(1, order.getDate());
+		saveInvoice.setDouble(2, order.getTotalPrice());
+		saveInvoice.setInt(3, order.getId());
+		
+		con.executeInsertWithIdentity(saveInvoice);
+		
 		con.commitTransaction();
 	}
 }	
