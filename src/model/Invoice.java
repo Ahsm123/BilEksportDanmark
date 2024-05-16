@@ -1,6 +1,8 @@
 package model;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.util.Random;
 
 public class Invoice {
 	private int id;
@@ -20,6 +22,13 @@ public class Invoice {
 	public Invoice() {
 		
 		
+	}
+	
+	public String euroRandomizer() {
+		DecimalFormat numberFormat = new DecimalFormat("#.####");
+		Random random = new Random();
+		double randomNumber = 7.4 + random.nextDouble() * 0.1;
+		return numberFormat.format(randomNumber);
 	}
 
 
@@ -64,6 +73,8 @@ public class Invoice {
 	public void setPaymentDate(LocalDate paymentDate) {
 		this.paymentDate = paymentDate;
 	}
+	
+	
 	
 
 
