@@ -20,9 +20,7 @@ import model.database.DataAccessException;
 import controller.CustomerCtrl;
 
 public class PopUp extends JDialog {
-	/**
-	 * 
-	 */
+	private Main maingui;
 	private static final long serialVersionUID = 1L;
 	private OrderCtrl orderCtrl;
 	private CustomerCtrl customerCtrl;
@@ -34,6 +32,7 @@ public class PopUp extends JDialog {
 	 * Create the dialog.
 	 */
 	public PopUp(OrderCtrl orderCtrl, CustomerCtrl customerCtrl) {
+		maingui = Main.getInstance();
 		this.orderCtrl = orderCtrl;
 		this.customerCtrl = customerCtrl;
 		
@@ -85,9 +84,7 @@ public class PopUp extends JDialog {
 	    	String phoneNo = textField.getText();
 			if(customerCtrl.doesCustomerExist(phoneNo)) {
 				orderCtrl.createOrder(phoneNo);
-				new OrderInfo(orderCtrl).setVisible(true);
-			    
-			    dispose();
+				maingui.switchToOrderInfo();
 			}
 			else {
 				if(customerCtrl.findCustomer(textField.getText()) == null) {
@@ -105,8 +102,6 @@ public class PopUp extends JDialog {
 	}
 	
 	private void cancel() {
-		new OrderMenu().setVisible(true);
-		
-		dispose();
+		maingui.goBack();
 	}
 }

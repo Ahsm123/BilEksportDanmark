@@ -28,7 +28,7 @@ import model.Customer;
 import model.Order;
 
 public class OrderPrint extends JFrame {
-
+	private Main maingui;
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JScrollPane scrollPane;
@@ -36,6 +36,8 @@ public class OrderPrint extends JFrame {
 	private DecimalFormat formatter = new DecimalFormat("0.00");
 	
 	public OrderPrint(Order order) {
+		maingui = Main.getInstance();
+		
 		// Frame setup
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 800);
@@ -203,8 +205,6 @@ public class OrderPrint extends JFrame {
 	}
 	
 	private void confirm() {
-		new MainPage().setVisible(true);
-		
-		dispose();
+		maingui.resetToMainPage();
 	}
 }

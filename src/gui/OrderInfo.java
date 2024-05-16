@@ -34,6 +34,7 @@ import model.database.DataAccessException;
 
 public class OrderInfo extends JFrame {
 	private OrderCtrl orderCtrl;
+	private Main maingui;
 	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -44,6 +45,7 @@ public class OrderInfo extends JFrame {
 	private CarCtrl carCtrl;
 	
 	public OrderInfo(OrderCtrl orderCtrl) {
+		maingui = Main.getInstance();
 		this.orderCtrl = orderCtrl;
 		this.carCtrl = new CarCtrl();
 		this.carPanels = new LinkedList<>();
@@ -186,29 +188,25 @@ public class OrderInfo extends JFrame {
 			repaint();
 		}
 		catch (EmptyOrderException e) {
-			
+			e.printStackTrace();
 		}	
 	}
 	
 	private void cancel() {
-		new OrderMenu().setVisible(true);
-		
-		dispose();
+		maingui.goBack();
 	}
 	
 	private void confirm() {
 		try {
 			orderCtrl.confirmOrder();
+			maingui.createOrderPrint();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (DataAccessException e) {
 			e.printStackTrace();
 		} catch (EmptyOrderException e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		
-		new OrderPrint(orderCtrl.getOrder()).setVisible(true);
-		
-		dispose();
 	}
 }

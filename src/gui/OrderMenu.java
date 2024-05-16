@@ -21,6 +21,7 @@ import model.database.DataAccessException;
 
 public class OrderMenu extends JFrame {
 
+	private Main maingui;
 	private OrderCtrl orderCtrl;
 	private CustomerCtrl customerCtrl;
 	
@@ -36,6 +37,7 @@ public class OrderMenu extends JFrame {
 		try {
 			orderCtrl = new OrderCtrl();
 			customerCtrl = new CustomerCtrl();
+			maingui = Main.getInstance();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -102,13 +104,10 @@ public class OrderMenu extends JFrame {
 	}
 	
 	private void goBack() {
-		new MainPage().setVisible(true);
-		this.dispose();
+		maingui.goBack();
 	}
 
-	private void showCustomerPopUp() {		
-		new PopUp(orderCtrl, customerCtrl).setVisible(true);
-		
-		dispose();
+	private void showCustomerPopUp() {	
+		maingui.switchToPopUp();
 	}
 }
