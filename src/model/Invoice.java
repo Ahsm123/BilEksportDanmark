@@ -24,11 +24,10 @@ public class Invoice {
 		
 	}
 	
-	public String euroRandomizer() {
-		DecimalFormat numberFormat = new DecimalFormat("#.####");
+	public double euroRandomizer() {
 		Random random = new Random();
 		double randomNumber = 7.4 + random.nextDouble() * 0.1;
-		return numberFormat.format(randomNumber);
+		return randomNumber;
 	}
 
 
