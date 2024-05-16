@@ -57,13 +57,29 @@ public class Order {
 		}	
 	}
 	
-	public void removeCopy(Copy copy) {
+	public void removeCopy(String copyVin) {
+		Copy copy = getCopyFromId(copyVin);
+		
 		if(hasCopy(copy)) {
 			copies.remove(copyPosition(copy));
 		}
 		else {
 			throw new CopyNotInOrder("Kan ikke fjerne bilen da den ikke er i ordren");
 		}
+	}
+	
+	public Copy getCopyFromId(String copyVin) {
+		Copy result = null;
+		boolean found = false;
+		int i = -1;
+		while(!found && ++i < copies.size()) {
+			Copy currentCopy = copies.get(i);
+			if(currentCopy.getVin().equals(copyVin)) {
+				found = true;
+				result = currentCopy;
+			}
+		}
+		return result;
 	}
 	
 	public double getTotalPrice() {

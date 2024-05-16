@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.Window;
 import java.sql.SQLException;
 import java.util.LinkedList;
+import java.util.stream.Stream;
 
 import javax.swing.JFrame;
 import javax.swing.JDialog;
@@ -44,12 +45,11 @@ public class Main {
 	private Main() {
 		windowStack = new LinkedList<>();
 		
-        // Controllers are instantiated here or passed from outside
         customerCtrl = new CustomerCtrl();
         try {
 			orderCtrl = new OrderCtrl();
-		} catch (SQLException e) {
-			
+		} 
+        catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
@@ -80,10 +80,10 @@ public class Main {
 	public void switchToPopUp() {
 		JDialog popUp = new PopUp(orderCtrl, customerCtrl);
 		
-		switchFrameTo(popUp);
+		switchToJDialog(popUp);
 	}
 	
-	public void switchToOrderInfo() {
+	public void switchToOrderInfo() {	
 		JFrame orderInfo = new OrderInfo(orderCtrl);
 		
 		switchFrameTo(orderInfo);
@@ -101,11 +101,19 @@ public class Main {
 		}
 	}
 	
-	private void switchFrameTo(Window window) {
+	private void switchFrameTo(JFrame jframe) {
 		currentFrame.setVisible(false);
-		currentFrame = window;
+		currentFrame = jframe;
 		currentFrame.setVisible(true);
 		windowStack.add(currentFrame);
 	}
-
+	
+	private void switchToJDialog(JDialog dialog) {
+		currentFrame.setVisible(false);
+		currentFrame = dialog;
+		windowStack.add(currentFrame);
+		
+		dialog.setModalityType(JDialog.ModalityType.APPLICATION_MODAL);
+        dialog.setVisible(true);
+	}
 }

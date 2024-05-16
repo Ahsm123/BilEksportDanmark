@@ -42,8 +42,8 @@ public class OrderCtrl {
 		
 	}
 
-	public void removeCopy(Copy copy) {
-		currentOrder.removeCopy(copy);
+	public void removeCopy(String copyVin) {	
+		currentOrder.removeCopy(copyVin);
 	}
 	
 	public Order createOrder(String phoneNo) throws NullPointerException, DataAccessException {
@@ -68,6 +68,10 @@ public class OrderCtrl {
 		}
 		orderDB.saveOrder(currentOrder);
 		invoiceCtrl.saveInvoiceInDB(currentOrder);
+	}
+	
+	public boolean isCopyInAnOrder(String input) throws SQLException {
+		return orderDB.isCopyInAnOrder(input);
 	}
 	
 	public Order getOrder() {

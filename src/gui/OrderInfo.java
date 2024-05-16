@@ -23,6 +23,8 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Observable;
+import java.util.Observer;
 import java.awt.event.ActionEvent;
 
 import controller.CarCtrl;
@@ -35,13 +37,15 @@ import model.database.DataAccessException;
 public class OrderInfo extends JFrame {
 	private OrderCtrl orderCtrl;
 	private Main maingui;
+	private boolean threadNeedsToRun = true;
+	private CarThread thread;
 	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField barcodeField;
 	private JTextField textField_2;
 	private JPanel centerOfOL;
-	private LinkedList<JPanel> carPanels;
+	private LinkedList<CopyPanel> carPanels;
 	private CarCtrl carCtrl;
 	
 	public OrderInfo(OrderCtrl orderCtrl) {
@@ -49,6 +53,9 @@ public class OrderInfo extends JFrame {
 		this.orderCtrl = orderCtrl;
 		this.carCtrl = new CarCtrl();
 		this.carPanels = new LinkedList<>();
+		
+		thread = new CarThread(orderCtrl, this);
+		thread.start();
 		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -138,6 +145,10 @@ public class OrderInfo extends JFrame {
 		scrollPane.setViewportView(centerOfOL);
 	}
 	
+	public boolean needsToRun() {
+		return threadNeedsToRun;
+	}
+	
 	private void addCar(String input) {
 		try {
 			createCarPanel(input);
@@ -147,13 +158,19 @@ public class OrderInfo extends JFrame {
 		}	
 	}
 	
-	private void createCarPanel(String input) {
+	private void createCarPanel(String input) throws SQLException {
 		try {
+			if(orderCtrl.isCopyInAnOrder(input))
 			orderCtrl.addCopy(input);
 			
 			Copy copy = carCtrl.findCopy(input);
 			
 			JPanel orderlinePanel = new JPanel();
+			
+			CopyPanel cPanel = new CopyPanel(copy.getVin(), orderlinePanel);
+			
+			carPanels.add(cPanel);
+			
 			centerOfOL.add(orderlinePanel);
 			orderlinePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 			
@@ -165,7 +182,7 @@ public class OrderInfo extends JFrame {
 			
 			btnDelete.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					deletePanel(orderlinePanel, copy);
+					deletePanel(cPanel);
 				}
 			});
 			orderlinePanel.add(btnDelete);
@@ -177,13 +194,13 @@ public class OrderInfo extends JFrame {
 		}
 	}
 	
-	private void deletePanel(JPanel panelToDelete, Copy copy) {
+	private void deletePanel(CopyPanel panelToDelete) {
 		try {
-			orderCtrl.removeCopy(copy);
+			orderCtrl.removeCopy(panelToDelete.getCopyVin());
 			
-			panelToDelete.removeAll();
+			panelToDelete.getPanel().removeAll();
 			carPanels.remove(panelToDelete);
-			centerOfOL.remove(panelToDelete);
+			centerOfOL.remove(panelToDelete.getPanel());
 			revalidate();
 			repaint();
 		}
@@ -193,6 +210,8 @@ public class OrderInfo extends JFrame {
 	}
 	
 	private void cancel() {
+		threadNeedsToRun = false;
+		
 		maingui.goBack();
 	}
 	
@@ -207,6 +226,42 @@ public class OrderInfo extends JFrame {
 		} catch (EmptyOrderException e) {
 			e.printStackTrace();
 		}
+	}
+	public LinkedList<CopyPanel> getPanels() {
+		return carPanels;
+	}
+	
+	class CarThread extends Thread {
+		private OrderInfo orderInfo;
+		private OrderCtrl orderCtrl;
+		private long SLEEP_TIME = 5000;
 		
+		public CarThread(OrderCtrl orderCtrl, OrderInfo orderInfo) {
+			this.orderCtrl = orderCtrl;
+			this.orderInfo = orderInfo;
+		}
+		
+		public void run() {			
+			while(orderInfo.needsToRun()) {
+				try {
+					for(CopyPanel cPanel : orderInfo.getPanels()) {
+						if(orderCtrl.isCopyInAnOrder(cPanel.getCopyVin())) {
+							orderInfo.deletePanel(cPanel);
+							System.out.println("Deleted panel with vin " + cPanel.getCopyVin());
+						}
+					}
+					sleep(SLEEP_TIME);
+					System.out.println("Completed one rotation");
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				catch (SQLException e) {
+					
+				}
+			}	
+			System.out.println("Stopped the thread");
+			
+			
+		}
 	}
 }
