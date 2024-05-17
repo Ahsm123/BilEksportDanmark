@@ -11,6 +11,8 @@ import javax.swing.JDialog;
 
 import controller.CustomerCtrl;
 import controller.OrderCtrl;
+import model.database.CustomerDB;
+import model.database.DataAccessException;
 
 public class Main {	
 	private Window currentFrame;
@@ -45,11 +47,15 @@ public class Main {
 	private Main() {
 		windowStack = new LinkedList<>();
 		
-        customerCtrl = new CustomerCtrl();
+        
         try {
 			orderCtrl = new OrderCtrl();
+			customerCtrl = new CustomerCtrl(new CustomerDB());
 		} 
         catch (SQLException e) {
+			e.printStackTrace();
+		} catch (DataAccessException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

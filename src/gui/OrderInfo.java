@@ -32,6 +32,7 @@ import controller.OrderCtrl;
 import model.Copy;
 import model.CopyAlreadyInOrderException;
 import model.EmptyOrderException;
+import model.database.CarDB;
 import model.database.DataAccessException;
 
 public class OrderInfo extends JFrame {
@@ -51,7 +52,12 @@ public class OrderInfo extends JFrame {
 	public OrderInfo(OrderCtrl orderCtrl) {
 		maingui = Main.getInstance();
 		this.orderCtrl = orderCtrl;
-		this.carCtrl = new CarCtrl();
+		try {
+			this.carCtrl = new CarCtrl(new CarDB());
+		} catch (DataAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.carPanels = new LinkedList<>();
 		
 		thread = new CarThread(orderCtrl, this);
@@ -160,34 +166,35 @@ public class OrderInfo extends JFrame {
 	
 	private void createCarPanel(String input) throws SQLException {
 		try {
-			if(orderCtrl.isCopyInAnOrder(input))
-			orderCtrl.addCopy(input);
-			
-			Copy copy = carCtrl.findCopy(input);
-			
-			JPanel orderlinePanel = new JPanel();
-			
-			CopyPanel cPanel = new CopyPanel(copy.getVin(), orderlinePanel);
-			
-			carPanels.add(cPanel);
-			
-			centerOfOL.add(orderlinePanel);
-			orderlinePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-			
-			JLabel orderlineLabel = new JLabel(copy.getVin());
-			orderlinePanel.add(orderlineLabel);
-			
-			JButton btnDelete = new JButton("Fjern");
-			btnDelete.setBackground(Color.YELLOW);
-			
-			btnDelete.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					deletePanel(cPanel);
-				}
-			});
-			orderlinePanel.add(btnDelete);
-			
-			orderlinePanel.revalidate();
+			if(!orderCtrl.isCopyInAnOrder(input)) {
+				orderCtrl.addCopy(input);
+				
+				Copy copy = carCtrl.findCopy(input);
+				
+				JPanel orderlinePanel = new JPanel();
+				
+				CopyPanel cPanel = new CopyPanel(copy.getVin(), orderlinePanel);
+				
+				carPanels.add(cPanel);
+				
+				centerOfOL.add(orderlinePanel);
+				orderlinePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+				
+				JLabel orderlineLabel = new JLabel(copy.getVin());
+				orderlinePanel.add(orderlineLabel);
+				
+				JButton btnDelete = new JButton("Fjern");
+				btnDelete.setBackground(Color.YELLOW);
+				
+				btnDelete.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						deletePanel(cPanel);
+					}
+				});
+				orderlinePanel.add(btnDelete);
+				
+				orderlinePanel.revalidate();
+			}
 		}
 		catch(DataAccessException e) {
 			System.out.println(e);

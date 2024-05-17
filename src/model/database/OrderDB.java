@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 
 import model.Copy;
 import model.Order;
@@ -17,6 +18,8 @@ public class OrderDB implements OrderDBIF {
 	private PreparedStatement saveCopyOrder;
 	private PreparedStatement findAssosiatedOrderCopy;
 	private PreparedStatement deleteOrder;
+	
+	private HashMap<String, Boolean> alreadyCheckedSoldCopies;
 	
 	private static final String SAVE_ORDER_Q = "insert into \"Order\" (\"date\", totalPrice, isDelivered, deliveryAdress, customerId, employeeId) values(?, ?, ?, ?, ?, ?)";
 	private static final String SAVE_COPY_ORDER_Q = "insert into CopyOrder (copyId, orderId) values (?, ?)";
@@ -57,7 +60,6 @@ public class OrderDB implements OrderDBIF {
 				e.printStackTrace();
 			}
 		});
-
 		con.commitTransaction();
 	}
 
@@ -68,9 +70,15 @@ public class OrderDB implements OrderDBIF {
 	}
 	
 	public boolean isCopyInAnOrder(String vin) throws SQLException {
-		findAssosiatedOrderCopy.setString(1, vin);
-		
-		return findAssosiatedOrderCopy.executeQuery().next();	
+		boolean result = false;
+		if(!alreadyCheckedSoldCopies.containsKey(vin)) {
+			findAssosiatedOrderCopy.setString(1, vin);
+			result = findAssosiatedOrderCopy.executeQuery().next();
+			if(result) {
+				alreadyCheckedSoldCopies.put(vin, true);
+			}
+		}	
+		return result;	
 	}
 	
 	public void deleteOrder(int orderId) throws SQLException {

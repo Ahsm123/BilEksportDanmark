@@ -17,6 +17,7 @@ import java.awt.event.ActionEvent;
 
 import controller.CustomerCtrl;
 import controller.OrderCtrl;
+import model.database.CustomerDB;
 import model.database.DataAccessException;
 
 public class OrderMenu extends JFrame {
@@ -36,11 +37,14 @@ public class OrderMenu extends JFrame {
 	public OrderMenu() {
 		try {
 			orderCtrl = new OrderCtrl();
-			customerCtrl = new CustomerCtrl();
+			customerCtrl = new CustomerCtrl(new CustomerDB());
 			maingui = Main.getInstance();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (DataAccessException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 		
 		
