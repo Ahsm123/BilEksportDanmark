@@ -205,6 +205,7 @@ public class OrderPrint extends JFrame {
 	}
 	
 	private void confirm() {
+		
 		maingui.resetToMainPage();
 	}
 }

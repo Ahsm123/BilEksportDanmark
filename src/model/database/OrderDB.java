@@ -28,6 +28,7 @@ public class OrderDB implements OrderDBIF {
 
 	public OrderDB() throws SQLException {
 		try {
+			alreadyCheckedSoldCopies = new HashMap<>();
 			connection = DBConnection.getInstance().getConnection();
 			saveOrder = connection.prepareStatement(SAVE_ORDER_Q, Statement.RETURN_GENERATED_KEYS);
 			saveCopyOrder = connection.prepareStatement(SAVE_COPY_ORDER_Q);
@@ -48,8 +49,7 @@ public class OrderDB implements OrderDBIF {
 		saveOrder.setBoolean(3, order.isDelivered());
 		saveOrder.setInt(4, order.getCustomer().getDeliveryAddressId());
 		saveOrder.setInt(5, order.getCustomer().getId());
-		//saveOrder.setInt(6, order.getEmployee().getId());
-		saveOrder.setInt(6, 1);
+		saveOrder.setInt(6, order.getEmployeeId());
 		
 		order.setId(con.executeInsertWithIdentity(saveOrder));
 
@@ -70,7 +70,7 @@ public class OrderDB implements OrderDBIF {
 	}
 	
 	public boolean isCopyInAnOrder(String vin) throws SQLException {
-		boolean result = false;
+		boolean result = true;
 		if(!alreadyCheckedSoldCopies.containsKey(vin)) {
 			findAssosiatedOrderCopy.setString(1, vin);
 			result = findAssosiatedOrderCopy.executeQuery().next();

@@ -1,7 +1,5 @@
 package gui;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -12,41 +10,18 @@ import java.awt.GridLayout;
 import java.awt.CardLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.awt.event.ActionEvent;
-
-import controller.CustomerCtrl;
-import controller.OrderCtrl;
-import model.database.CustomerDB;
-import model.database.DataAccessException;
 
 public class OrderMenu extends JFrame {
 
 	private Main maingui;
-	private OrderCtrl orderCtrl;
-	private CustomerCtrl customerCtrl;
 	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JButton btnBack;
-
-
-	/**
-	 * Create the frame.
-	 */
+	
 	public OrderMenu() {
-		try {
-			orderCtrl = new OrderCtrl();
-			customerCtrl = new CustomerCtrl(new CustomerDB());
-			maingui = Main.getInstance();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (DataAccessException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
+		maingui = Main.getInstance();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

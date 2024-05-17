@@ -9,16 +9,16 @@ public class Order {
 	private String deliveryAddress;
 	
 	private boolean isDelivered;
-	private Employee employee;
+	private int employeeId;
 	private Customer customer;
 	private LinkedList<Copy> copies;
 
-	public Order(Employee employee, Customer customer) {
+	public Order(int employeeId, Customer customer) {
 
 		this.date = java.time.LocalDate.now().toString();
 		this.deliveryAddress = null;
 		this.isDelivered = false;
-		this.employee = employee;
+		this.employeeId = employeeId;
 		this.customer = customer;
 		this.copies = new LinkedList<>();
 	}
@@ -114,12 +114,12 @@ public class Order {
 		this.isDelivered = isDelivered;
 	}
 
-	public Employee getEmployee() {
-		return employee;
+	public int getEmployeeId() {
+		return employeeId;
 	}
 
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
+	public void setEmployee(int employeeId) {
+		this.employeeId = employeeId;
 	}
 
 	public Customer getCustomer() {

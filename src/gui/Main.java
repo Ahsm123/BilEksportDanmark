@@ -46,8 +46,6 @@ public class Main {
 	
 	private Main() {
 		windowStack = new LinkedList<>();
-		
-        
         try {
 			orderCtrl = new OrderCtrl();
 			customerCtrl = new CustomerCtrl(new CustomerDB());

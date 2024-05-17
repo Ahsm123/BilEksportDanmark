@@ -50,8 +50,8 @@ public class OrderCtrl {
 		currentOrder.removeCopy(copyVin);
 	}
 	
-	public Order createOrder(String phoneNo) throws NullPointerException, DataAccessException {
-		currentOrder = new Order(employee, findCustomer(phoneNo));
+	public Order createOrder(String phoneNo, int employeeId) throws NullPointerException, DataAccessException {
+		currentOrder = new Order(employeeId, findCustomer(phoneNo));
 		return currentOrder;
 	}
 

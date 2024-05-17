@@ -83,7 +83,7 @@ public class PopUp extends JDialog {
 	    try {
 	    	String phoneNo = textField.getText();
 			if(customerCtrl.doesCustomerExist(phoneNo)) {
-				orderCtrl.createOrder(phoneNo);
+				orderCtrl.createOrder(phoneNo, 1);
 				maingui.switchToOrderInfo();
 			}
 			else {

@@ -39,8 +39,7 @@ public class OrderInfo extends JFrame {
 	private OrderCtrl orderCtrl;
 	private Main maingui;
 	private boolean threadNeedsToRun = true;
-	private CarThread thread;
-	
+
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField barcodeField;
@@ -60,7 +59,7 @@ public class OrderInfo extends JFrame {
 		}
 		this.carPanels = new LinkedList<>();
 		
-		thread = new CarThread(orderCtrl, this);
+		CheckIfSoldThread thread = new CheckIfSoldThread(orderCtrl, this);
 		thread.start();
 		
 		
@@ -224,6 +223,7 @@ public class OrderInfo extends JFrame {
 	
 	private void confirm() {
 		try {
+			threadNeedsToRun = false;
 			orderCtrl.confirmOrder();
 			maingui.createOrderPrint();
 		} catch (SQLException e) {
@@ -238,12 +238,12 @@ public class OrderInfo extends JFrame {
 		return carPanels;
 	}
 	
-	class CarThread extends Thread {
+	class CheckIfSoldThread extends Thread {
 		private OrderInfo orderInfo;
 		private OrderCtrl orderCtrl;
 		private long SLEEP_TIME = 5000;
 		
-		public CarThread(OrderCtrl orderCtrl, OrderInfo orderInfo) {
+		public CheckIfSoldThread(OrderCtrl orderCtrl, OrderInfo orderInfo) {
 			this.orderCtrl = orderCtrl;
 			this.orderInfo = orderInfo;
 		}
