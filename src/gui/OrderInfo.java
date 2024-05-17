@@ -32,6 +32,7 @@ import controller.OrderCtrl;
 import model.Copy;
 import model.CopyAlreadyInOrderException;
 import model.EmptyOrderException;
+import model.database.CarAlreadySoldException;
 import model.database.CarDB;
 import model.database.DataAccessException;
 
@@ -43,10 +44,10 @@ public class OrderInfo extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField barcodeField;
-	private JTextField textField_2;
-	private JPanel centerOfOL;
+	private JPanel centerOfPanels;
 	private LinkedList<CopyPanel> carPanels;
 	private CarCtrl carCtrl;
+	private CheckIfSoldThread thread;
 	
 	public OrderInfo(OrderCtrl orderCtrl) {
 		maingui = Main.getInstance();
@@ -59,8 +60,8 @@ public class OrderInfo extends JFrame {
 		}
 		this.carPanels = new LinkedList<>();
 		
-		CheckIfSoldThread thread = new CheckIfSoldThread(orderCtrl, this);
-		thread.start();
+		thread = new CheckIfSoldThread(orderCtrl, this);
+		
 		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -145,9 +146,9 @@ public class OrderInfo extends JFrame {
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		panel_2_1.add(scrollPane, BorderLayout.CENTER);
 		
-		centerOfOL = new JPanel();
-		centerOfOL.setLayout(new BoxLayout(centerOfOL, BoxLayout.Y_AXIS));
-		scrollPane.setViewportView(centerOfOL);
+		centerOfPanels = new JPanel();
+		centerOfPanels.setLayout(new BoxLayout(centerOfPanels, BoxLayout.Y_AXIS));
+		scrollPane.setViewportView(centerOfPanels);
 	}
 	
 	public boolean needsToRun() {
@@ -163,11 +164,14 @@ public class OrderInfo extends JFrame {
 		}	
 	}
 	
-	private void createCarPanel(String input) throws SQLException {
+	private void createCarPanel(String input) throws SQLException, CarAlreadySoldException {
 		try {
 			if(!orderCtrl.isCopyInAnOrder(input)) {
 				orderCtrl.addCopy(input);
 				
+				if(!thread.isAlive()) {
+					thread.start();
+				}
 				Copy copy = carCtrl.findCopy(input);
 				
 				JPanel orderlinePanel = new JPanel();
@@ -176,7 +180,7 @@ public class OrderInfo extends JFrame {
 				
 				carPanels.add(cPanel);
 				
-				centerOfOL.add(orderlinePanel);
+				centerOfPanels.add(orderlinePanel);
 				orderlinePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 				
 				JLabel orderlineLabel = new JLabel(copy.getVin());
@@ -194,6 +198,9 @@ public class OrderInfo extends JFrame {
 				
 				orderlinePanel.revalidate();
 			}
+			else {
+				throw new CarAlreadySoldException("Bil allerede solgt");
+			}
 		}
 		catch(DataAccessException e) {
 			System.out.println(e);
@@ -206,7 +213,7 @@ public class OrderInfo extends JFrame {
 			
 			panelToDelete.getPanel().removeAll();
 			carPanels.remove(panelToDelete);
-			centerOfOL.remove(panelToDelete.getPanel());
+			centerOfPanels.remove(panelToDelete.getPanel());
 			revalidate();
 			repaint();
 		}
@@ -238,6 +245,10 @@ public class OrderInfo extends JFrame {
 		return carPanels;
 	}
 	
+	public void deletedPanelAlert() {
+		JOptionPane.showMessageDialog(null, "En eller flere biler på ordren er allerede solgt og er derfor blevet fjenet", "Notice", JOptionPane.PLAIN_MESSAGE);
+	}
+	
 	class CheckIfSoldThread extends Thread {
 		private OrderInfo orderInfo;
 		private OrderCtrl orderCtrl;
@@ -251,11 +262,16 @@ public class OrderInfo extends JFrame {
 		public void run() {			
 			while(orderInfo.needsToRun()) {
 				try {
+					boolean hasDeletedPanels = false;
 					for(CopyPanel cPanel : orderInfo.getPanels()) {
 						if(orderCtrl.isCopyInAnOrder(cPanel.getCopyVin())) {
 							orderInfo.deletePanel(cPanel);
+							hasDeletedPanels = true;
 							System.out.println("Deleted panel with vin " + cPanel.getCopyVin());
 						}
+					}
+					if(hasDeletedPanels) {
+						orderInfo.deletedPanelAlert();
 					}
 					sleep(SLEEP_TIME);
 					System.out.println("Completed one rotation");
@@ -269,4 +285,6 @@ public class OrderInfo extends JFrame {
 			System.out.println("Stopped the thread");	
 		}
 	}
+
+	
 }

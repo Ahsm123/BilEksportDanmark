@@ -68,7 +68,7 @@ public class OrderDB implements OrderDBIF {
 		saveCopyOrder.setInt(2, orderId);
 		saveCopyOrder.executeUpdate();
 	}
-	
+
 	public boolean isCopyInAnOrder(String vin) throws SQLException {
 		boolean result = true;
 		if(!alreadyCheckedSoldCopies.containsKey(vin)) {
