@@ -259,9 +259,7 @@ public class OrderInfo extends JFrame {
 					
 				}
 			}	
-			System.out.println("Stopped the thread");
-			
-			
+			System.out.println("Stopped the thread");	
 		}
 	}
 }

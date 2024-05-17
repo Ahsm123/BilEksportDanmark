@@ -9,13 +9,8 @@ public class CarCtrl {
 
 	private CarDBIF carDB;
 	
-	public CarCtrl() {
-		try { 
-			this.carDB = new CarDB();
-	}catch (DataAccessException e) {
-		
-		e.printStackTrace();
-	}
+	public CarCtrl(CarDBIF carDB) {
+		this.carDB = carDB;
 	
 		
 	}

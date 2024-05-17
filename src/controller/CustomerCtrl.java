@@ -6,12 +6,8 @@ import model.*;
 public class CustomerCtrl {
 	private CustomerDBIF customerDB;
 	
-	public CustomerCtrl() {
-		try {
-			this.customerDB = new CustomerDB();
-		} catch (DataAccessException e) {
-			e.printStackTrace();
-		}
+	public CustomerCtrl(CustomerDBIF customerDB) {
+		this.customerDB = customerDB;
 	}
 	public Customer findCustomer(String phoneNo) throws DataAccessException {
 		return customerDB.findCustomer(phoneNo);

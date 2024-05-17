@@ -16,15 +16,19 @@ public class OrderDB implements OrderDBIF {
 	private PreparedStatement saveOrder;
 	private PreparedStatement saveCopyOrder;
 	private PreparedStatement findAssosiatedOrderCopy;
+	private PreparedStatement deleteOrder;
+	
 	private static final String SAVE_ORDER_Q = "insert into \"Order\" (\"date\", totalPrice, isDelivered, deliveryAdress, customerId, employeeId) values(?, ?, ?, ?, ?, ?)";
 	private static final String SAVE_COPY_ORDER_Q = "insert into CopyOrder (copyId, orderId) values (?, ?)";
 	private static final String FIND_ORDER_ASSOSIATED_WITH_COPY = "select orderId from CopyOrder where copyId = (select copyId from Copy where vin = ?)";
+	private static final String DELETE_ORDER = "delete from \"order\" where id = ?;";
 
 	public OrderDB() throws SQLException {
 		try {
 			connection = DBConnection.getInstance().getConnection();
 			saveOrder = connection.prepareStatement(SAVE_ORDER_Q, Statement.RETURN_GENERATED_KEYS);
 			saveCopyOrder = connection.prepareStatement(SAVE_COPY_ORDER_Q);
+			deleteOrder = connection.prepareStatement(DELETE_ORDER);
 			findAssosiatedOrderCopy = connection.prepareStatement(FIND_ORDER_ASSOSIATED_WITH_COPY);
 		} catch (Exception e) {
 			throw new SQLException("Error creating OrderDB", e);
@@ -67,5 +71,10 @@ public class OrderDB implements OrderDBIF {
 		findAssosiatedOrderCopy.setString(1, vin);
 		
 		return findAssosiatedOrderCopy.executeQuery().next();	
+	}
+	
+	public void deleteOrder(int orderId) throws SQLException {
+		deleteOrder.setInt(1, orderId);
+		deleteOrder.executeQuery();
 	}
 }

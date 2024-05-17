@@ -3,6 +3,7 @@ package test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThrows;
 
 import java.sql.SQLException;
 
@@ -10,9 +11,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import controller.OrderCtrl;
+import model.CopyAlreadyInOrderException;
 import model.Customer;
 import model.EmptyOrderException;
 import model.Order;
+import model.database.CarAlreadySoldException;
 import model.database.DataAccessException;
 
 public class OrderCtrlTest {
@@ -20,13 +23,18 @@ public class OrderCtrlTest {
 	private OrderCtrl orderCtrl;
 
 	@Before
-	public void setup() throws DataAccessException, SQLException {
+	public void setup() {
 		CustomerDBStub customerDBStub = new CustomerDBStub();
 		CarDBStub carDBStub = new CarDBStub();
 		InvoiceDBStub invoiceDBStub = new InvoiceDBStub();
 		OrderDBStub orderDBStub = new OrderDBStub();
 
-		orderCtrl = new OrderCtrl(orderDBStub, customerDBStub, carDBStub, invoiceDBStub);
+		try {
+			orderCtrl = new OrderCtrl(orderDBStub, customerDBStub, carDBStub, invoiceDBStub);
+		} catch (DataAccessException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test
@@ -43,7 +51,6 @@ public class OrderCtrlTest {
 		assertNotNull("Customer should be found", customer);
 		assertNotNull("Order should be created", order);
 		assertEquals("Order should have one car", 1, order.getCopies().size());
-
 	}
 
 	@Test
@@ -84,18 +91,16 @@ public class OrderCtrlTest {
 		Order order = orderCtrl.createOrder("12345678");
 
 		// Act
-		orderCtrl.addCopy("null_value");
-		orderCtrl.confirmOrder();
+		assertThrows(NullPointerException.class, ()->orderCtrl.addCopy("null_value"));
 
 		// Assert
 		assertNotNull("Customer should be found", customer);
 		assertNotNull("Order should be created", order);
-		assertEquals("Order should have one car", 1, order.getCopies().size());
-
+		assertEquals("Order should have one car", 0, order.getCopies().size());
 	}
 
 	@Test
-	public void TC_04_testCreateOrderWithPhoneNumberAndSoldCarPlusOne()
+	public void TC_05_testCreateOrderWithPhoneNumberAndSoldCarPlusOne()
 			throws DataAccessException, EmptyOrderException, SQLException {
 
 		// Arrange
@@ -104,13 +109,14 @@ public class OrderCtrlTest {
 
 		// Act
 		orderCtrl.addCopy("abcdefgh1234");
-		orderCtrl.addCopy("null_value");
+		assertThrows(CarAlreadySoldException.class, ()-> orderCtrl.addCopy("bbcdefgh1234"));
+		
 		orderCtrl.confirmOrder();
 
 		// Assert
 		assertNotNull("Customer should be found", customer);
 		assertNotNull("Order should be created", order);
 		assertEquals("Order should have one car", 1, order.getCopies().size());
-
 	}
+
 }

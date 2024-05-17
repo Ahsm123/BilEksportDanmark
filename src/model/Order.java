@@ -1,6 +1,7 @@
 package model;
 
 import java.util.LinkedList;
+import java.util.stream.Collectors;
 
 public class Order {
 	private int orderId;
@@ -83,7 +84,10 @@ public class Order {
 	}
 	
 	public double getTotalPrice() {
-		return copies.stream().mapToDouble(Copy::getPrice).sum();
+		return copies.stream()
+                .mapToDouble(Copy::getPrice)
+                .sum();
+
 	}
 
 	public String getDate() {

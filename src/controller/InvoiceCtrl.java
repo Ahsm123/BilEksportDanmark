@@ -12,9 +12,9 @@ public class InvoiceCtrl {
 
 	private InvoiceDBIF invoiceDB;
 
-	public InvoiceCtrl()  {
+	public InvoiceCtrl(InvoiceDBIF invoiceDB)  {
 		try {
-			invoiceDB = new InvoiceDB();
+			this.invoiceDB = invoiceDB;
 		}
 		catch (Exception e) {
 			System.out.println(e);
