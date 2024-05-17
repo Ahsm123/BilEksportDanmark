@@ -1,0 +1,4 @@
+
+bin/model/database/CustomerDB.class
+bin/model/database/DBConnection.class
+bin/model/database/EmployeeDB.class
