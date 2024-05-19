@@ -34,7 +34,7 @@ public class CarDB implements CarDBIF {
 	private Copy buildCopy(ResultSet rs) throws DataAccessException{
 		Copy result = null;
 		try {
-			Copy res = new Copy(rs.getInt("mileage"),
+			Copy copy = new Copy(rs.getInt("mileage"),
 					rs.getString("manufactorer"),
 					rs.getString("model"),
 					rs.getString("fuelType"),
@@ -44,15 +44,18 @@ public class CarDB implements CarDBIF {
 					rs.getInt("topSpeed"),
 					rs.getString("gearType"),
 					rs.getInt("noOfGears"));
-			result = res;
-			res.setVin(rs.getString("vin"));
-			res.setPrice(rs.getDouble("price"));
-			res.setState(rs.getString("state"));
-			res.setModification(rs.getString("modification"));
-			res.setKilometer(rs.getInt("kilometer"));
-			res.setColor(rs.getString("color"));
-			res.setTaxReturn(rs.getBoolean("taxReturn"));
-			res.setIsInspected(rs.getBoolean("isInspected"));
+			
+			copy.setId(rs.getInt("id"));
+			copy.setVin(rs.getString("vin"));
+			copy.setPrice(rs.getDouble("price"));
+			copy.setState(rs.getString("state"));
+			copy.setModification(rs.getString("modification"));
+			copy.setKilometer(rs.getInt("kilometer"));
+			copy.setColor(rs.getString("color"));
+			copy.setTaxReturn(rs.getBoolean("taxReturn"));
+			copy.setIsInspected(rs.getBoolean("isInspected"));
+			
+			result = copy;
 		} catch (SQLException e) {
 			throw new DataAccessException("Error building common attributes", e);
 		} 

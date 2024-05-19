@@ -1,193 +1,92 @@
 package gui;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 
-import javax.swing.JLabel;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.SwingConstants;
-import java.awt.FlowLayout;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 import model.Copy;
-import model.Customer;
 import model.Order;
 
 public class OrderPrint extends JFrame {
-	private Main maingui;
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private JScrollPane scrollPane;
-	private JPanel centerOfOL;
+	private static final int FRAME_WIDTH = 450;
+	private static final int FRAME_HEIGHT = 800;
+	private static final int PADDING = 5;
 	private DecimalFormat formatter = new DecimalFormat("0.00");
+	
+	private Main maingui;
+	
+	private JPanel contentPane;
+	private JPanel mainPanel;	
+	private JPanel centerOfPanes;
+	private JScrollPane orderCopiesPane;
 	
 	public OrderPrint(Order order) {
 		maingui = Main.getInstance();
 		
-		// Frame setup
+		createFrame();
+		createContentPane();
+		createMainPanel();
+		addCopyPanels(order);
+		createHeader(order);
+		createFooter(order);	
+	}
+	
+	private void createFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 800);
+		setBounds(100, 100, FRAME_WIDTH, FRAME_HEIGHT);
+	}
+	
+	private void createContentPane() {
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
-		setContentPane(contentPane);
+		contentPane.setBorder(new EmptyBorder(PADDING, PADDING, PADDING, PADDING));
 		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
+	}
+	
+	private void createMainPanel() {
+		JPanel paddingPanel = new JPanel();
+		contentPane.add(paddingPanel);
+		paddingPanel.setLayout(new BorderLayout(0, 0));
 		
-		JPanel panel_1 = new JPanel();
-		contentPane.add(panel_1);
-		panel_1.setLayout(new BorderLayout(0, 0));
+		JPanel mainPanel = new JPanel();
+		paddingPanel.add(mainPanel);
+		mainPanel.setLayout(new BorderLayout(0, 0));
 		
-		JPanel panel_2_1 = new JPanel();
-		panel_1.add(panel_2_1);
-		panel_2_1.setLayout(new BorderLayout(0, 0));
-		
-		// Orderline setup
-		
-		scrollPane = new JScrollPane();
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		panel_2_1.add(scrollPane, BorderLayout.CENTER);
-		
-		centerOfOL = new JPanel();
-		centerOfOL.setLayout(new BoxLayout(centerOfOL, BoxLayout.Y_AXIS));
-		scrollPane.setViewportView(centerOfOL);
-		
-		for(Copy copy : order.getCopies()) {
-			addCopy(copy.getPrice(), copy.getVin());
-		}
-		
-		JPanel panel_10 = new JPanel();
-		panel_2_1.add(panel_10, BorderLayout.NORTH);
-		panel_10.setLayout(new GridLayout(0, 1, 0, 0));
-		
-		JPanel panel_4 = new JPanel();
-		panel_10.add(panel_4);
-		panel_4.setLayout(new GridLayout(1, 2, 0, 0));
-		
-		JPanel panel = new JPanel();
-		panel_4.add(panel);
-		panel.setLayout(new GridLayout(0, 1, 0, 5));
-		
-		Customer customer = order.getCustomer();
-		
-		JLabel lblName = new JLabel(customer.getName());
-		panel.add(lblName);
-		
-		JLabel lblCustomerType = new JLabel(customer.getCustomerType());
-		panel.add(lblCustomerType);
-		
-		JPanel panel_3 = new JPanel();
-		panel_4.add(panel_3);
-		panel_3.setLayout(new GridLayout(0, 1, 0, 5));
-		
-		JLabel lblOrderID = new JLabel("Ordre nr: " + order.getId());
-		panel_3.add(lblOrderID);
-		
-		JLabel lblDate = new JLabel("Dato: " + order.getDate());
-		panel_3.add(lblDate);
-		
-		JPanel panel_11 = new JPanel();
-		panel_10.add(panel_11);
-		panel_11.setLayout(new GridLayout(1, 0, 0, 0));
-		
-		JLabel lblProductNameStatic = new JLabel("Vin nummer");
-		panel_11.add(lblProductNameStatic);
-		
-		JPanel panel_9 = new JPanel();
-		panel_11.add(panel_9);
-		panel_9.setLayout(new GridLayout(1, 0, 0, 0));
-		
-		JLabel lblPriceStatic = new JLabel("Pris");
-		panel_9.add(lblPriceStatic);
-		
-		JPanel panel_7 = new JPanel();
-		contentPane.add(panel_7, BorderLayout.SOUTH);
-		panel_7.setLayout(new GridLayout(2, 0, 0, 0));
-		
-		JPanel panel_8 = new JPanel();
-		panel_7.add(panel_8);
-		panel_8.setLayout(new BoxLayout(panel_8, BoxLayout.Y_AXIS));
-		
-		JPanel panel_12 = new JPanel();
-		panel_8.add(panel_12);
-		panel_12.setLayout(new GridLayout(1, 0, 0, 0));
-		
-		JPanel panel_15 = new JPanel();
-		panel_12.add(panel_15);
-		panel_15.setLayout(new BoxLayout(panel_15, BoxLayout.X_AXIS));
-		
-		JPanel panel_14 = new JPanel();
-		FlowLayout flowLayout_1 = (FlowLayout) panel_14.getLayout();
-		flowLayout_1.setHgap(40);
-		flowLayout_1.setAlignment(FlowLayout.RIGHT);
-		panel_15.add(panel_14);
-		
-		JPanel panel_16 = new JPanel();
-		panel_8.add(panel_16);
-		panel_16.setLayout(new GridLayout(1, 0, 0, 0));
-		
-		JPanel panel_17 = new JPanel();
-		panel_16.add(panel_17);
-		panel_17.setLayout(new BoxLayout(panel_17, BoxLayout.X_AXIS));
-		
-		JPanel panel_20 = new JPanel();
-		panel_8.add(panel_20);
-		panel_20.setLayout(new GridLayout(1, 0, 0, 0));
-		
-		JPanel panel_21 = new JPanel();
-		panel_20.add(panel_21);
-		panel_21.setLayout(new BoxLayout(panel_21, BoxLayout.X_AXIS));
-		
-		JPanel panel_22 = new JPanel();
-		FlowLayout flowLayout_2 = (FlowLayout) panel_22.getLayout();
-		flowLayout_2.setAlignment(FlowLayout.LEFT);
-		flowLayout_2.setHgap(40);
-		panel_21.add(panel_22);
-		
-		JLabel lblTotalStatic = new JLabel("Total");
-		panel_22.add(lblTotalStatic);
-		
-		JPanel panel_23 = new JPanel();
-		FlowLayout flowLayout_3 = (FlowLayout) panel_23.getLayout();
-		flowLayout_3.setHgap(40);
-		flowLayout_3.setAlignment(FlowLayout.RIGHT);
-		panel_21.add(panel_23);
-		
-		JLabel lblTotal = new JLabel(formatter.format(order.getTotalPrice()) + " DKK");
-		panel_23.add(lblTotal);
-		
-		JPanel panel_2 = new JPanel();
-		panel_7.add(panel_2);
-		
-		JButton btnOrderCancel = new JButton("Print");
-		panel_2.add(btnOrderCancel);
-		
-		JButton btnOrderConfirm = new JButton("Ok");
-		btnOrderConfirm.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				confirm();
-			}
-		});
-		panel_2.add(btnOrderConfirm);
+		this.mainPanel = mainPanel;
+	}
+	
+	private void addCopyPanels(Order order) {
+	    orderCopiesPane = new JScrollPane();
+	    orderCopiesPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+	    orderCopiesPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+	    mainPanel.add(orderCopiesPane, BorderLayout.CENTER);
+	    
+	    centerOfPanes = new JPanel();
+	    centerOfPanes.setLayout(new BoxLayout(centerOfPanes, BoxLayout.Y_AXIS)); // Use BoxLayout with Y_AXIS alignment
+	    orderCopiesPane.setViewportView(centerOfPanes);
+	    
+	    for(Copy copy : order.getCopies()) {
+	        addCopy(copy.getPrice(), copy.getVin());
+	        centerOfPanes.add(Box.createVerticalStrut(10)); // Add vertical spacing between copy panels
+	    }
 	}
 	
 	private void addCopy(double price, String carVin) {
 		JPanel panel_5 = new JPanel();
-		centerOfOL.add(panel_5);
+		centerOfPanes.add(panel_5);
 		panel_5.setLayout(null);
 		
 		JLabel lblProductName = new JLabel(carVin);
@@ -204,8 +103,97 @@ public class OrderPrint extends JFrame {
 		panel_6.add(lblPrice);
 	}
 	
-	private void confirm() {
+	private void createHeader(Order order) {
+		JPanel headerPanel = new JPanel();
+		mainPanel.add(headerPanel, BorderLayout.NORTH);
+		headerPanel.setLayout(new GridLayout(0, 1, 0, 0));
 		
+		JPanel orderMiscInfoPanel = new JPanel();
+		headerPanel.add(orderMiscInfoPanel);
+		orderMiscInfoPanel.setLayout(new GridLayout(1, 2, 0, 0));
+		
+		JPanel customerInfoPanel = new JPanel();
+		orderMiscInfoPanel.add(customerInfoPanel);
+		customerInfoPanel.setLayout(new GridLayout(0, 1, 0, 5));
+		
+		JLabel lblName = new JLabel(order.getCustomer().getName());
+		customerInfoPanel.add(lblName);
+		
+		JLabel lblCustomerType = new JLabel(order.getCustomer().getCustomerType());
+		customerInfoPanel.add(lblCustomerType);
+		
+		JPanel orderInfoPanel = new JPanel();
+		orderMiscInfoPanel.add(orderInfoPanel);
+		orderInfoPanel.setLayout(new GridLayout(0, 1, 0, 5));
+	
+		JLabel lblOrderID = new JLabel("Ordre nr: " + order.getId());
+		orderInfoPanel.add(lblOrderID);
+		
+		JLabel lblDate = new JLabel("Dato: " + order.getDate());
+		orderInfoPanel.add(lblDate);
+		
+		JPanel copyDetailsPanel = new JPanel();
+		headerPanel.add(copyDetailsPanel);
+		copyDetailsPanel.setLayout(new GridLayout(1, 0, 0, 0));
+		
+		JLabel lblProductNameStatic = new JLabel("Vin nummer");
+		copyDetailsPanel.add(lblProductNameStatic);
+		
+		JPanel pricePaddingPanel = new JPanel();
+		copyDetailsPanel.add(pricePaddingPanel);
+		pricePaddingPanel.setLayout(new GridLayout(1, 0, 0, 0));
+		
+		JLabel lblPriceStatic = new JLabel("Pris");
+		pricePaddingPanel.add(lblPriceStatic);
+	}
+	
+	private void createFooter(Order order) {
+		JPanel footerPanel = new JPanel();
+		contentPane.add(footerPanel, BorderLayout.SOUTH);
+		footerPanel.setLayout(new GridLayout(2, 0, 0, 0));
+		
+		JPanel totalPanel = new JPanel();
+		footerPanel.add(totalPanel);
+		totalPanel.setLayout(new BoxLayout(totalPanel, BoxLayout.Y_AXIS));
+		
+		JPanel totalPricePanel = new JPanel();
+		totalPanel.add(totalPricePanel);
+		totalPricePanel.setLayout(new GridLayout(1, 0, 0, 0));
+		
+		JPanel totalPriceAndTextPanel = new JPanel();
+		totalPricePanel.add(totalPriceAndTextPanel);
+		totalPriceAndTextPanel.setLayout(new BoxLayout(totalPriceAndTextPanel, BoxLayout.X_AXIS));
+		
+		JPanel totalPanelText = new JPanel();
+		FlowLayout fl_totalPanelText = (FlowLayout) totalPanelText.getLayout();
+		fl_totalPanelText.setAlignment(FlowLayout.LEFT);
+		fl_totalPanelText.setHgap(40);
+		totalPriceAndTextPanel.add(totalPanelText);
+		
+		JLabel lblTotalStatic = new JLabel("Total");
+		totalPanelText.add(lblTotalStatic);
+		
+		JPanel totalPanelValue = new JPanel();
+		FlowLayout fl_totalPanelValue = (FlowLayout) totalPanelValue.getLayout();
+		fl_totalPanelValue.setHgap(40);
+		fl_totalPanelValue.setAlignment(FlowLayout.RIGHT);
+		totalPriceAndTextPanel.add(totalPanelValue);
+		
+		JLabel lblTotal = new JLabel(formatter.format(order.getTotalPrice()) + " DKK");
+		totalPanelValue.add(lblTotal);
+		
+		JPanel confirmationPanel = new JPanel();
+		footerPanel.add(confirmationPanel);
+		
+		JButton btnOrderCancel = new JButton("Print");
+		confirmationPanel.add(btnOrderCancel);
+		
+		JButton btnOrderConfirm = new JButton("Ok");
+		btnOrderConfirm.addActionListener(e ->confirm());
+		confirmationPanel.add(btnOrderConfirm);
+	}
+	
+	private void confirm() {
 		maingui.resetToMainPage();
 	}
 }

@@ -8,13 +8,8 @@ import model.database.EmployeeDBIF;
 public class EmployeeCtrl {
 	private EmployeeDBIF employeeDB;
 	
-	public EmployeeCtrl() {
-		try {
-			this.employeeDB = new EmployeeDB();
-		} catch (DataAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public EmployeeCtrl(EmployeeDBIF employeeDB) {
+		this.employeeDB = employeeDB;
 	}
 	
 	public Employee findEmployee(int id) throws DataAccessException {

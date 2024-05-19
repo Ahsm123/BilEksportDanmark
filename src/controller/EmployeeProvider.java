@@ -14,11 +14,8 @@ public class EmployeeProvider {
 		employee.setId(1);
 		employee.setSalary(20000);
 
-
 	}
-
 	public Employee provideEmployee() {
 		return employee;
 	}
-
 }

@@ -13,15 +13,9 @@ public class InvoiceCtrl {
 	private InvoiceDBIF invoiceDB;
 
 	public InvoiceCtrl(InvoiceDBIF invoiceDB)  {
-		try {
-			this.invoiceDB = invoiceDB;
-		}
-		catch (Exception e) {
-			System.out.println(e);
-		}
+		this.invoiceDB = invoiceDB;
 
 	}
-
 
 	public void saveInvoiceInDB(Order order) throws SQLException, DataAccessException {
 		 invoiceDB.saveInvoiceInDB(order);	

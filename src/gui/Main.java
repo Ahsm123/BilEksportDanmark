@@ -4,7 +4,6 @@ import java.awt.EventQueue;
 import java.awt.Window;
 import java.sql.SQLException;
 import java.util.LinkedList;
-import java.util.stream.Stream;
 
 import javax.swing.JFrame;
 import javax.swing.JDialog;

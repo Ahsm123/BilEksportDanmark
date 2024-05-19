@@ -11,13 +11,9 @@ public class CarCtrl {
 	
 	public CarCtrl(CarDBIF carDB) {
 		this.carDB = carDB;
-	
-		
 	}
 	
 	public Copy findCopy(String vin) throws DataAccessException{
 		return carDB.findCopy(vin);
-		
 	}
-	
 }

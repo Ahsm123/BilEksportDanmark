@@ -32,7 +32,6 @@ public class MainPage extends JFrame {
 		} catch (DataAccessException e) {
 			e.printStackTrace();
 		}
-
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

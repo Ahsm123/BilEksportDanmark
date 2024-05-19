@@ -24,10 +24,8 @@ public class OrderCtrl {
 	private CarCtrl carCtrl;
 	private InvoiceCtrl invoiceCtrl;
 	private Order currentOrder;
-	private Employee employee;
 
 	public OrderCtrl(OrderDBIF orderDB, CustomerDBIF customerDB, CarDBIF carDB, InvoiceDBIF invoiceDB) throws DataAccessException, SQLException {
-
 		this.orderDB = orderDB;
 		this.customerCtrl = new CustomerCtrl(customerDB);
 		this.carCtrl = new CarCtrl(carDB);
@@ -41,17 +39,12 @@ public class OrderCtrl {
 		this.invoiceCtrl = new InvoiceCtrl(new InvoiceDB());
 	}
 
-	public Customer findCustomer(String phoneNo) throws DataAccessException {
-		return customerCtrl.findCustomer(phoneNo);
-		
-	}
-
 	public void removeCopy(String copyVin) {	
 		currentOrder.removeCopy(copyVin);
 	}
 	
 	public Order createOrder(String phoneNo, int employeeId) throws NullPointerException, DataAccessException {
-		currentOrder = new Order(employeeId, findCustomer(phoneNo));
+		currentOrder = new Order(employeeId, customerCtrl.findCustomer(phoneNo));
 		return currentOrder;
 	}
 
@@ -80,8 +73,10 @@ public class OrderCtrl {
 		if(currentOrder.getCopies().isEmpty()) {
 			throw new EmptyOrderException("No cars in the order");
 		}
-		orderDB.saveOrder(currentOrder);
-		invoiceCtrl.saveInvoiceInDB(currentOrder);
+		else {
+			orderDB.saveOrder(currentOrder);
+			invoiceCtrl.saveInvoiceInDB(currentOrder);
+		}
 	}
 	
 	public boolean isCopyInAnOrder(String input) throws SQLException {

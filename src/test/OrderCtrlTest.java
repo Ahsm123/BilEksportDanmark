@@ -41,7 +41,7 @@ public class OrderCtrlTest {
 	public void TC_01_testCreateOrderWithPhoneNumber() throws DataAccessException, EmptyOrderException, SQLException {
 		// Arrange
 		Customer customer = orderCtrl.findCustomer("12345678");
-		Order order = orderCtrl.createOrder("12345678");
+		Order order = orderCtrl.createOrder("12345678", 1);
 
 		// Act
 		orderCtrl.addCopy("abcdefgh1234");
@@ -68,7 +68,7 @@ public class OrderCtrlTest {
 
 		// Arrange
 		Customer customer = orderCtrl.findCustomer("12345678");
-		Order order = orderCtrl.createOrder("12345678");
+		Order order = orderCtrl.createOrder("12345678", 1);
 
 		// Act
 		orderCtrl.addCopy("abcdefgh1234");
@@ -88,7 +88,7 @@ public class OrderCtrlTest {
 
 		// Arrange
 		Customer customer = orderCtrl.findCustomer("12345678");
-		Order order = orderCtrl.createOrder("12345678");
+		Order order = orderCtrl.createOrder("12345678", 1);
 
 		// Act
 		assertThrows(NullPointerException.class, ()->orderCtrl.addCopy("null_value"));
@@ -105,7 +105,7 @@ public class OrderCtrlTest {
 
 		// Arrange
 		Customer customer = orderCtrl.findCustomer("12345678");
-		Order order = orderCtrl.createOrder("12345678");
+		Order order = orderCtrl.createOrder("12345678", 1);
 
 		// Act
 		orderCtrl.addCopy("abcdefgh1234");

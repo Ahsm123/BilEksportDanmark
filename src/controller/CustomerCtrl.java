@@ -2,7 +2,6 @@ package controller;
 import model.database.*;
 import model.*;
 
-
 public class CustomerCtrl {
 	private CustomerDBIF customerDB;
 	
@@ -16,5 +15,4 @@ public class CustomerCtrl {
 	public boolean doesCustomerExist(String phoneNo) throws DataAccessException {
 		return findCustomer(phoneNo) != null;
 	}
-	
 }
