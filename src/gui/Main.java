@@ -36,7 +36,7 @@ public class Main {
 		});
 	}
 	
-	public static synchronized Main getInstance() {
+	public static Main getInstance() {
 		if(instance == null) {
 			instance = new Main();
 		}

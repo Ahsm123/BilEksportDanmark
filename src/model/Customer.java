@@ -7,8 +7,8 @@ public class Customer extends Person{
 	private int deliveryAddressId;
 	private String address;
 
-	public Customer(Person person) {
-		super(person.getName(), person.getPhoneNo(), person.getEmail());
+	public Customer(String name, String phoneNo, String email) {
+		super(name, phoneNo, email);
 	}
 
 	public void setDeliveryAddressId(int id) {

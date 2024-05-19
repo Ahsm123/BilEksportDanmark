@@ -5,81 +5,62 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import model.Customer;
-import model.Person;
 
 public class CustomerDB implements CustomerDBIF {
 
+	private PreparedStatement findCustomer;
 	private static final String FIND_CUSTOMER_BY_PHONE = "select c.id, c.cvr, c.ssn,"
 			+ " p.fname, p.lname, p.phone, p.email, p.type, da.street, da.streetno, pc.city, pc.postalCode, da.id as deliveryAddressId, co.country from customer c "
 			+ " join person p on c.personid = p.id left join DeliveryAdress da on c.deliveryAdress = da.id"
 			+ " left join postalcode pc on da.postalcode = pc.postalcode "
 			+ " left join country co on pc.city = co.city where p.phone = ?";
-	private PreparedStatement findCustomer;
-
-
-
-
+	
 	public CustomerDB() throws DataAccessException {
 		init();
 	}
-
-
+	
 	private void init() throws DataAccessException{
 		Connection con = DBConnection.getInstance().getConnection();
 		try {
 			findCustomer = con.prepareStatement(FIND_CUSTOMER_BY_PHONE);
-			// Statement.RETURN_GENERATED_KEYS as a second argument
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
-
-	//Combine name til en
-	//Combine Address til en
-	private Customer createCustomerObject(ResultSet rs, Person person) throws DataAccessException, SQLException {
-		Customer customer = new Customer(person);
+	private Customer createCustomerObject(ResultSet rs) throws DataAccessException, SQLException {
+		Customer customer = new Customer(rs.getString("fname") + " " + rs.getString("lname"),  
+										rs.getString("phone"), 
+										rs.getString("email"));
 		
-		customer.setSsn(rs.getInt("ssn"));
-		customer.setCvr(rs.getInt("cvr")); 
-		customer.setId(rs.getInt("id"));
-		customer.setDeliveryAddressId(rs.getInt("deliveryAddressId"));
 		customer.setAdress(rs.getString("street") + " "
 				+ rs.getInt("streetNo") + " "
 				+ rs.getString("postalCode") + " "
 				+ rs.getString("city") + " "
 				+ rs.getString("country"));
-
+		customer.setSsn(rs.getInt("ssn"));
+		customer.setCvr(rs.getInt("cvr")); 
+		customer.setId(rs.getInt("id"));
+		customer.setDeliveryAddressId(rs.getInt("deliveryAddressId"));
+		
 		return customer;
-	}
-
-	public Person buildPersonObject(ResultSet rs) throws SQLException {
-		String email = rs.getString("email");
-		String name = rs.getString("fname") + " " + rs.getString("lname");
-		String phone = rs.getString("phone");
-
-		return new Person(name, phone, email);
 	}
 
 	@Override
 	public Customer findCustomer(String phoneNo) throws DataAccessException {
-		DBConnection con = DBConnection.getInstance();
-		con.startTransaction();
-		
-		Customer res =  null;
+		Customer result =  null;
 
 		try {
 			findCustomer.setString(1,phoneNo);
 			ResultSet rs = findCustomer.executeQuery();
 			if (rs.next()) {
-				res = createCustomerObject(rs, buildPersonObject(rs));
+				result = createCustomerObject(rs);
 			}
 		} 
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
-		con.commitTransaction();
 		
-		return res;
+		return result;
 	}
 }
