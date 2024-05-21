@@ -7,57 +7,73 @@ import java.awt.*;
 public class OrderMenu extends JFrame {
 
     private static final long serialVersionUID = 1L;
+    private static final int PADDING = 5;
     private Main maingui;
     private JPanel contentPane;
 
     public OrderMenu() {
         maingui = Main.getInstance();
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        createFrame();
+        createContentPane();
+        createTitlePanel();
+        createButtonsPanel();        
+    }
+    
+    private void createFrame() {
+    	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 450, 300);
+    }
+    
+    private void createContentPane() {
         contentPane = new JPanel();
-        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        contentPane.setBorder(new EmptyBorder(PADDING, PADDING, PADDING, PADDING));
 
         setContentPane(contentPane);
         contentPane.setLayout(new BorderLayout(0, 0));
-
-        JPanel panel = new JPanel();
-        contentPane.add(panel, BorderLayout.NORTH);
-        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+    }
+    
+    private void createTitlePanel() {
+    	JPanel titlePanel = new JPanel();
+        contentPane.add(titlePanel, BorderLayout.NORTH);
+        titlePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
         JLabel lblNewLabel = new JLabel("Ordre menu");
-        panel.add(lblNewLabel);
+        titlePanel.add(lblNewLabel);
+    }
+    
+    private void createButtonsPanel() {
+    	JPanel buttonsPanel = new JPanel();
+        contentPane.add(buttonsPanel, BorderLayout.CENTER);
+        buttonsPanel.setLayout(new GridLayout(2, 2));
 
-        JPanel panel_1 = new JPanel();
-        contentPane.add(panel_1, BorderLayout.CENTER);
-        panel_1.setLayout(new GridLayout(2, 2));
-
-        JPanel panel_2 = new JPanel();
-        panel_1.add(panel_2);
-        panel_2.setLayout(new CardLayout(0, 0));
+        JPanel createOrderPanel = new JPanel();
+        buttonsPanel.add(createOrderPanel);
+        createOrderPanel.setLayout(new CardLayout(0, 0));
 
         JButton btnOrderCreate = new JButton("Opret ordre");
         btnOrderCreate.addActionListener(e -> showCustomerPopUp());
-        panel_2.add(btnOrderCreate, "name_254181741858900");
+        createOrderPanel.add(btnOrderCreate, "name_254181741858900");
 
-        JPanel panel_3 = new JPanel();
-        panel_1.add(panel_3);
-        panel_3.setLayout(new CardLayout(0, 0));
+        JPanel deleteOrderPanel = new JPanel();
+        buttonsPanel.add(deleteOrderPanel);
+        deleteOrderPanel.setLayout(new CardLayout(0, 0));
 
         JButton btnDeleteOrder = new JButton("Slet ordre");
-        btnDeleteOrder.addActionListener(e -> deleteOrder());
-        panel_3.add(btnDeleteOrder, "name_254194213853500");
+        //btnDeleteOrder.addActionListener(e -> deleteOrder());
+        deleteOrderPanel.add(btnDeleteOrder, "name_254194213853500");
 
-        JPanel panel_4 = new JPanel();
-        panel_1.add(panel_4);
-        panel_4.setLayout(new BorderLayout(0, 0));
+        JPanel goBackPanel = new JPanel();
+        buttonsPanel.add(goBackPanel);
+        goBackPanel.setLayout(new BorderLayout(0, 0));
 
         JButton btnBack = new JButton("Gå tilbage");
         btnBack.addActionListener(e -> goBack());
-        panel_4.add(btnBack, BorderLayout.CENTER);
+        goBackPanel.add(btnBack, BorderLayout.CENTER);
 
         JButton btnOnlineOrder = new JButton("Online ordre");
-        panel_1.add(btnOnlineOrder);
+        //btnOnlineOrder.addActionListener(e -> onlineOrder());
+        buttonsPanel.add(btnOnlineOrder);
     }
 
     private void goBack() {
@@ -66,9 +82,5 @@ public class OrderMenu extends JFrame {
 
     private void showCustomerPopUp() {
         maingui.switchToPopUp();
-    }
-
-    private void deleteOrder() {
-        // Delete order her
     }
 }

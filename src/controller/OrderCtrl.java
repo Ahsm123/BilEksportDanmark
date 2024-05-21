@@ -1,7 +1,5 @@
 package controller;
 
-import model.Customer;
-import model.Employee;
 import model.EmptyOrderException;
 import model.Order;
 import model.database.CarAlreadySoldException;

@@ -52,7 +52,7 @@ public class OrderDB implements OrderDBIF {
 		saveOrder.setInt(6, order.getEmployeeId());
 		
 		order.setId(con.executeInsertWithIdentity(saveOrder));
-
+		
 		order.getCopies().forEach(copy -> {
 			try {
 				saveCopyOrder(copy.getId(), order.getId());

@@ -16,20 +16,32 @@ import java.util.LinkedList;
 
 public class OrderInfo extends JFrame {
     private static final long serialVersionUID = 1L;
+    private static final int PADDING = 5;
 
-    private final OrderCtrl orderCtrl;
-    private final Main maingui;
-    private boolean threadNeedsToRun = true;
-
+    private JPanel mainPanel;
     private JPanel contentPane;
-    private JTextField barcodeField;
     private JPanel centerOfPanels;
+    
     private LinkedList<CopyPanel> carPanels;
-    private CarCtrl carCtrl;
     private CheckIfSoldThread thread;
+    private volatile boolean threadNeedsToRun = true;
+    
+    private CarCtrl carCtrl;
+    private OrderCtrl orderCtrl;
+    private Main maingui;
 
     public OrderInfo(OrderCtrl orderCtrl) {
-        maingui = Main.getInstance();
+    	init(orderCtrl);
+    	createFrame();
+        createContentPane();
+        createMainPanel();
+        createDetailsPanel();
+        createFooter();
+        createOrderOverviewPanel();
+    }
+    
+    private void init(OrderCtrl orderCtrl) {
+    	maingui = Main.getInstance();
         this.orderCtrl = orderCtrl;
         try {
             this.carCtrl = new CarCtrl(new CarDB());
@@ -38,82 +50,93 @@ public class OrderInfo extends JFrame {
         }
         this.carPanels = new LinkedList<>();
         thread = new CheckIfSoldThread(orderCtrl, this);
+    }
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    private void createFrame() {
+    	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 450, 300);
-        contentPane = new JPanel();
-        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
+    }
+    
+    private void createContentPane() {
+    	contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(PADDING, PADDING, PADDING, PADDING));
         setContentPane(contentPane);
         contentPane.setLayout(new BorderLayout(0, 0));
+    }
+    
+    private void createMainPanel() {
+    	mainPanel = new JPanel();
+        contentPane.add(mainPanel);
+        mainPanel.setLayout(new BorderLayout(0, 0));
+    }
+    
+    private void createDetailsPanel() {
+    	 JPanel carDetailsPanel = new JPanel();
+         mainPanel.add(carDetailsPanel, BorderLayout.WEST);
+         carDetailsPanel.setLayout(new FlowLayout(FlowLayout.CENTER, PADDING, PADDING));
 
-        JPanel panel_1 = new JPanel();
-        contentPane.add(panel_1);
-        panel_1.setLayout(new BorderLayout(0, 0));
+         JPanel inputFieldPanel = new JPanel();
+         carDetailsPanel.add(inputFieldPanel);
+         inputFieldPanel.setLayout(new GridLayout(0, 1, 0, 0));
 
-        JPanel panel = new JPanel();
-        panel_1.add(panel, BorderLayout.WEST);
-        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+         JPanel vinInputPanel = new JPanel();
+         inputFieldPanel.add(vinInputPanel);
+         vinInputPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, PADDING, PADDING));
 
-        JPanel panel_5 = new JPanel();
-        panel.add(panel_5);
-        panel_5.setLayout(new GridLayout(0, 1, 0, 0));
+         JLabel lblBarcode = new JLabel("Vin");
+         vinInputPanel.add(lblBarcode);
 
-        JPanel panel_3_1 = new JPanel();
-        panel_5.add(panel_3_1);
-        panel_3_1.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
+         JTextField barcodeField = new JTextField();
+         barcodeField.setText("123456789abcdefgh");
+         barcodeField.setColumns(10);
+         vinInputPanel.add(barcodeField);
 
-        JLabel lblBarcode = new JLabel("Vin");
-        panel_3_1.add(lblBarcode);
+         JPanel addCarPanel = new JPanel();
+         inputFieldPanel.add(addCarPanel);
+         addCarPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, PADDING, PADDING));
 
-        barcodeField = new JTextField();
-        barcodeField.setText("123456789abcdefgh");
-        barcodeField.setColumns(10);
-        panel_3_1.add(barcodeField);
+         JButton btnConfirm = new JButton("Tilføj");
+         btnConfirm.addActionListener(e -> addCar(barcodeField.getText()));
+         addCarPanel.add(btnConfirm);
+    }
+    
+    private void createOrderOverviewPanel() {
+    	JPanel orderOverviewPanel = new JPanel();
+        mainPanel.add(orderOverviewPanel);
+        orderOverviewPanel.setLayout(new BorderLayout(0, 0));
 
-        JPanel panel_3_2 = new JPanel();
-        panel_5.add(panel_3_2);
-        panel_3_2.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
-
-        JButton btnConfirm = new JButton("Tilføj");
-        btnConfirm.addActionListener(e -> addCar(barcodeField.getText()));
-        panel_3_2.add(btnConfirm);
-
-        JPanel panel_2_1 = new JPanel();
-        panel_1.add(panel_2_1);
-        panel_2_1.setLayout(new BorderLayout(0, 0));
-
-        JPanel panel_4 = new JPanel();
-        panel_2_1.add(panel_4, BorderLayout.NORTH);
+        JPanel titlePanel = new JPanel();
+        orderOverviewPanel.add(titlePanel, BorderLayout.NORTH);
 
         JLabel lblOrderInfo = new JLabel("Ordreoversigt");
-        panel_4.add(lblOrderInfo);
+        titlePanel.add(lblOrderInfo);
 
-        JPanel panel_2 = new JPanel();
-        FlowLayout flowLayout = (FlowLayout) panel_2.getLayout();
-        flowLayout.setHgap(100);
-        flowLayout.setAlignment(FlowLayout.RIGHT);
-        contentPane.add(panel_2, BorderLayout.SOUTH);
-
-        JButton btnOrderCancel = new JButton("Annuller");
-        btnOrderCancel.addActionListener(e -> cancel());
-        panel_2.add(btnOrderCancel);
-
-        JButton btnOrderConfirm = new JButton("Bekræft");
-        btnOrderConfirm.addActionListener(e -> confirm());
-        panel_2.add(btnOrderConfirm);
-
-        // Setup til at have flere cars
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        panel_2_1.add(scrollPane, BorderLayout.CENTER);
+        orderOverviewPanel.add(scrollPane, BorderLayout.CENTER);
 
         centerOfPanels = new JPanel();
         centerOfPanels.setLayout(new BoxLayout(centerOfPanels, BoxLayout.Y_AXIS));
         scrollPane.setViewportView(centerOfPanels);
     }
+    
+    private void createFooter() {
+        JPanel footerPanel = new JPanel();
+        FlowLayout fl_footerPanel = (FlowLayout) footerPanel.getLayout();
+        fl_footerPanel.setHgap(100);
+        fl_footerPanel.setAlignment(FlowLayout.RIGHT);
+        contentPane.add(footerPanel, BorderLayout.SOUTH);
 
+        JButton btnOrderCancel = new JButton("Annuller");
+        btnOrderCancel.addActionListener(e -> cancel());
+        footerPanel.add(btnOrderCancel);
+
+        JButton btnOrderConfirm = new JButton("Bekræft");
+        btnOrderConfirm.addActionListener(e -> confirm());
+        footerPanel.add(btnOrderConfirm);
+    }
+    
     public boolean needsToRun() {
         return threadNeedsToRun;
     }
@@ -155,10 +178,12 @@ public class OrderInfo extends JFrame {
                 orderlinePanel.add(btnDelete);
 
                 orderlinePanel.revalidate();
-            } else {
+            } 
+            else {
                 throw new CarAlreadySoldException("Bil allerede solgt");
             }
-        } catch (DataAccessException e) {
+        } 
+        catch (DataAccessException e) {
             System.out.println(e);
         }
     }
@@ -179,7 +204,6 @@ public class OrderInfo extends JFrame {
 
     private void cancel() {
         threadNeedsToRun = false;
-
         maingui.goBack();
     }
 
@@ -188,7 +212,8 @@ public class OrderInfo extends JFrame {
             threadNeedsToRun = false;
             orderCtrl.confirmOrder();
             maingui.createOrderPrint();
-        } catch (SQLException | DataAccessException | EmptyOrderException e) {
+        } 
+        catch (SQLException | DataAccessException | EmptyOrderException e) {
             e.printStackTrace();
         }
     }
@@ -225,7 +250,8 @@ public class OrderInfo extends JFrame {
                         orderInfo.deletedPanelAlert();
                     }
                     sleep(SLEEP_TIME);
-                } catch (InterruptedException | SQLException e) {
+                } 
+                catch (InterruptedException | SQLException e) {
                     e.printStackTrace();
                 }
             }

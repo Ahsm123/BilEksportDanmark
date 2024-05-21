@@ -75,12 +75,11 @@ public class OrderPrint extends JFrame {
 	    mainPanel.add(orderCopiesPane, BorderLayout.CENTER);
 	    
 	    centerOfPanes = new JPanel();
-	    centerOfPanes.setLayout(new BoxLayout(centerOfPanes, BoxLayout.Y_AXIS)); // Use BoxLayout with Y_AXIS alignment
+	    centerOfPanes.setLayout(new BoxLayout(centerOfPanes, BoxLayout.Y_AXIS));
 	    orderCopiesPane.setViewportView(centerOfPanes);
 	    
 	    for(Copy copy : order.getCopies()) {
 	        addCopy(copy.getPrice(), copy.getVin());
-	        centerOfPanes.add(Box.createVerticalStrut(10)); // Add vertical spacing between copy panels
 	    }
 	}
 	
