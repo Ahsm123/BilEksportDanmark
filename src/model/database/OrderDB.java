@@ -1,15 +1,12 @@
 package model.database;
 
 import java.sql.Connection;
-
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
+
 import java.util.HashSet;
 
-import model.Copy;
 import model.Order;
 import model.exceptions.DataAccessException;
 
@@ -30,13 +27,14 @@ public class OrderDB implements OrderDBIF {
 
 	public OrderDB() throws SQLException {
 		try {
-			alreadyCheckedSoldCopies = new HashMap<>();
+			alreadyCheckedSoldCopies = new HashSet<>();
 			connection = DBConnection.getInstance().getConnection();
 			saveOrder = connection.prepareStatement(SAVE_ORDER_Q, Statement.RETURN_GENERATED_KEYS);
 			saveCopyOrder = connection.prepareStatement(SAVE_COPY_ORDER_Q);
 			deleteOrder = connection.prepareStatement(DELETE_ORDER);
 			findAssosiatedOrderCopy = connection.prepareStatement(FIND_ORDER_ASSOSIATED_WITH_COPY);
-		} catch (Exception e) {
+		} 
+		catch (Exception e) {
 			throw new SQLException("Error creating OrderDB", e);
 		}
 	}
@@ -45,6 +43,7 @@ public class OrderDB implements OrderDBIF {
 	public void saveOrder(Order order) throws SQLException, DataAccessException {
 		DBConnection con = DBConnection.getInstance();
 		con.startTransaction();
+		
 		System.out.println(order.getDate() + " " + order.getTotalPrice() + " " + order.isDelivered() + " " + order.getCustomer().getDeliveryAddressId() + " " + order.getCustomer().getId());
 		saveOrder.setString(1, order.getDate());
 		saveOrder.setDouble(2, order.getTotalPrice());
@@ -58,10 +57,12 @@ public class OrderDB implements OrderDBIF {
 		order.getCopies().forEach(copy -> {
 			try {
 				saveCopyOrder(copy.getId(), order.getId());
-			} catch (SQLException e) {
+			} 
+			catch (SQLException e) {
 				e.printStackTrace();
 			}
 		});
+		
 		con.commitTransaction();
 	}
 
