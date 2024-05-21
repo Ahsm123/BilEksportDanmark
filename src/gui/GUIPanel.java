@@ -6,17 +6,16 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public abstract class CommonAttributes extends JFrame {
+public abstract class GUIPanel extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private int FRAME_WIDTH = 450;
 	private int FRAME_HEIGHT = 300;
+	
 	protected static final int PADDING = 5;
-	
 	protected Main maingui;
-	
 	protected JPanel contentPane;
 	
-	public CommonAttributes(int width, int height) {
+	public GUIPanel(int width, int height) {
 		maingui = Main.getInstance();
 		
 		FRAME_WIDTH = width;

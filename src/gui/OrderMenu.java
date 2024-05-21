@@ -4,7 +4,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-public class OrderMenu extends CommonAttributes {
+public class OrderMenu extends GUIPanel {
 
     private static final long serialVersionUID = 1L;
 

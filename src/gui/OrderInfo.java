@@ -13,7 +13,7 @@ import java.awt.*;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
-public class OrderInfo extends CommonAttributes {
+public class OrderInfo extends GUIPanel {
 	private static final long serialVersionUID = 1L;
 	private JPanel mainPanel;
     private JPanel centerOfPanels;
@@ -46,8 +46,6 @@ public class OrderInfo extends CommonAttributes {
         thread = new CheckIfSoldThread(orderCtrl, this);
     }
 
-    
-    
     private void createMainPanel() {
     	mainPanel = new JPanel();
         contentPane.add(mainPanel);
@@ -126,7 +124,6 @@ public class OrderInfo extends CommonAttributes {
     }
 
     private void addCar(String input) {
-        
         try {
 			createCarPanel(input);
 		} 

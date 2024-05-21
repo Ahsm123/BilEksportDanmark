@@ -16,7 +16,7 @@ import javax.swing.SwingConstants;
 import model.Copy;
 import model.Order;
 
-public class OrderPrint extends CommonAttributes {
+public class OrderPrint extends GUIPanel {
 	private static final long serialVersionUID = 1L;
 	private DecimalFormat formatter = new DecimalFormat("0.00");
 

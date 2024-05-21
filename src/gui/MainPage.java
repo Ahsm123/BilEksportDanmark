@@ -6,15 +6,13 @@ import java.awt.CardLayout;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
 import model.database.DBConnection;
 import model.exceptions.DataAccessException;
 
-public class MainPage extends CommonAttributes {
+public class MainPage extends GUIPanel {
 	private static final long serialVersionUID = 1L;
 
 	public MainPage() {
