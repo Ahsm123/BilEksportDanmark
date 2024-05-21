@@ -197,7 +197,8 @@ public class OrderInfo extends JFrame {
             centerOfPanels.remove(panelToDelete.getPanel());
             revalidate();
             repaint();
-        } catch (EmptyOrderException e) {
+        } 
+        catch (EmptyOrderException e) {
             e.printStackTrace();
         }
     }
@@ -213,17 +214,24 @@ public class OrderInfo extends JFrame {
             orderCtrl.confirmOrder();
             maingui.createOrderPrint();
         } 
-        catch (SQLException | DataAccessException | EmptyOrderException e) {
-        	JOptionPane.showMessageDialog(null, e, "Fejl", JOptionPane.PLAIN_MESSAGE);
+        catch (SQLException | DataAccessException e) {
+        	showErrorPopup("Database fejl");
+        }
+        catch (EmptyOrderException e) {
+        	showErrorPopup("Ingen bil i ordren");
         }
     }
 
+    private void showErrorPopup(String e) {
+    	JOptionPane.showMessageDialog(null, e, "Fejl", JOptionPane.PLAIN_MESSAGE);
+    }
+    
     public LinkedList<CopyPanel> getPanels() {
         return carPanels;
     }
 
     public void deletedPanelAlert() {
-        JOptionPane.showMessageDialog(null, "En eller flere biler på ordren er allerede solgt og er derfor blevet fjernet", "Notice", JOptionPane.PLAIN_MESSAGE);
+        showErrorPopup("En eller flere biler på ordren er allerede solgt og er derfor blevet fjernet");
     }
 
     class CheckIfSoldThread extends Thread {
