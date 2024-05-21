@@ -3,6 +3,8 @@ package model;
 import java.util.LinkedList;
 import java.util.stream.Collectors;
 
+import model.exceptions.CopyNotInOrderException;
+
 public class Order {
 	private int orderId;
 	private String date;
@@ -36,36 +38,29 @@ public class Order {
 	public int getId() {
 		return orderId;
 	}
-
-	public boolean hasCopy(Copy copy) {
-		return copyPosition(copy) != -1;
-	}
 	
-	private int copyPosition(Copy copy) {
+	public boolean hasCopy(Copy copy) {
+		return copies.contains(copy);
+	}
+
+	private boolean removeCopyByCopyObject(Copy copy) {
 		boolean found = false;
 		int i = -1;
 		while(!found && ++i < copies.size()) {
 			Copy currentCopy = copies.get(i);
 			if(currentCopy.getVin().equals(copy.getVin())) {
+				copies.remove(i);
 				found = true;
 			}
 		}
-		if(!found) {
-			return -1;
-		}
-		else {
-			return i;
-		}	
+		return found;
 	}
 	
-	public void removeCopy(String copyVin) {
+	public void removeCopyByVin(String copyVin) {
 		Copy copy = getCopyFromId(copyVin);
 		
-		if(hasCopy(copy)) {
-			copies.remove(copyPosition(copy));
-		}
-		else {
-			throw new CopyNotInOrder("Kan ikke fjerne bilen da den ikke er i ordren");
+		if(!removeCopyByCopyObject(copy)) {
+			throw new CopyNotInOrderException("Kan ikke fjerne bilen da den ikke er i ordren");
 		}
 	}
 	
@@ -87,7 +82,6 @@ public class Order {
 		return copies.stream()
                 .mapToDouble(Copy::getPrice)
                 .sum();
-
 	}
 
 	public String getDate() {

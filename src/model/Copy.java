@@ -89,7 +89,4 @@ public class Copy extends Car{
 	public void setIsInspected(boolean isInspected) {
 		this.isInspected = isInspected;
 	}
-	
-	
-
 }

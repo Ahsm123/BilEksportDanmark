@@ -3,10 +3,10 @@ package gui;
 import controller.CarCtrl;
 import controller.OrderCtrl;
 import model.Copy;
-import model.EmptyOrderException;
 import model.database.CarAlreadySoldException;
 import model.database.CarDB;
 import model.database.DataAccessException;
+import model.exceptions.EmptyOrderException;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

@@ -11,12 +11,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import controller.OrderCtrl;
-import model.CopyAlreadyInOrderException;
 import model.Customer;
-import model.EmptyOrderException;
 import model.Order;
 import model.database.CarAlreadySoldException;
 import model.database.DataAccessException;
+import model.exceptions.CopyAlreadyInOrderException;
+import model.exceptions.EmptyOrderException;
 
 public class OrderCtrlTest {
 

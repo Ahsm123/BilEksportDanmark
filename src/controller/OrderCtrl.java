@@ -1,6 +1,5 @@
 package controller;
 
-import model.EmptyOrderException;
 import model.Order;
 import model.database.CarAlreadySoldException;
 import model.database.CarDB;
@@ -12,9 +11,11 @@ import model.database.InvoiceDB;
 import model.database.InvoiceDBIF;
 import model.database.OrderDB;
 import model.database.OrderDBIF;
+import model.exceptions.CopyAlreadyInOrderException;
+import model.exceptions.EmptyOrderException;
+
 import java.sql.SQLException;
 import model.Copy;
-import model.CopyAlreadyInOrderException;
 
 public class OrderCtrl {
 	private OrderDBIF orderDB;
@@ -38,7 +39,7 @@ public class OrderCtrl {
 	}
 
 	public void removeCopy(String copyVin) {	
-		currentOrder.removeCopy(copyVin);
+		currentOrder.removeCopyByVin(copyVin);
 	}
 	
 	public Order createOrder(String phoneNo, int employeeId) throws NullPointerException, DataAccessException {

@@ -1,7 +1,5 @@
 package model;
 
-import java.util.LinkedList;
-
 public class Car {
 	private int milage;
 	private String manufacturer;
@@ -13,9 +11,6 @@ public class Car {
 	private double acceleration;
 	private int topSpeed;
 	private int noOfGears;
-	private LinkedList<Copy> copies;
-	
-
 	
 	public Car(int milage,String manufacturer,String model,String fuelType,double co2Emission,
 			int hp,double acceleration,int topSpeed,String gearType,int noOfGears){
@@ -30,7 +25,6 @@ public class Car {
 		this.topSpeed=topSpeed;
 		this.gearType=gearType;
 		this.noOfGears=noOfGears;
-		this.copies= new LinkedList<>();
 }
 
 	public int getMilage() {
@@ -112,7 +106,4 @@ public class Car {
 	public void setNoOfGears(int noOfGears) {
 		this.noOfGears = noOfGears;
 	}
-	
-	
-	
 }

@@ -1,4 +1,4 @@
-package model;
+package model.exceptions;
 
 public class CopyAlreadyInOrderException extends RuntimeException{
 	private static final long serialVersionUID = 2L;
