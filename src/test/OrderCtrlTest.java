@@ -13,9 +13,9 @@ import org.junit.Test;
 import controller.OrderCtrl;
 import model.Customer;
 import model.Order;
-import model.database.CarAlreadySoldException;
-import model.database.DataAccessException;
+import model.exceptions.CarAlreadySoldException;
 import model.exceptions.CopyAlreadyInOrderException;
+import model.exceptions.DataAccessException;
 import model.exceptions.EmptyOrderException;
 
 public class OrderCtrlTest {

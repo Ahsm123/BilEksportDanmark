@@ -3,7 +3,7 @@ package controller;
 import model.Copy;
 import model.database.CarDB;
 import model.database.CarDBIF;
-import model.database.DataAccessException;
+import model.exceptions.DataAccessException;
 
 public class CarCtrl {
 

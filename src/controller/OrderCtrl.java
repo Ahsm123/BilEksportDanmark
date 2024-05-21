@@ -1,17 +1,17 @@
 package controller;
 
 import model.Order;
-import model.database.CarAlreadySoldException;
 import model.database.CarDB;
 import model.database.CarDBIF;
 import model.database.CustomerDB;
 import model.database.CustomerDBIF;
-import model.database.DataAccessException;
 import model.database.InvoiceDB;
 import model.database.InvoiceDBIF;
 import model.database.OrderDB;
 import model.database.OrderDBIF;
+import model.exceptions.CarAlreadySoldException;
 import model.exceptions.CopyAlreadyInOrderException;
+import model.exceptions.DataAccessException;
 import model.exceptions.EmptyOrderException;
 
 import java.sql.SQLException;

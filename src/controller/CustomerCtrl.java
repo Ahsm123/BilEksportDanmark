@@ -1,7 +1,7 @@
 package controller;
 import model.Customer;
 import model.database.CustomerDBIF;
-import model.database.DataAccessException;
+import model.exceptions.DataAccessException;
 
 public class CustomerCtrl {
 	private CustomerDBIF customerDB;

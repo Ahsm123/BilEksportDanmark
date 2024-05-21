@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import model.Customer;
+import model.exceptions.DataAccessException;
 
 public class CustomerDB implements CustomerDBIF {
 

@@ -3,9 +3,9 @@ package gui;
 import controller.CarCtrl;
 import controller.OrderCtrl;
 import model.Copy;
-import model.database.CarAlreadySoldException;
 import model.database.CarDB;
-import model.database.DataAccessException;
+import model.exceptions.CarAlreadySoldException;
+import model.exceptions.DataAccessException;
 import model.exceptions.EmptyOrderException;
 
 import javax.swing.*;

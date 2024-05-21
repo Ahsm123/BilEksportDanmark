@@ -1,4 +1,4 @@
-package model.database;
+package model.exceptions;
 
 public class DataAccessException extends Exception {
 	private static final long serialVersionUID = 1L;

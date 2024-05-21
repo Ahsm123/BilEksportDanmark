@@ -2,7 +2,7 @@ package test;
 
 import model.Copy;
 import model.database.CarDBIF;
-import model.database.DataAccessException;
+import model.exceptions.DataAccessException;
 
 public class CarDBStub implements CarDBIF {
 

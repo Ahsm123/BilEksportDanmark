@@ -8,6 +8,8 @@ import java.time.LocalDate;
 import model.Invoice;
 import model.Order;
 import model.database.*;
+import model.exceptions.DataAccessException;
+
 import java.sql.*;
 
 public class InvoiceDB implements InvoiceDBIF {

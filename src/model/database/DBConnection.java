@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import model.exceptions.DataAccessException;
+
 public class DBConnection {
 	private Connection connection = null;
 	private static DBConnection dbConnection;

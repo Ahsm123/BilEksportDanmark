@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import model.database.DBConnection;
-import model.database.DataAccessException;
+import model.exceptions.DataAccessException;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;

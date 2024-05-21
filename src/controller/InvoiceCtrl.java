@@ -4,9 +4,9 @@ import java.sql.SQLException;
 
 import model.Invoice;
 import model.Order;
-import model.database.DataAccessException;
 import model.database.InvoiceDB;
 import model.database.InvoiceDBIF;
+import model.exceptions.DataAccessException;
 
 public class InvoiceCtrl {
 

@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import model.Car;
 import model.Copy;
+import model.exceptions.DataAccessException;
 
 
 

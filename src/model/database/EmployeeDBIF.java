@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import model.Employee;
 import model.Person;
+import model.exceptions.DataAccessException;
 
 public interface EmployeeDBIF {
 	public Employee findEmployee(int id) throws DataAccessException;

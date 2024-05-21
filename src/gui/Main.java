@@ -11,7 +11,7 @@ import javax.swing.JDialog;
 import controller.CustomerCtrl;
 import controller.OrderCtrl;
 import model.database.CustomerDB;
-import model.database.DataAccessException;
+import model.exceptions.DataAccessException;
 
 public class Main {	
 	private Window currentFrame;

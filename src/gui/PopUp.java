@@ -16,7 +16,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import controller.OrderCtrl;
-import model.database.DataAccessException;
+import model.exceptions.DataAccessException;
 import controller.CustomerCtrl;
 
 public class PopUp extends JDialog {
