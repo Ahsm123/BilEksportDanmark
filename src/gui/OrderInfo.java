@@ -242,7 +242,7 @@ public class OrderInfo extends GUIPanel {
                     sleep(SLEEP_TIME);
                 } 
                 catch (InterruptedException | SQLException e) {
-                    showErrorPopup("Kunne ikke tjekke om nogle biler er solgt");
+                    showErrorPopup("Kunne ikke automatisk fjerne solgte biler");
                 }
             }
         }
