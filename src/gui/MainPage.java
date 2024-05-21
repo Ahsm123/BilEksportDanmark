@@ -3,7 +3,6 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.EventQueue;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
@@ -15,21 +14,12 @@ import javax.swing.border.EmptyBorder;
 import model.database.DBConnection;
 import model.exceptions.DataAccessException;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-public class MainPage extends JFrame {
+public class MainPage extends CommonAttributes {
 	private static final long serialVersionUID = 1L;
-	private static final int PADDING = 5;
-	
-	private Main maingui;
-	
-	private JPanel contentPane;
 
 	public MainPage() {
+		super(450, 300);
 		init();
-		createFrame();
-		createContentPane();
 		createButtonsPanel();
 		createHeaderPanel();
 	}
@@ -37,23 +27,10 @@ public class MainPage extends JFrame {
 	private void init() {
 		try {
 			DBConnection.getInstance();
-			maingui = Main.getInstance();
 		} 
 		catch (DataAccessException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	private void createFrame() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-	}
-	
-	private void createContentPane() {
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(PADDING, PADDING, PADDING, PADDING));
-		setContentPane(contentPane);
-		contentPane.setLayout(new BorderLayout(0, 0));
 	}
 	
 	private void createButtonsPanel() {

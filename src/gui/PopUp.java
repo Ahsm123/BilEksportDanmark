@@ -20,30 +20,30 @@ import model.exceptions.DataAccessException;
 import controller.CustomerCtrl;
 
 public class PopUp extends JDialog {
-	private Main maingui;
 	private static final long serialVersionUID = 1L;
 	private static final int PADDING = 5;
+	
 	private OrderCtrl orderCtrl;
 	private CustomerCtrl customerCtrl;
+	private Main maingui;
 	
 	private JPanel contentPanel = new JPanel();
 	private JTextField textField;
 
-	
 	public PopUp(OrderCtrl orderCtrl, CustomerCtrl customerCtrl) {
-        this.maingui = Main.getInstance();
-        this.orderCtrl = orderCtrl;
-        this.customerCtrl = customerCtrl;
-        
-        initialize();
+        initialize(orderCtrl, customerCtrl);
         
         createContentPanel();
         createButtonsPanel();
     }
 
-    private void initialize() {
-        setModal(true);
-        setBounds(100, 100, 450, 300);        
+    private void initialize(OrderCtrl orderCtrl, CustomerCtrl customerCtrl) {
+    	 this.maingui = Main.getInstance();
+         this.orderCtrl = orderCtrl;
+         this.customerCtrl = customerCtrl;
+    	
+         setModal(true);
+         setBounds(100, 100, 450, 300);        
     }
 
     private void createContentPanel() {

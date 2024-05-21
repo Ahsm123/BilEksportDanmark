@@ -9,17 +9,13 @@ import model.exceptions.DataAccessException;
 import model.exceptions.EmptyOrderException;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
-public class OrderInfo extends JFrame {
-    private static final long serialVersionUID = 1L;
-    private static final int PADDING = 5;
-
-    private JPanel mainPanel;
-    private JPanel contentPane;
+public class OrderInfo extends CommonAttributes {
+	private static final long serialVersionUID = 1L;
+	private JPanel mainPanel;
     private JPanel centerOfPanels;
     
     private LinkedList<CopyPanel> carPanels;
@@ -28,12 +24,10 @@ public class OrderInfo extends JFrame {
     
     private CarCtrl carCtrl;
     private OrderCtrl orderCtrl;
-    private Main maingui;
 
     public OrderInfo(OrderCtrl orderCtrl) {
+    	super(450, 300);
     	init(orderCtrl);
-    	createFrame();
-        createContentPane();
         createMainPanel();
         createDetailsPanel();
         createFooter();
@@ -52,17 +46,7 @@ public class OrderInfo extends JFrame {
         thread = new CheckIfSoldThread(orderCtrl, this);
     }
 
-    private void createFrame() {
-    	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 450, 300);
-    }
     
-    private void createContentPane() {
-    	contentPane = new JPanel();
-        contentPane.setBorder(new EmptyBorder(PADDING, PADDING, PADDING, PADDING));
-        setContentPane(contentPane);
-        contentPane.setLayout(new BorderLayout(0, 0));
-    }
     
     private void createMainPanel() {
     	mainPanel = new JPanel();
@@ -142,10 +126,15 @@ public class OrderInfo extends JFrame {
     }
 
     private void addCar(String input) {
+        
         try {
-            createCarPanel(input);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e, "Fejl", JOptionPane.PLAIN_MESSAGE);
+			createCarPanel(input);
+		} 
+        catch (CarAlreadySoldException e) {
+			showErrorPopup("Bil allerede solgt");
+        }
+        catch (SQLException e) {
+        	showErrorPopup("Database fejl");
         }
     }
 
@@ -184,7 +173,7 @@ public class OrderInfo extends JFrame {
             }
         } 
         catch (DataAccessException e) {
-            System.out.println(e);
+            showErrorPopup("Database fejl");
         }
     }
 
@@ -199,7 +188,7 @@ public class OrderInfo extends JFrame {
             repaint();
         } 
         catch (EmptyOrderException e) {
-            e.printStackTrace();
+            showErrorPopup("Ingen bil i ordren");
         }
     }
 
@@ -230,10 +219,6 @@ public class OrderInfo extends JFrame {
         return carPanels;
     }
 
-    public void deletedPanelAlert() {
-        showErrorPopup("En eller flere biler på ordren er allerede solgt og er derfor blevet fjernet");
-    }
-
     class CheckIfSoldThread extends Thread {
         private final OrderInfo orderInfo;
         private final OrderCtrl orderCtrl;
@@ -255,12 +240,12 @@ public class OrderInfo extends JFrame {
                         }
                     }
                     if (hasDeletedPanels) {
-                        orderInfo.deletedPanelAlert();
+                        orderInfo.showErrorPopup("En eller flere biler på ordren er allerede solgt og er derfor blevet fjernet");
                     }
                     sleep(SLEEP_TIME);
                 } 
                 catch (InterruptedException | SQLException e) {
-                    e.printStackTrace();
+                    showErrorPopup("Kunne ikke tjekke om nogle biler er solgt");
                 }
             }
         }

@@ -34,7 +34,7 @@ public class EmployeeDB implements EmployeeDBIF {
 			ResultSet rs = findById.executeQuery();
 
 			if (rs.next()) {
-				employee = buildObject(rs, buildPersonObject(rs));
+				employee = buildObject(rs);
 			}
 		} 
 		catch (SQLException e) {
@@ -43,19 +43,13 @@ public class EmployeeDB implements EmployeeDBIF {
 		return employee;
 	}
 	
-	public Employee buildObject(ResultSet rs, Person person) throws SQLException {
-		Employee employee = new Employee(person);
+	public Employee buildObject(ResultSet rs) throws SQLException {
+		Employee employee = new Employee(rs.getString("fname" + " " + rs.getString("lname")),
+										rs.getString("phone"),
+										rs.getString("email"));
 		
 		employee.setSalary(rs.getFloat("salary"));
 		
 		return employee;
-	}
-	
-	public Person buildPersonObject(ResultSet rs) throws SQLException {
-		String email = rs.getString("email");
-		String name = rs.getString("fname" + " " + rs.getString("lname"));
-		String phone = rs.getString("phone");
-		
-		return new Person(name, phone, email);
 	}
 }

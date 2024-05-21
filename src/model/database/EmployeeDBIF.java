@@ -9,6 +9,5 @@ import model.exceptions.DataAccessException;
 
 public interface EmployeeDBIF {
 	public Employee findEmployee(int id) throws DataAccessException;
-	public Employee buildObject(ResultSet rs, Person person) throws SQLException;
-	public Person buildPersonObject(ResultSet rs) throws SQLException;
+	public Employee buildObject(ResultSet rs) throws SQLException;
 }

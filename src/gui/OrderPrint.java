@@ -7,52 +7,30 @@ import java.text.DecimalFormat;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
 
 import model.Copy;
 import model.Order;
 
-public class OrderPrint extends JFrame {
+public class OrderPrint extends CommonAttributes {
 	private static final long serialVersionUID = 1L;
-	private static final int FRAME_WIDTH = 450;
-	private static final int FRAME_HEIGHT = 800;
-	private static final int PADDING = 5;
 	private DecimalFormat formatter = new DecimalFormat("0.00");
-	
-	private Main maingui;
-	
-	private JPanel contentPane;
+
 	private JPanel mainPanel;	
 	private JPanel centerOfPanes;
 	private JScrollPane orderCopiesPane;
 	
 	public OrderPrint(Order order) {
-		maingui = Main.getInstance();
+		super(450, 800);
 		
-		createFrame();
-		createContentPane();
 		createMainPanel();
 		addCopyPanels(order);
 		createHeader(order);
 		createFooter(order);	
-	}
-	
-	private void createFrame() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, FRAME_WIDTH, FRAME_HEIGHT);
-	}
-	
-	private void createContentPane() {
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(PADDING, PADDING, PADDING, PADDING));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
 	}
 	
 	private void createMainPanel() {

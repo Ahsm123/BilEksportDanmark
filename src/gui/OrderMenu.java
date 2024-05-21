@@ -4,33 +4,15 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-public class OrderMenu extends JFrame {
+public class OrderMenu extends CommonAttributes {
 
     private static final long serialVersionUID = 1L;
-    private static final int PADDING = 5;
-    private Main maingui;
-    private JPanel contentPane;
 
     public OrderMenu() {
-        maingui = Main.getInstance();
-
-        createFrame();
-        createContentPane();
+    	super(450, 300);
+ 
         createTitlePanel();
         createButtonsPanel();        
-    }
-    
-    private void createFrame() {
-    	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 450, 300);
-    }
-    
-    private void createContentPane() {
-        contentPane = new JPanel();
-        contentPane.setBorder(new EmptyBorder(PADDING, PADDING, PADDING, PADDING));
-
-        setContentPane(contentPane);
-        contentPane.setLayout(new BorderLayout(0, 0));
     }
     
     private void createTitlePanel() {

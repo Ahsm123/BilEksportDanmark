@@ -1,6 +1,6 @@
 package model;
 
-public class Person {
+public abstract class Person {
 	public String name;
 	public String phoneNo;
 	public String email;
