@@ -1,26 +1,19 @@
 package model;
 
-import java.time.LocalDate;
 import java.util.Random;
 
 public class Invoice {
 	private int id;
-	private LocalDate paymentDate;
-	private double total;
 	private int orderId;
-
+	private double total;
 	
-	public Invoice( LocalDate paymentDate, int id, double total, int orderId) {
-		super();
+	private String paymentDate;
+	
+	public Invoice(String paymentDate, int id, double total, int orderId) {
 		this.paymentDate = paymentDate;
 		this.id = id;
 		this.total = total;
 		this.orderId = orderId;
-	}
-	
-	public Invoice() {
-		
-		
 	}
 	
 	public double euroRandomizer() {
@@ -63,18 +56,12 @@ public class Invoice {
 
 
 
-	public LocalDate getPaymentDate() {
+	public String getPaymentDate() {
 		return paymentDate;
 	}
 
 
-	public void setPaymentDate(LocalDate paymentDate) {
+	public void setPaymentDate(String paymentDate) {
 		this.paymentDate = paymentDate;
 	}
-	
-	
-	
-
-
-
 }

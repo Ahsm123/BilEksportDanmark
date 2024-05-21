@@ -1,6 +1,5 @@
 package model.database;
 
-
 import model.Copy;
 import model.exceptions.DataAccessException;
 

@@ -12,7 +12,4 @@ public interface OrderDBIF {
 	public boolean isCopyInAnOrder(String vin) throws SQLException;
 
 	public void deleteOrder(int orderId) throws SQLException, DataAccessException;
-	
-	
-
 }

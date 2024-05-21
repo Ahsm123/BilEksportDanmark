@@ -214,7 +214,7 @@ public class OrderInfo extends JFrame {
             maingui.createOrderPrint();
         } 
         catch (SQLException | DataAccessException | EmptyOrderException e) {
-            e.printStackTrace();
+        	JOptionPane.showMessageDialog(null, e, "Fejl", JOptionPane.PLAIN_MESSAGE);
         }
     }
 

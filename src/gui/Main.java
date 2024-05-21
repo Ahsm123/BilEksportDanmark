@@ -51,8 +51,8 @@ public class Main {
 		} 
         catch (SQLException e) {
 			e.printStackTrace();
-		} catch (DataAccessException e) {
-			// TODO Auto-generated catch block
+		} 
+        catch (DataAccessException e) {
 			e.printStackTrace();
 		}
 	}

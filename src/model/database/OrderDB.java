@@ -11,8 +11,8 @@ import model.Order;
 import model.exceptions.DataAccessException;
 
 public class OrderDB implements OrderDBIF {
-
 	private Connection connection;
+	
 	private PreparedStatement saveOrder;
 	private PreparedStatement saveCopyOrder;
 	private PreparedStatement findAssosiatedOrderCopy;

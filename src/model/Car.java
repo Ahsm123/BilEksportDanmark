@@ -25,7 +25,7 @@ public class Car {
 		this.topSpeed=topSpeed;
 		this.gearType=gearType;
 		this.noOfGears=noOfGears;
-}
+	}
 
 	public int getMilage() {
 		return milage;

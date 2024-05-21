@@ -57,7 +57,8 @@ public class CarDB implements CarDBIF {
 			copy.setIsInspected(rs.getBoolean("isInspected"));
 			
 			result = copy;
-		} catch (SQLException e) {
+		} 
+		catch (SQLException e) {
 			throw new DataAccessException("Error building common attributes", e);
 		} 
 		return result;
@@ -74,7 +75,8 @@ public class CarDB implements CarDBIF {
 				res = buildCopy(rs);
 			}
 
-		} catch (SQLException e) {
+		} 
+		catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return res;

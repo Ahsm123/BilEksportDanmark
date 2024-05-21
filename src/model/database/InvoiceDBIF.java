@@ -8,5 +8,4 @@ import model.exceptions.DataAccessException;
 
 public interface InvoiceDBIF {
 	void saveInvoiceInDB(Order order) throws SQLException, DataAccessException;
-	
 }
