@@ -38,7 +38,6 @@ public class MainPage extends JFrame {
 		try {
 			DBConnection.getInstance();
 			maingui = Main.getInstance();
-
 		} 
 		catch (DataAccessException e) {
 			e.printStackTrace();
