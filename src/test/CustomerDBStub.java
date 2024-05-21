@@ -9,8 +9,7 @@ public class CustomerDBStub implements CustomerDBIF {
 	@Override
 	public Customer findCustomer(String phoneNo) {
 		if ("12345678".equals(phoneNo)) {
-			Person person = new Person("Thomas Olesen", phoneNo, "ThomasO@ucn.dk");
-			Customer customer = new Customer(person);
+			Customer customer = new Customer("Thomas Olesen", phoneNo, "ThomasO@ucn.dk");
 			customer.setAdress("Gug 99");
 			return customer;
 		}

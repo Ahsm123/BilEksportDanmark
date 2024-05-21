@@ -40,15 +40,15 @@ public class OrderCtrlTest {
 	@Test
 	public void TC_01_testCreateOrderWithPhoneNumber() throws DataAccessException, EmptyOrderException, SQLException {
 		// Arrange
-		Customer customer = orderCtrl.findCustomer("12345678");
 		Order order = orderCtrl.createOrder("12345678", 1);
+		Customer customer = order.getCustomer();
 
 		// Act
 		orderCtrl.addCopy("abcdefgh1234");
 		orderCtrl.confirmOrder();
 
 		// Assert
-		assertNotNull("Customer should be found", customer);
+		assertEquals("Customer should be found", customer);
 		assertNotNull("Order should be created", order);
 		assertEquals("Order should have one car", 1, order.getCopies().size());
 	}
@@ -56,7 +56,8 @@ public class OrderCtrlTest {
 	@Test
 	public void TC_02_testCreateOrderWithoutPhoneNumber() throws DataAccessException {
 		// Arrange
-		Customer customer = orderCtrl.findCustomer("");
+		Order order = orderCtrl.createOrder(" ", 1);
+		Customer customer = order.getCustomer();
 
 		// Assert
 		assertNull("Customer should not be found", customer);
@@ -67,9 +68,8 @@ public class OrderCtrlTest {
 			throws DataAccessException, EmptyOrderException, SQLException {
 
 		// Arrange
-		Customer customer = orderCtrl.findCustomer("12345678");
 		Order order = orderCtrl.createOrder("12345678", 1);
-
+		Customer customer = order.getCustomer();
 		// Act
 		orderCtrl.addCopy("abcdefgh1234");
 		orderCtrl.addCopy("abcdefgh11235");
@@ -87,9 +87,8 @@ public class OrderCtrlTest {
 			throws DataAccessException, EmptyOrderException, SQLException {
 
 		// Arrange
-		Customer customer = orderCtrl.findCustomer("12345678");
 		Order order = orderCtrl.createOrder("12345678", 1);
-
+		Customer customer = order.getCustomer();
 		// Act
 		assertThrows(NullPointerException.class, ()->orderCtrl.addCopy("null_value"));
 
@@ -104,9 +103,9 @@ public class OrderCtrlTest {
 			throws DataAccessException, EmptyOrderException, SQLException {
 
 		// Arrange
-		Customer customer = orderCtrl.findCustomer("12345678");
-		Order order = orderCtrl.createOrder("12345678", 1);
 
+		Order order = orderCtrl.createOrder("12345678", 1);
+		Customer customer = order.getCustomer();
 		// Act
 		orderCtrl.addCopy("abcdefgh1234");
 		assertThrows(CarAlreadySoldException.class, ()-> orderCtrl.addCopy("bbcdefgh1234"));
