@@ -11,6 +11,7 @@ import model.database.OrderDB;
 import model.database.OrderDBIF;
 import model.exceptions.CarAlreadySoldException;
 import model.exceptions.CopyAlreadyInOrderException;
+import model.exceptions.CopyNotReady;
 import model.exceptions.DataAccessException;
 import model.exceptions.EmptyOrderException;
 
@@ -43,15 +44,11 @@ public class OrderCtrl {
 	}
 	
 	public Order createOrder(String phoneNo, int employeeId) throws NullPointerException, DataAccessException {
-		
 		currentOrder = new Order(employeeId, customerCtrl.findCustomer(phoneNo));
 		return currentOrder;
-		
-		
-		
 	}
 
-	public void addCopy(String vin) throws DataAccessException, SQLException {
+	public void addCopy(String vin) throws DataAccessException, SQLException, CopyNotReady {
 		Copy copy = carCtrl.findCopy(vin);
 		if(copy == null) {
 			throw new NullPointerException();
@@ -59,8 +56,10 @@ public class OrderCtrl {
 		else if(isCopyInAnOrder(vin)) {
 			throw new CarAlreadySoldException("Bil allerede solgt");
 		}
-		
-		if(!currentOrder.hasCopy(copy)) {
+		else if(!copy.isInspected()) {
+			throw new CopyNotReady("Bilen har ikke gyldige dokumenter");
+		}
+		else if(!currentOrder.hasCopy(copy)) {
 			currentOrder.addCopy(copy);
 		}
 		else {

@@ -5,6 +5,7 @@ import controller.OrderCtrl;
 import model.Copy;
 import model.database.CarDB;
 import model.exceptions.CarAlreadySoldException;
+import model.exceptions.CopyNotReady;
 import model.exceptions.DataAccessException;
 import model.exceptions.EmptyOrderException;
 
@@ -133,9 +134,12 @@ public class OrderInfo extends GUIPanel {
         catch (SQLException e) {
         	showErrorPopup("Database fejl");
         }
+        catch (CopyNotReady e) {
+        	showErrorPopup("Bilen mangler dokumenter og kan derfor ikke sælges");
+        }
     }
 
-    private void createCarPanel(String input) throws SQLException, CarAlreadySoldException {
+    private void createCarPanel(String input) throws SQLException, CarAlreadySoldException, CopyNotReady {
         try {
             if (!orderCtrl.isCopyInAnOrder(input)) {
                 orderCtrl.addCopy(input);
