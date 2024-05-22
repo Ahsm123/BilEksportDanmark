@@ -16,6 +16,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import controller.OrderCtrl;
+import model.exceptions.CustomerNotFound;
 import model.exceptions.DataAccessException;
 import controller.CustomerCtrl;
 
@@ -79,14 +80,9 @@ public class PopUp extends JDialog {
     
 	private void createOrder() {
 	    try {
-	    	String phoneNo = textField.getText();
-			if(customerCtrl.doesCustomerExist(phoneNo)) {
-				orderCtrl.createOrder(phoneNo, 1);
-				maingui.switchToOrderInfo();
-			}
-			else {
-				JOptionPane.showMessageDialog(null, "Kunde eksisterer ikke", "Fejl", JOptionPane.PLAIN_MESSAGE);
-			}
+			orderCtrl.createOrder(textField.getText(), 1);
+			maingui.switchToOrderInfo();
+			
 		} 
 	    catch (HeadlessException e) {
 			JOptionPane.showMessageDialog(null, "Keyboard ikke supported", "Fejl", JOptionPane.PLAIN_MESSAGE);
@@ -94,6 +90,9 @@ public class PopUp extends JDialog {
 	    catch (DataAccessException e) {
 			JOptionPane.showMessageDialog(null, "Database fejl", "Fejl", JOptionPane.PLAIN_MESSAGE);
 		}
+	    catch (CustomerNotFound e) {
+	    	JOptionPane.showMessageDialog(null, "Kunde eksisterer ikke", "Fejl", JOptionPane.PLAIN_MESSAGE);
+	    }
 	}
 	
 	private void cancel() {

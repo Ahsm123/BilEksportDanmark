@@ -237,7 +237,7 @@ public class OrderInfo extends GUIPanel {
                         }
                     }
                     if (hasDeletedPanels) {
-                        orderInfo.showErrorPopup("En eller flere biler på ordren er allerede solgt og er derfor blevet fjernet");
+                        showErrorPopup("En eller flere biler på ordren er allerede solgt og er derfor blevet fjernet");
                     }
                     sleep(SLEEP_TIME);
                 } 

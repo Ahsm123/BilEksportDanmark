@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import model.Customer;
+import model.exceptions.CustomerNotFound;
 import model.exceptions.DataAccessException;
 
 public class CustomerDB implements CustomerDBIF {
@@ -61,7 +62,9 @@ public class CustomerDB implements CustomerDBIF {
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+		if(result == null) {
+			throw new CustomerNotFound("Kunde ikke fundet");
+		}
 		return result;
 	}
 }

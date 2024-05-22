@@ -43,8 +43,12 @@ public class OrderCtrl {
 	}
 	
 	public Order createOrder(String phoneNo, int employeeId) throws NullPointerException, DataAccessException {
+		
 		currentOrder = new Order(employeeId, customerCtrl.findCustomer(phoneNo));
 		return currentOrder;
+		
+		
+		
 	}
 
 	public void addCopy(String vin) throws DataAccessException, SQLException {
