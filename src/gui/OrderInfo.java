@@ -3,6 +3,7 @@ package gui;
 import controller.CarCtrl;
 import controller.OrderCtrl;
 import model.Copy;
+import model.Order;
 import model.database.CarDB;
 import model.exceptions.CarAlreadySoldException;
 import model.exceptions.CopyNotReady;
@@ -199,8 +200,8 @@ public class OrderInfo extends GUIPanel {
     private void confirm() {
         try {
             threadNeedsToRun = false;
-            orderCtrl.confirmOrder();
-            maingui.createOrderPrint();
+            Order order = orderCtrl.confirmOrder();
+            maingui.createOrderPrint(order);
         } 
         catch (SQLException | DataAccessException e) {
         	showErrorPopup("Database fejl");

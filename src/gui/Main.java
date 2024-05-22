@@ -10,6 +10,7 @@ import javax.swing.JDialog;
 
 import controller.CustomerCtrl;
 import controller.OrderCtrl;
+import model.Order;
 import model.database.CarDB;
 import model.database.CustomerDB;
 import model.database.InvoiceDB;
@@ -93,8 +94,8 @@ public class Main {
 		switchFrameTo(orderInfo);
 	}
 	
-	public void createOrderPrint() {
-		JFrame orderPrint = new OrderPrint(orderCtrl.getOrder());
+	public void createOrderPrint(Order order) {
+		JFrame orderPrint = new OrderPrint(order);
 		
 		switchFrameTo(orderPrint);
 	}

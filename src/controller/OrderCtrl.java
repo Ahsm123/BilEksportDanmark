@@ -65,7 +65,7 @@ public class OrderCtrl {
 		orderDB.deleteOrder(orderId);
 	}
 
-	public void confirmOrder() throws SQLException, DataAccessException, EmptyOrderException {
+	public Order confirmOrder() throws SQLException, DataAccessException, EmptyOrderException {
 		if(currentOrder.getCopies().isEmpty()) {
 			throw new EmptyOrderException("No cars in the order");
 		}
@@ -73,6 +73,7 @@ public class OrderCtrl {
 			orderDB.saveOrder(currentOrder);
 			invoiceCtrl.saveInvoiceInDB(currentOrder);
 		}
+		return currentOrder;
 	}
 	
 	public boolean isCopyInAnOrder(String input) throws SQLException {
