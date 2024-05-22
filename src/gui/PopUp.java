@@ -25,23 +25,21 @@ public class PopUp extends JDialog {
 	private static final int PADDING = 5;
 	
 	private OrderCtrl orderCtrl;
-	private CustomerCtrl customerCtrl;
 	private Main maingui;
 	
 	private JPanel contentPanel = new JPanel();
 	private JTextField textField;
 
 	public PopUp(OrderCtrl orderCtrl, CustomerCtrl customerCtrl) {
-        initialize(orderCtrl, customerCtrl);
+        initialize(orderCtrl);
         
         createContentPanel();
         createButtonsPanel();
     }
 
-    private void initialize(OrderCtrl orderCtrl, CustomerCtrl customerCtrl) {
+    private void initialize(OrderCtrl orderCtrl) {
     	 this.maingui = Main.getInstance();
          this.orderCtrl = orderCtrl;
-         this.customerCtrl = customerCtrl;
     	
          setModal(true);
          setBounds(100, 100, 450, 300);        
@@ -82,7 +80,6 @@ public class PopUp extends JDialog {
 	    try {
 			orderCtrl.createOrder(textField.getText(), 1);
 			maingui.switchToOrderInfo();
-			
 		} 
 	    catch (HeadlessException e) {
 			JOptionPane.showMessageDialog(null, "Keyboard ikke supported", "Fejl", JOptionPane.PLAIN_MESSAGE);
