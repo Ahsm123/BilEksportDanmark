@@ -10,13 +10,15 @@ import javax.swing.JDialog;
 
 import controller.CustomerCtrl;
 import controller.OrderCtrl;
+import model.database.CarDB;
 import model.database.CustomerDB;
+import model.database.InvoiceDB;
+import model.database.OrderDB;
 import model.exceptions.DataAccessException;
 
 public class Main {	
 	private Window currentFrame;
-	
-	private CustomerCtrl customerCtrl;
+
 	private OrderCtrl orderCtrl;
 	
 	private LinkedList<Window> windowStack;
@@ -46,8 +48,7 @@ public class Main {
 	private Main() {
 		windowStack = new LinkedList<>();
         try {
-			orderCtrl = new OrderCtrl();
-			customerCtrl = new CustomerCtrl(new CustomerDB());
+			orderCtrl = new OrderCtrl(new OrderDB(), new CustomerDB(), new CarDB(), new InvoiceDB());
 		} 
         catch (SQLException e) {
 			e.printStackTrace();
@@ -81,7 +82,7 @@ public class Main {
 	}
 	
 	public void switchToPopUp() {
-		JDialog popUp = new PopUp(orderCtrl, customerCtrl);
+		JDialog popUp = new PopUp(orderCtrl);
 		
 		switchToJDialog(popUp);
 	}

@@ -27,8 +27,9 @@ public class CarDB implements CarDBIF {
 		try {
 			findByVinPs = connection.prepareStatement(FIND_BY_VIN_Q );
 			//			insertPs = connection.prepareStatement(INSERT_Q);
-		} catch(SQLException e) {
-
+		} 	
+		catch(SQLException e) {
+			System.out.println("Couldn't connect to the database");
 		}
 	}
 	

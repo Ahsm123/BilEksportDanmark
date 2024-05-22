@@ -32,13 +32,6 @@ public class OrderCtrl {
 		this.invoiceCtrl = new InvoiceCtrl(invoiceDB);
 	}
 
-	public OrderCtrl() throws SQLException, DataAccessException {
-		this.orderDB = new OrderDB();
-		this.customerCtrl = new CustomerCtrl(new CustomerDB());
-		this.carCtrl = new CarCtrl(new CarDB());
-		this.invoiceCtrl = new InvoiceCtrl(new InvoiceDB());
-	}
-
 	public void removeCopy(String copyVin) {	
 		currentOrder.removeCopyByVin(copyVin);
 	}
@@ -48,7 +41,7 @@ public class OrderCtrl {
 		return currentOrder;
 	}
 
-	public void addCopy(String vin) throws DataAccessException, SQLException, CopyNotReady {
+	public Copy addCopy(String vin) throws DataAccessException, SQLException, CopyNotReady {
 		Copy copy = carCtrl.findCopy(vin);
 		if(copy == null) {
 			throw new NullPointerException();
@@ -65,6 +58,7 @@ public class OrderCtrl {
 		else {
 			throw new CopyAlreadyInOrderException("Bil med vin: " + vin + " er allerede tilføjet");
 		}
+		return copy;
 	}
 	
 	public void deleteOrder(int orderId) throws SQLException, DataAccessException {

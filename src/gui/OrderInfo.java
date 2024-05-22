@@ -142,13 +142,11 @@ public class OrderInfo extends GUIPanel {
     private void createCarPanel(String input) throws SQLException, CarAlreadySoldException, CopyNotReady {
         try {
             if (!orderCtrl.isCopyInAnOrder(input)) {
-                orderCtrl.addCopy(input);
+                Copy copy = orderCtrl.addCopy(input);
 
                 if (!thread.isAlive()) {
                     thread.start();
                 }
-                Copy copy = carCtrl.findCopy(input);
-
                 JPanel orderlinePanel = new JPanel();
 
                 CopyPanel cPanel = new CopyPanel(copy.getVin(), orderlinePanel);
