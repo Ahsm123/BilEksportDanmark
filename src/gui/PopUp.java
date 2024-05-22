@@ -30,7 +30,7 @@ public class PopUp extends JDialog {
 	private JPanel contentPanel = new JPanel();
 	private JTextField textField;
 
-	public PopUp(OrderCtrl orderCtrl, CustomerCtrl customerCtrl) {
+	public PopUp(OrderCtrl orderCtrl) {
         initialize(orderCtrl);
         
         createContentPanel();
