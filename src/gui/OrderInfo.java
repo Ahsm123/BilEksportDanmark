@@ -204,10 +204,6 @@ public class OrderInfo extends GUIPanel {
         	showErrorPopup("Ingen bil i ordren");
         }
     }
-
-    private void showErrorPopup(String e) {
-    	JOptionPane.showMessageDialog(null, e, "Fejl", JOptionPane.PLAIN_MESSAGE);
-    }
     
     public LinkedList<CopyPanel> getPanels() {
         return carPanels;

@@ -3,6 +3,7 @@ package gui;
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -35,5 +36,9 @@ public abstract class GUIPanel extends JFrame {
         this.contentPane.setBorder(new EmptyBorder(PADDING, PADDING, PADDING, PADDING));
         setContentPane(this.contentPane);
         this.contentPane.setLayout(new BorderLayout(0, 0));
+    }
+    
+    protected void showErrorPopup(String e) {
+    	JOptionPane.showMessageDialog(null, e, "Fejl", JOptionPane.PLAIN_MESSAGE);
     }
 }
