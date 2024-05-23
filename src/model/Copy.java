@@ -10,6 +10,8 @@ public class Copy extends Car{
 	private String color;
 	private boolean taxReturn;
 	private boolean isInspected;
+	private int year;
+	private double registrationFee;
 	
 	
 	public Copy(int milage,String manufacturer,String model,String fuelType,double co2Emission,
@@ -109,5 +111,22 @@ public class Copy extends Car{
 
 	public void setIsInspected(boolean isInspected) {
 		this.isInspected = isInspected;
+	}
+	
+	public int getYear() {
+		return year;
+	}
+	
+	public void setYear(int year) {
+		this.year = year;
+		
+	}
+
+	public double getRegistrationFee() {
+		return registrationFee;
+	}
+
+	public void setRegistrationFee(double registrationFee) {
+		this.registrationFee = registrationFee;
 	}
 }
