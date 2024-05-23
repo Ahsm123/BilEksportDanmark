@@ -76,44 +76,20 @@ public class Main {
 		}
 	}
 	
-	public void switchToOrderMenu() {
-		JFrame orderMenu = new OrderMenu();
-		
-		switchFrameTo(orderMenu);
-	}
-	
-	public void switchToPopUp() {
-		JDialog popUp = new PopUp(orderCtrl);
-		
-		switchToJDialog(popUp);
-	}
-	
-	public void switchToOrderInfo() {	
-		JFrame orderInfo = new OrderInfo(orderCtrl);
-		
-		switchFrameTo(orderInfo);
-	}
-	
-	public void createOrderPrint(Order order) {
-		JFrame orderPrint = new OrderPrint(order);
-		
-		switchFrameTo(orderPrint);
-	}
-	
 	public void resetToMainPage() {
 		while(windowStack.size() > 1) {
 			goBack();
 		}
 	}
 	
-	private void switchFrameTo(JFrame jframe) {
+	public void switchFrameTo(JFrame jframe) {
 		currentFrame.setVisible(false);
 		currentFrame = jframe;
 		currentFrame.setVisible(true);
 		windowStack.add(currentFrame);
 	}
 	
-	private void switchToJDialog(JDialog dialog) {
+	public void switchToJDialog(JDialog dialog) {
 		currentFrame.setVisible(false);
 		currentFrame = dialog;
 		windowStack.add(currentFrame);

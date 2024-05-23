@@ -52,8 +52,9 @@ public class MainPage extends GUIPanel {
 		buttonsPanel.add(carMenuPanel);
 		carMenuPanel.setLayout(new CardLayout(0, 0));
 		
-		JButton btnProductMenu = new JButton("Bil menu");
-		carMenuPanel.add(btnProductMenu, "name_8207516186800");
+		JButton btnCarMenu = new JButton("Bil menu");
+		btnCarMenu.addActionListener(e -> goCarMenu());
+		carMenuPanel.add(btnCarMenu, "name_8207516186800");
 		
 		JButton btnSalesAssistant = new JButton("Medarbejder menu");
 		buttonsPanel.add(btnSalesAssistant);
@@ -67,6 +68,10 @@ public class MainPage extends GUIPanel {
 	}
 	
 	private void goOrderMenu() {
-		maingui.switchToOrderMenu();
+		maingui.switchFrameTo(new OrderMenu());
 	}	
+	
+	private  void goCarMenu() {
+		maingui.switchFrameTo(new CarMenu());
+	}
 }

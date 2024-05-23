@@ -79,7 +79,7 @@ public class PopUp extends JDialog {
 	private void createOrder() {
 	    try {
 			orderCtrl.createOrder(textField.getText(), 1);
-			maingui.switchToOrderInfo();
+			maingui.switchFrameTo(new OrderInfo(orderCtrl));
 		} 
 	    catch (HeadlessException e) {
 			JOptionPane.showMessageDialog(null, "Keyboard ikke supported", "Fejl", JOptionPane.PLAIN_MESSAGE);

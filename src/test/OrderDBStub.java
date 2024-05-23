@@ -34,7 +34,7 @@ public class OrderDBStub implements OrderDBIF {
 
 	@Override
 	public void deleteOrder(int orderId) throws SQLException, DataAccessException {
-		new OrderCtrl().deleteOrder(orderId);
+		//new OrderCtrl().deleteOrder(orderId);
 		
 	}
 }

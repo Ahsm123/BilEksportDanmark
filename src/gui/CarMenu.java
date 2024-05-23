@@ -13,11 +13,11 @@ import model.exceptions.DataAccessException;
 import java.awt.*;
 import java.sql.SQLException;
 
-public class OrderMenu extends GUIPanel {
+public class CarMenu extends GUIPanel {
 
     private static final long serialVersionUID = 1L;
 
-    public OrderMenu() {
+    public CarMenu() {
     	super(450, 300);
  
         createTitlePanel();
@@ -29,7 +29,7 @@ public class OrderMenu extends GUIPanel {
         contentPane.add(titlePanel, BorderLayout.NORTH);
         titlePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
-        JLabel lblNewLabel = new JLabel("Ordre menu");
+        JLabel lblNewLabel = new JLabel("Bil menu");
         titlePanel.add(lblNewLabel);
     }
     
@@ -38,27 +38,21 @@ public class OrderMenu extends GUIPanel {
         contentPane.add(buttonsPanel, BorderLayout.CENTER);
         buttonsPanel.setLayout(new GridLayout(2, 2));
 
-        JPanel createOrderPanel = new JPanel();
-        buttonsPanel.add(createOrderPanel);
-        createOrderPanel.setLayout(new CardLayout(0, 0));
+        JPanel createCarPanel = new JPanel();
+        buttonsPanel.add(createCarPanel);
+        createCarPanel.setLayout(new CardLayout(0, 0));
 
-        JButton btnOrderCreate = new JButton("Opret ordre");
-        btnOrderCreate.addActionListener(e -> {
-			try {
-				showCustomerPopUp();
-			} catch (DataAccessException | SQLException e1) {
-				e1.printStackTrace();
-			}
-		});
-        createOrderPanel.add(btnOrderCreate, "name_254181741858900");
+        JButton btnCreateCar = new JButton("Opret bil");
+        // btnCreateCar.addActionListener(e -> createCar());
+        createCarPanel.add(btnCreateCar, "name_254181741858900");
 
-        JPanel deleteOrderPanel = new JPanel();
-        buttonsPanel.add(deleteOrderPanel);
-        deleteOrderPanel.setLayout(new CardLayout(0, 0));
+        JPanel deleteCarPanel = new JPanel();
+        buttonsPanel.add(deleteCarPanel);
+        deleteCarPanel.setLayout(new CardLayout(0, 0));
 
-        JButton btnDeleteOrder = new JButton("Slet ordre");
+        JButton btnDeleteCar = new JButton("Slet bil");
         //btnDeleteOrder.addActionListener(e -> deleteOrder());
-        deleteOrderPanel.add(btnDeleteOrder, "name_254194213853500");
+        deleteCarPanel.add(btnDeleteCar, "name_254194213853500");
 
         JPanel goBackPanel = new JPanel();
         buttonsPanel.add(goBackPanel);
@@ -68,16 +62,16 @@ public class OrderMenu extends GUIPanel {
         btnBack.addActionListener(e -> goBack());
         goBackPanel.add(btnBack, BorderLayout.CENTER);
 
-        JButton btnOnlineOrder = new JButton("Online ordre");
-        //btnOnlineOrder.addActionListener(e -> onlineOrder());
-        buttonsPanel.add(btnOnlineOrder);
+        JButton btnCalculateCar = new JButton("Beregn bil");
+        btnCalculateCar.addActionListener(e -> goCalculateCar());
+        buttonsPanel.add(btnCalculateCar);
     }
 
     private void goBack() {
         maingui.goBack();
     }
 
-    private void showCustomerPopUp() throws DataAccessException, SQLException {
-    	maingui.switchToJDialog(new PopUp(new OrderCtrl(new OrderDB(), new CustomerDB(), new CarDB(), new InvoiceDB())));
+    private void goCalculateCar() {
+    	// 
     }
 }

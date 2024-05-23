@@ -24,7 +24,6 @@ public class OrderInfo extends GUIPanel {
     private CheckIfSoldThread thread;
     private volatile boolean threadNeedsToRun = true;
     
-    private CarCtrl carCtrl;
     private OrderCtrl orderCtrl;
 
     public OrderInfo(OrderCtrl orderCtrl) {
@@ -39,11 +38,6 @@ public class OrderInfo extends GUIPanel {
     private void init(OrderCtrl orderCtrl) {
     	maingui = Main.getInstance();
         this.orderCtrl = orderCtrl;
-        try {
-            this.carCtrl = new CarCtrl(new CarDB());
-        } catch (DataAccessException e) {
-            e.printStackTrace();
-        }
         this.carPanels = new LinkedList<>();
         thread = new CheckIfSoldThread(orderCtrl, this);
     }
@@ -201,7 +195,7 @@ public class OrderInfo extends GUIPanel {
         try {
             threadNeedsToRun = false;
             Order order = orderCtrl.confirmOrder();
-            maingui.createOrderPrint(order);
+            maingui.switchFrameTo(new OrderPrint(order));
         } 
         catch (SQLException | DataAccessException e) {
         	showErrorPopup("Database fejl");

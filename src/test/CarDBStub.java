@@ -13,7 +13,7 @@ public class CarDBStub implements CarDBIF {
 			Copy copy = new Copy(0, "", "", "", 0, 0, 0, 0, "", 0);
 			copy.setVin("abcdefgh1234");
 			copy.setPrice(20000);
-			copy.setState("");
+			copy.setState(2);
 			copy.setModification("");
 			copy.setKilometer(2000);
 			copy.setColor("Blue");
@@ -25,7 +25,7 @@ public class CarDBStub implements CarDBIF {
 			Copy copy2 = new Copy(0, "", "", "", 0, 0, 0, 0, "", 0);
 			copy2.setVin("abcdefgh11235");
 			copy2.setPrice(20000);
-			copy2.setState("");
+			copy2.setState(2);
 			copy2.setModification("");
 			copy2.setKilometer(2000);
 			copy2.setColor("Blue");
@@ -37,7 +37,7 @@ public class CarDBStub implements CarDBIF {
 			Copy copy3 = new Copy(0, "", "", "", 0, 0, 0, 0, "", 0);
 			copy3.setVin("bbcdefgh1234");
 			copy3.setPrice(20000);
-			copy3.setState("");
+			copy3.setState(2);
 			copy3.setModification("");
 			copy3.setKilometer(2000);
 			copy3.setColor("Blue");
