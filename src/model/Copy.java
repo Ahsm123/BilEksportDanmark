@@ -4,7 +4,7 @@ public class Copy extends Car{
 	private int id;
 	private String vin;
 	private double price;
-	private String state;
+	private CarState state;
 	private String modification;
 	private int kilometer;
 	private String color;
@@ -42,12 +42,33 @@ public class Copy extends Car{
 		this.price = price;
 	}
 
-	public String getState() {
+	public CarState getState() {
 		return state;
 	}
 
-	public void setState(String state) {
-		this.state = state;
+	public void setState(int state) {
+		CarState stateToSet = null;
+		switch(state) {
+		case 1: 
+			stateToSet = CarState.AWAITING_OFFER;
+			break;
+		case 2: 
+			stateToSet = CarState.IN_STORAGE;
+			break;
+		case 3:
+			stateToSet = CarState.IN_TRANSIT;
+			break;
+		case 4:
+			stateToSet = CarState.SOLD;
+			break;
+		case 5:
+			stateToSet = CarState.OFFER_SENT;
+			break;
+		default:
+			break;
+		}
+		this.state = stateToSet;
+		
 	}
 
 	public String getModification() {

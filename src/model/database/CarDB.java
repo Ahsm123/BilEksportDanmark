@@ -16,6 +16,8 @@ public class CarDB implements CarDBIF {
 	
 	private PreparedStatement findByVinPs;
 	//	private PreparedStatement insertPs;
+	
+	
 
 
 	public CarDB() throws DataAccessException {
@@ -47,10 +49,10 @@ public class CarDB implements CarDBIF {
 					rs.getString("gearType"),
 					rs.getInt("noOfGears"));
 			
+			copy.setState(rs.getInt("state"));
 			copy.setId(rs.getInt("id"));
 			copy.setVin(rs.getString("vin"));
 			copy.setPrice(rs.getDouble("price"));
-			copy.setState(rs.getString("state"));
 			copy.setModification(rs.getString("modification"));
 			copy.setKilometer(rs.getInt("kilometer"));
 			copy.setColor(rs.getString("color"));
@@ -81,6 +83,10 @@ public class CarDB implements CarDBIF {
 			e.printStackTrace();
 		}
 		return res;
+	}
+	
+	private void setState(Copy copy) {
+		
 	}
 
 }
