@@ -3,9 +3,11 @@ package controller;
 import java.time.Year;
 
 import model.Copy;
+import model.api.CarServiceAPI;
 
 public class CalculateCarCtrl {
 	private Copy copy;
+	private CarServiceAPI carServiceApi;
 	private final static double TAX_ROOF = 0.85;
 	private final static double AGE_PENALTY = 0.07;
 	private final static double KM_PENALTY = 0.01;
@@ -13,11 +15,12 @@ public class CalculateCarCtrl {
 	private final static double EXPENSES = 5000;
 
 	public CalculateCarCtrl() {
+		
 
 	}
 
 	public Copy importCopy(String vin) {
-//		CarServiceAPI.fetchCoyp();
+		carServiceApi.importCopy(vin);
 		return copy;
 	}
 

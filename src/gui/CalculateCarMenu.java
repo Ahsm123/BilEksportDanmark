@@ -1,7 +1,6 @@
 package gui;
 
 import javax.swing.*;
-
 import controller.CarCtrl;
 import model.Copy;
 import model.database.CarDB;
