@@ -56,7 +56,7 @@ public class OrderPrint extends GUIPanel {
 	    orderCopiesPane.setViewportView(centerOfPanes);
 	    
 	    for(Copy copy : order.getCopies()) {
-	        addCopy(copy.getPrice(), copy.getVin());
+	        addCopy(copy.getSalesPrice(), copy.getVin());
 	    }
 	}
 	
