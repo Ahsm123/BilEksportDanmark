@@ -41,6 +41,3 @@ public class CalculateCarCtrl {
 		return taxReturn - taxReturn * kmPenalty;
 	}
 }
-
-// tilføjet "year" til copy - husk at ændre i DB + DB klasse + objectBuilder etc. - RegistrationFee skal også tilføjes
-// tilføjet BuyInfo, BuyInfoDB, Seller, CalculateCarCtrl
