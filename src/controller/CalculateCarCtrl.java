@@ -29,7 +29,7 @@ public class CalculateCarCtrl {
 		
 	}
 
-	public double calculateTaxReturn(Copy copy, String type) {
+	public double calculateTaxReturn(Copy copy) {
 		double taxReturn = copy.getRegistrationFee() * TAX_ROOF;
 		int carAge = Year.now().getValue() - copy.getYear();
 		double kmPenalty = (copy.getKilometer()/10000) * KM_PENALTY;
