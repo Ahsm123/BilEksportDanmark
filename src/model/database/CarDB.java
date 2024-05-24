@@ -52,7 +52,7 @@ public class CarDB implements CarDBIF {
 			copy.setState(rs.getInt("state"));
 			copy.setId(rs.getInt("id"));
 			copy.setVin(rs.getString("vin"));
-			copy.setPrice(rs.getDouble("price"));
+			copy.setSalesPrice(rs.getDouble("price"));
 			copy.setModification(rs.getString("modification"));
 			copy.setKilometer(rs.getInt("kilometer"));
 			copy.setColor(rs.getString("color"));
@@ -87,8 +87,5 @@ public class CarDB implements CarDBIF {
 		return res;
 	}
 	
-	private void setState(Copy copy) {
-		
-	}
 
 }

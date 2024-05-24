@@ -80,7 +80,7 @@ public class Order {
 	
 	public double getTotalPrice() {
 		return copies.stream()
-                .mapToDouble(Copy::getPrice)
+                .mapToDouble(Copy::getSalesPrice)
                 .sum();
 	}
 

@@ -12,7 +12,7 @@ public class CarDBStub implements CarDBIF {
 		case "abcdefgh1234":
 			Copy copy = new Copy(0, "", "", "", 0, 0, 0, 0, "", 0);
 			copy.setVin("abcdefgh1234");
-			copy.setPrice(20000);
+			copy.setSalesPrice(20000);
 			copy.setState(2);
 			copy.setModification("");
 			copy.setKilometer(2000);
@@ -24,7 +24,7 @@ public class CarDBStub implements CarDBIF {
 		case "abcdefgh11235":
 			Copy copy2 = new Copy(0, "", "", "", 0, 0, 0, 0, "", 0);
 			copy2.setVin("abcdefgh11235");
-			copy2.setPrice(20000);
+			copy2.setSalesPrice(20000);
 			copy2.setState(2);
 			copy2.setModification("");
 			copy2.setKilometer(2000);
@@ -36,7 +36,7 @@ public class CarDBStub implements CarDBIF {
 		case "bbcdefgh1234":
 			Copy copy3 = new Copy(0, "", "", "", 0, 0, 0, 0, "", 0);
 			copy3.setVin("bbcdefgh1234");
-			copy3.setPrice(20000);
+			copy3.setSalesPrice(20000);
 			copy3.setState(2);
 			copy3.setModification("");
 			copy3.setKilometer(2000);
