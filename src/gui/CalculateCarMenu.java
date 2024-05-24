@@ -141,7 +141,7 @@ public class CalculateCarMenu extends GUIPanel {
         lblKilometerLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         carInfoPanel.add(lblKilometerLabel);
         
-        JLabel lblPriceLabel = new JLabel("Pris: " + copy.getPrice());
+        JLabel lblPriceLabel = new JLabel("Pris: " + copy.getPurchasePrice());
         lblPriceLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         carInfoPanel.add(lblPriceLabel);
         
