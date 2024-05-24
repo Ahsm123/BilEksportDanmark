@@ -58,6 +58,8 @@ public class CarDB implements CarDBIF {
 			copy.setColor(rs.getString("color"));
 			copy.setTaxReturn(rs.getBoolean("taxReturn"));
 			copy.setIsInspected(rs.getBoolean("isInspected"));
+			copy.setRegistrationFee(rs.getDouble("registrationFee"));
+			copy.setYear(rs.getInt("year"));
 			
 			result = copy;
 		} 
