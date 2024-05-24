@@ -3,7 +3,8 @@ package model;
 public class Copy extends Car{
 	private int id;
 	private String vin;
-	private double price;
+	private double salesPrice;
+	private double purchasePrice;
 	private CarState state;
 	private String modification;
 	private int kilometer;
@@ -36,13 +37,6 @@ public class Copy extends Car{
 		this.vin = vin;
 	}
 
-	public double getPrice() {
-		return price;
-	}
-
-	public void setPrice(double price) {
-		this.price = price;
-	}
 
 	public CarState getState() {
 		return state;
@@ -128,5 +122,21 @@ public class Copy extends Car{
 
 	public void setRegistrationFee(double registrationFee) {
 		this.registrationFee = registrationFee;
+	}
+
+	public double getSalesPrice() {
+		return salesPrice;
+	}
+
+	public void setSalesPrice(double salesPrice) {
+		this.salesPrice = salesPrice;
+	}
+
+	public double getPurchasePrice() {
+		return purchasePrice;
+	}
+
+	public void setPurchasePrice(double purchasePrice) {
+		this.purchasePrice = purchasePrice;
 	}
 }
