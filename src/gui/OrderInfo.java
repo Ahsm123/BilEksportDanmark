@@ -195,7 +195,7 @@ public class OrderInfo extends GUIPanel {
         try {
             threadNeedsToRun = false;
             Order order = orderCtrl.confirmOrder();
-            maingui.switchFrameTo(new OrderPrint(order));
+            maingui.switchFrameTo(new OrderPrint(order), false);
         } 
         catch (SQLException | DataAccessException e) {
         	showErrorPopup("Database fejl");

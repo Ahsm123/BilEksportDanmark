@@ -20,8 +20,6 @@ import model.exceptions.DataAccessException;
 public class Main {	
 	private Window currentFrame;
 
-	private OrderCtrl orderCtrl;
-	
 	private LinkedList<Window> windowStack;
 	
 	private static Main instance;
@@ -48,15 +46,7 @@ public class Main {
 	
 	private Main() {
 		windowStack = new LinkedList<>();
-        try {
-			orderCtrl = new OrderCtrl(new OrderDB(), new CustomerDB(), new CarDB(), new InvoiceDB());
-		} 
-        catch (SQLException e) {
-			e.printStackTrace();
-		} 
-        catch (DataAccessException e) {
-			e.printStackTrace();
-		}
+        
 	}
 	
 	public void initialize() {
@@ -82,15 +72,19 @@ public class Main {
 		}
 	}
 	
-	public void switchFrameTo(JFrame jframe) {
-		currentFrame.setVisible(false);
+	public void switchFrameTo(JFrame jframe, boolean hidePrevious) {
+		if(hidePrevious) {
+			currentFrame.setVisible(false);
+		}
 		currentFrame = jframe;
 		currentFrame.setVisible(true);
 		windowStack.add(currentFrame);
 	}
 	
-	public void switchToJDialog(JDialog dialog) {
-		currentFrame.setVisible(false);
+	public void switchToJDialog(JDialog dialog, boolean hidePrevious) {
+		if(hidePrevious) {
+			currentFrame.setVisible(false);
+		}
 		currentFrame = dialog;
 		windowStack.add(currentFrame);
 		

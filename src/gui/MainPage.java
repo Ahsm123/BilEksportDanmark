@@ -68,10 +68,10 @@ public class MainPage extends GUIPanel {
 	}
 	
 	private void goOrderMenu() {
-		maingui.switchFrameTo(new OrderMenu());
+		maingui.switchFrameTo(new OrderMenu(), true);
 	}	
 	
 	private  void goCarMenu() {
-		maingui.switchFrameTo(new CarMenu());
+		maingui.switchFrameTo(new CarMenu(), true);
 	}
 }
