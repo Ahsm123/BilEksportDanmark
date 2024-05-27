@@ -1,6 +1,8 @@
 package gui;
 
 import javax.swing.*;
+
+import controller.CalculateCarCtrl;
 import controller.CarCtrl;
 import model.Copy;
 import model.database.CarDB;
@@ -10,10 +12,13 @@ import java.awt.*;
 
 public class CalculateCarMenu extends GUIPanel {
 	private static final long serialVersionUID = 1L;
+	
+	private Copy currentlySelected;
 	private JPanel mainPanel;
 	private JPanel carInfoPanel;
 	private CarCtrl carCtrl;
-        
+    private CalculateCarCtrl calculateCarCtrl;
+	
     public CalculateCarMenu() {
     	super(900, 300);
     	
@@ -28,13 +33,14 @@ public class CalculateCarMenu extends GUIPanel {
     	}
     }
     
-    private void init() {
+    private void init() throws DataAccessException {
     	maingui = Main.getInstance();
+    	carCtrl = new CarCtrl(new CarDB());
+    	calculateCarCtrl = new CalculateCarCtrl();
     }
 
-    private void createMainPanel() throws DataAccessException {
+    private void createMainPanel() {
     	mainPanel = new JPanel();
-    	this.carCtrl = new CarCtrl(new CarDB());
         contentPane.add(mainPanel);
         mainPanel.setLayout(new BorderLayout(0, 0));
     }
@@ -56,7 +62,7 @@ public class CalculateCarMenu extends GUIPanel {
          vinInputPanel.add(lblVin);
 
          JTextField vinField = new JTextField();
-         vinField.setText("123456789abcdefgh");
+         vinField.setText("123456789abcdefff");
          vinField.setColumns(12);
          vinInputPanel.add(vinField);
 
@@ -174,15 +180,21 @@ public class CalculateCarMenu extends GUIPanel {
     }
 
     private void confirm() {
-        
+    	if(currentlySelected != null) {
+    		maingui.switchToJDialog(new PricePopUp(calculateCarCtrl, currentlySelected), false);
+    	}
+    	else {
+    		showErrorPopup("Ingen bil valgt");
+    	}	
     }
     
     private void searchCar(String vin) {
-		try {
-			Copy copy = carCtrl.findCopy(vin);
-			createCarOverviewPanel(copy);
-		} catch (DataAccessException e) {
-			e.printStackTrace();
-		}
+    	currentlySelected = calculateCarCtrl.importCopy(vin);
+    	if(currentlySelected != null) {
+    		createCarOverviewPanel(currentlySelected);
+    	}
+    	else {
+    		showErrorPopup("Bil ikke fundet");
+    	}
     }
 }

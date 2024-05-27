@@ -20,7 +20,7 @@ import model.exceptions.CustomerNotFound;
 import model.exceptions.DataAccessException;
 import controller.CustomerCtrl;
 
-public class PopUp extends JDialog {
+public class CustomerPopUp extends JDialog {
 	private static final long serialVersionUID = 1L;
 	private static final int PADDING = 5;
 	
@@ -30,7 +30,7 @@ public class PopUp extends JDialog {
 	private JPanel contentPanel = new JPanel();
 	private JTextField textField;
 
-	public PopUp(OrderCtrl orderCtrl) {
+	public CustomerPopUp(OrderCtrl orderCtrl) {
         initialize(orderCtrl);
         
         createContentPanel();
@@ -79,7 +79,7 @@ public class PopUp extends JDialog {
 	private void createOrder() {
 	    try {
 			orderCtrl.createOrder(textField.getText(), 1);
-			maingui.switchFrameTo(new OrderInfo(orderCtrl));
+			maingui.switchFrameTo(new OrderInfo(orderCtrl), true);
 		} 
 	    catch (HeadlessException e) {
 			JOptionPane.showMessageDialog(null, "Keyboard ikke supported", "Fejl", JOptionPane.PLAIN_MESSAGE);

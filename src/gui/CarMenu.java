@@ -72,6 +72,6 @@ public class CarMenu extends GUIPanel {
     }
 
     private void goCalculateCar() {
-    	maingui.switchFrameTo(new CalculateCarMenu());
+    	maingui.switchFrameTo(new CalculateCarMenu(), true);
     }
 }

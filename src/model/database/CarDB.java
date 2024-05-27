@@ -12,7 +12,7 @@ import model.exceptions.DataAccessException;
 
 public class CarDB implements CarDBIF {
 	
-	private static final String FIND_BY_VIN_Q = "SELECT c.*, cp.vin, cp.registrationFee, cp.year, cp.salesPrice, cp.purchasePrice, cp.state, cp.modification, cp.kilometer, cp.color, cp.car, cp.taxReturn, cp.isInspected FROM Car c LEFT JOIN Copy cp ON c.id = cp.id where vin = ?";
+	private static final String FIND_BY_VIN_Q = "SELECT c.*, cp.* FROM \"Copy\" cp LEFT JOIN Car c ON c.id = cp.car where cp.vin = ?";
 	
 	private PreparedStatement findByVinPs;
 	//	private PreparedStatement insertPs;
@@ -52,8 +52,8 @@ public class CarDB implements CarDBIF {
 			copy.setState(rs.getInt("state"));
 			copy.setId(rs.getInt("id"));
 			copy.setVin(rs.getString("vin"));
-			copy.setSalesPrice(rs.getDouble("sales price"));
-			copy.setPurchasePrice(rs.getDouble("purchase price"));
+			copy.setSalesPrice(rs.getDouble("salesPrice"));
+			copy.setPurchasePrice(rs.getDouble("purchasePrice"));
 			copy.setModification(rs.getString("modification"));
 			copy.setKilometer(rs.getInt("kilometer"));
 			copy.setColor(rs.getString("color"));
