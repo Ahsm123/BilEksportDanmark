@@ -29,8 +29,7 @@ public class PricePopUp extends JDialog {
 	private Main maingui;
 
 	private JPanel contentPanel = new JPanel();
-	private JTextField textFieldSalesPrice;
-	private JTextField textFieldPurchasePrice;
+	private JTextField textField;
 
 	public PricePopUp(CalculateCarCtrl calculateCarCtrl, Copy copy) {
 		initialize(calculateCarCtrl);
@@ -43,7 +42,7 @@ public class PricePopUp extends JDialog {
 		this.maingui = Main.getInstance();
 		this.calculateCarCtrl = calculateCarCtrl;
 		setModal(true);
-		setBounds(100, 100, 450, 200);        
+		setBounds(100, 100, 450, 150);        
 	}
 
 	private void createContentPanel() {
@@ -55,29 +54,14 @@ public class PricePopUp extends JDialog {
 
 		JPanel panel_2 = new JPanel();
 		contentPanel.add(panel_2);
-		panel_2.setLayout(new GridLayout(2, 2, 0, 0));
-
-		JPanel panel = new JPanel();
-		panel_2.add(panel);
-		panel.setLayout(new GridLayout(0, 2, 0, 0));
-
+		panel_2.setLayout(new GridLayout(1, 2, 0, 0));
+		
 		JLabel lblSalesPrice = new JLabel("Salgspris");
-		panel.add(lblSalesPrice);
-
-		textFieldSalesPrice = new JTextField();
-		textFieldSalesPrice.setColumns(10);
-		panel.add(textFieldSalesPrice);
-
-		JPanel panel_1 = new JPanel();
-		panel_2.add(panel_1);
-		panel_1.setLayout(new GridLayout(0, 2, 0, 0));
-
-		JLabel lblPurchasePrice = new JLabel("Købspris");
-		panel_1.add(lblPurchasePrice);
-
-		textFieldPurchasePrice = new JTextField();
-		textFieldPurchasePrice.setColumns(10);
-		panel_1.add(textFieldPurchasePrice);
+		panel_2.add(lblSalesPrice);
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		panel_2.add(textField);
 	}
 
 	private void createButtonsPanel(Copy copy) {
@@ -98,19 +82,18 @@ public class PricePopUp extends JDialog {
 	}
 	
 	private void calculateCar(Copy copy) {
-		if(textFieldPurchasePrice.getText() == "" || textFieldSalesPrice.getText() == ""){
-			JOptionPane.showMessageDialog(null, "Mangler inputs", "Fejl", JOptionPane.PLAIN_MESSAGE);
+		if(textFieldSalesPrice.getText() == ""){
+			JOptionPane.showMessageDialog(null, "Mangler input", "Fejl", JOptionPane.PLAIN_MESSAGE);
 		}
 		else {
 			try {
-				double purchasePrice = Double.parseDouble(textFieldPurchasePrice.getText());
 				double salesPrice = Double.parseDouble(textFieldSalesPrice.getText());
 				
-				double price = calculateCarCtrl.CalculateOffer(copy, purchasePrice, salesPrice);
-				JOptionPane.showMessageDialog(null, "Beregnet pris: " + price, "Success", JOptionPane.PLAIN_MESSAGE);
+				double price = calculateCarCtrl.CalculateOffer(copy, salesPrice);
+				JOptionPane.showMessageDialog(null, "Beregnet maks pris: " + price, "Success", JOptionPane.PLAIN_MESSAGE);
 			}
 			catch (Exception e) {
-				JOptionPane.showMessageDialog(null, "Sørg for kun tal er i inputfælterne", "Fejl", JOptionPane.PLAIN_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Sørg for kun tal er i inputfæltet", "Fejl", JOptionPane.PLAIN_MESSAGE);
 			}
 		}
 	}

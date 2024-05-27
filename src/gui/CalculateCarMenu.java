@@ -16,7 +16,7 @@ public class CalculateCarMenu extends GUIPanel {
 	private Copy currentlySelected;
 	private JPanel mainPanel;
 	private JPanel carInfoPanel;
-	private CarCtrl carCtrl;
+
     private CalculateCarCtrl calculateCarCtrl;
 	
     public CalculateCarMenu() {
@@ -35,7 +35,6 @@ public class CalculateCarMenu extends GUIPanel {
     
     private void init() throws DataAccessException {
     	maingui = Main.getInstance();
-    	carCtrl = new CarCtrl(new CarDB());
     	calculateCarCtrl = new CalculateCarCtrl();
     }
 
@@ -62,7 +61,7 @@ public class CalculateCarMenu extends GUIPanel {
          vinInputPanel.add(lblVin);
 
          JTextField vinField = new JTextField();
-         vinField.setText("123456789abcdefff");
+         vinField.setText("22");
          vinField.setColumns(12);
          vinInputPanel.add(vinField);
 
@@ -150,7 +149,7 @@ public class CalculateCarMenu extends GUIPanel {
         lblPriceLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         carInfoPanel.add(lblPriceLabel);
         
-        JLabel lblRegistrationFeeLabel = new JLabel("Afgift: " +  copy.getRegistrationFee());
+        JLabel lblRegistrationFeeLabel = new JLabel("Reg afgift: " +  copy.getRegistrationFee());
         lblRegistrationFeeLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         carInfoPanel.add(lblRegistrationFeeLabel);     
         
