@@ -49,7 +49,8 @@ public class Main {
         
 	}
 	
-	public void initialize() {
+	public void initialize() 
+	{
 		JFrame mainPage = new MainPage();
 		mainPage.setVisible(true);
 		currentFrame = mainPage;
