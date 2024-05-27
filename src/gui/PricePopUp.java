@@ -29,7 +29,7 @@ public class PricePopUp extends JDialog {
 	private Main maingui;
 
 	private JPanel contentPanel = new JPanel();
-	private JTextField textField;
+	private JTextField textFieldSalesPrice;
 
 	public PricePopUp(CalculateCarCtrl calculateCarCtrl, Copy copy) {
 		initialize(calculateCarCtrl);
@@ -59,9 +59,9 @@ public class PricePopUp extends JDialog {
 		JLabel lblSalesPrice = new JLabel("Salgspris");
 		panel_2.add(lblSalesPrice);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		panel_2.add(textField);
+		textFieldSalesPrice = new JTextField();
+		textFieldSalesPrice.setColumns(10);
+		panel_2.add(textFieldSalesPrice);
 	}
 
 	private void createButtonsPanel(Copy copy) {
