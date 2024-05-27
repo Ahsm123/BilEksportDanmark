@@ -12,7 +12,7 @@ import model.exceptions.DataAccessException;
 
 public class CarDB implements CarDBIF {
 	
-	private static final String FIND_BY_VIN_Q = "SELECT c.*, cp.* FROM \"Copy\" cp LEFT JOIN Car c ON c.id = cp.car where cp.vin = ?";
+	private static final String FIND_BY_VIN_Q = " SELECT c.mileage, c.manufactorer, c.model, c.fuelType, c.hp, c.co2Emission, c.acceleration, c.topSpeed, c.gearType, c.noOfGears, cp.* FROM \"Copy\" cp LEFT JOIN Car c ON c.id = cp.car where cp.vin = ?";
 	
 	private PreparedStatement findByVinPs;
 	//	private PreparedStatement insertPs;

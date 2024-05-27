@@ -22,7 +22,7 @@ public class OrderDB implements OrderDBIF {
 	
 	private static final String SAVE_ORDER_Q = "insert into \"Order\" (\"date\", totalPrice, isDelivered, deliveryAdress, customerId, employeeId) values(?, ?, ?, ?, ?, ?)";
 	private static final String SAVE_COPY_ORDER_Q = "insert into CopyOrder (copyId, orderId) values (?, ?)";
-	private static final String FIND_ORDER_ASSOSIATED_WITH_COPY = "select orderId from CopyOrder where copyId = (select copyId from Copy where vin = ?)";
+	private static final String FIND_ORDER_ASSOSIATED_WITH_COPY = "select orderId from CopyOrder where copyId = (select id from Copy where vin = ?)";
 	private static final String DELETE_ORDER = "delete from \"order\" where id = ?;";
 
 	public OrderDB() throws SQLException {

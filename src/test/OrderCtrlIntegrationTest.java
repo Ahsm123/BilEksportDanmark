@@ -137,9 +137,10 @@ public class OrderCtrlIntegrationTest {
 
 		// Arrange
 		//Tilføjer den "solgte bil" til en anden ordre, så den er markeret som solgt.
-		Order order0 = orderCtrl.createOrder("12345678", 1);
-		Copy copy = orderCtrl.addCopy("bbcdefgh1234");
-		order0.addCopy(copy);
+		orderCtrl.createOrder("12345678", 1);
+		orderCtrl.addCopy("bbcdefgh1234");
+		orderCtrl.confirmOrder();
+		
 		
 		Order order1 = orderCtrl.createOrder("12345678", 1);
 		Customer customer = order1.getCustomer();
