@@ -43,7 +43,8 @@ public class CarServiceAPI {
 	}
 	
 	public Copy importCopy(String vin) {
-		return carList.get(vin);
+		Copy copy = carList.get(vin);
+		return copy;
 	}
 		
 	

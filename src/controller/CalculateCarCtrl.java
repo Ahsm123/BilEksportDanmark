@@ -14,9 +14,12 @@ public class CalculateCarCtrl {
 	private final static double MIN_PROFIT = 5000;
 	private final static double EXPENSES = 5000;
 
-	public CalculateCarCtrl() {
+	public CalculateCarCtrl(Copy copy, CarServiceAPI carServiceApi) {
+		this.copy = null;
+		this.carServiceApi = new CarServiceAPI();
 		
 	}
+
 
 	public Copy importCopy(String vin) {
 		carServiceApi.importCopy(vin);

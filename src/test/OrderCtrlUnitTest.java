@@ -18,7 +18,7 @@ import model.exceptions.CopyAlreadyInOrderException;
 import model.exceptions.DataAccessException;
 import model.exceptions.EmptyOrderException;
 
-public class OrderCtrlTest {
+public class OrderCtrlUnitTest {
 
 	private OrderCtrl orderCtrl;
 
