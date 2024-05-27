@@ -6,7 +6,6 @@ import model.Copy;
 import model.api.CarServiceAPI;
 
 public class CalculateCarCtrl {
-	private Copy copy;
 	private CarServiceAPI carServiceApi;
 	private final static double TAX_ROOF = 0.85;
 	private final static double AGE_PENALTY = 0.07;
@@ -15,23 +14,22 @@ public class CalculateCarCtrl {
 	private final static double EXPENSES = 5000;
 
 	public CalculateCarCtrl() {
-		
+		this.carServiceApi = new CarServiceAPI();
 	}
 
 	public Copy importCopy(String vin) {
-		carServiceApi.importCopy(vin);
-		return copy;
+		return carServiceApi.importCopy(vin);
 	}
 
-	public double CalculateOffer(double taxReturn, double purchasePrice, double salesPrice) {
+	public double CalculateOffer(Copy copy, double purchasePrice, double salesPrice) {
+		double taxReturn = calculateTaxReturn(copy);
 		double totalIncome = salesPrice + taxReturn;
         double totalExpenses = purchasePrice + EXPENSES;
         double maxOffer = totalIncome - totalExpenses - MIN_PROFIT;
         return maxOffer;
-		
 	}
 
-	public double calculateTaxReturn(Copy copy) {
+	private double calculateTaxReturn(Copy copy) {
 		double taxReturn = copy.getRegistrationFee() * TAX_ROOF;
 		int carAge = Year.now().getValue() - copy.getYear();
 		double kmPenalty = (copy.getKilometer()/10000) * KM_PENALTY;
