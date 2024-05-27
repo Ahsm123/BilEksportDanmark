@@ -12,11 +12,13 @@ import model.database.OrderDBIF;
 import model.exceptions.CarAlreadySoldException;
 import model.exceptions.CopyAlreadyInOrderException;
 import model.exceptions.CopyNotReady;
+import model.exceptions.CustomerNotFound;
 import model.exceptions.DataAccessException;
 import model.exceptions.EmptyOrderException;
 
 import java.sql.SQLException;
 import model.Copy;
+import model.Customer;
 
 public class OrderCtrl {
 	private OrderDBIF orderDB;
@@ -36,7 +38,11 @@ public class OrderCtrl {
 		currentOrder.removeCopyByVin(copyVin);
 	}
 	
-	public Order createOrder(String phoneNo, int employeeId) throws NullPointerException, DataAccessException {
+	public Order createOrder(String phoneNo, int employeeId) throws NullPointerException, DataAccessException, CustomerNotFound {
+		Customer customer = customerCtrl.findCustomer(phoneNo);
+		if(customer == null) {
+			throw new CustomerNotFound("Kunde ikke fundet");
+		}
 		currentOrder = new Order(employeeId, customerCtrl.findCustomer(phoneNo));
 		return currentOrder;
 	}
