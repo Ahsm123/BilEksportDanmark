@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 
 import controller.CalculateCarCtrl;
 import controller.OrderCtrl;
+import model.Copy;
 import model.exceptions.CustomerNotFound;
 import model.exceptions.DataAccessException;
 import java.awt.GridLayout;
@@ -31,11 +32,11 @@ public class PricePopUp extends JDialog {
 	private JTextField textFieldSalesPrice;
 	private JTextField textFieldPurchasePrice;
 
-	public PricePopUp(CalculateCarCtrl calculateCarCtrl) {
+	public PricePopUp(CalculateCarCtrl calculateCarCtrl, Copy copy) {
 		initialize(calculateCarCtrl);
 
 		createContentPanel();
-		createButtonsPanel();
+		createButtonsPanel(copy);
 	}
 
 	private void initialize(CalculateCarCtrl calculateCarCtrl) {
@@ -79,7 +80,7 @@ public class PricePopUp extends JDialog {
 		panel_1.add(textFieldPurchasePrice);
 	}
 
-	private void createButtonsPanel() {
+	private void createButtonsPanel(Copy copy) {
 		JPanel buttonPanel = new JPanel();
 
 		buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -92,12 +93,26 @@ public class PricePopUp extends JDialog {
 
 		JButton okButton = new JButton("OK");
 		okButton.setActionCommand("OK");
-		okButton.addActionListener(e -> createOrder());
+		okButton.addActionListener(e -> calculateCar(copy));
 		buttonPanel.add(okButton);
 	}
-
-	private void createOrder() {
-		
+	
+	private void calculateCar(Copy copy) {
+		if(textFieldPurchasePrice.getText() == "" || textFieldSalesPrice.getText() == ""){
+			JOptionPane.showMessageDialog(null, "Mangler inputs", "Fejl", JOptionPane.PLAIN_MESSAGE);
+		}
+		else {
+			try {
+				double purchasePrice = Double.parseDouble(textFieldPurchasePrice.getText());
+				double salesPrice = Double.parseDouble(textFieldSalesPrice.getText());
+				
+				double price = calculateCarCtrl.CalculateOffer(copy, purchasePrice, salesPrice);
+				JOptionPane.showMessageDialog(null, "Beregnet pris: " + price, "Success", JOptionPane.PLAIN_MESSAGE);
+			}
+			catch (Exception e) {
+				JOptionPane.showMessageDialog(null, "Sørg for kun tal er i inputfælterne", "Fejl", JOptionPane.PLAIN_MESSAGE);
+			}
+		}
 	}
 
 	private void cancel() {

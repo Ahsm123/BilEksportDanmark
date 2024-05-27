@@ -180,7 +180,7 @@ public class CalculateCarMenu extends GUIPanel {
     }
 
     private void confirm() {
-    	new PricePopUp(calculateCarCtrl);
+    	maingui.switchToJDialog(new PricePopUp(calculateCarCtrl, currentlySelected));
     }
     
     private void searchCar(String vin) {
