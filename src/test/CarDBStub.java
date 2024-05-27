@@ -15,7 +15,7 @@ public class CarDBStub implements CarDBIF {
 			copy.setSalesPrice(20000);
 			copy.setState(2);
 			copy.setModification(	"");
-			copy.setKilometer(2000);
+			copy.setKilometer(200000);
 			copy.setColor("Blue");
 			copy.setTaxReturn(true);
 			copy.setIsInspected(true);
@@ -27,7 +27,7 @@ public class CarDBStub implements CarDBIF {
 			copy2.setSalesPrice(20000);
 			copy2.setState(2);
 			copy2.setModification("");
-			copy2.setKilometer(2000);
+			copy2.setKilometer(60000);
 			copy2.setColor("Blue");
 			copy2.setTaxReturn(true);
 			copy2.setIsInspected(true);
@@ -39,7 +39,7 @@ public class CarDBStub implements CarDBIF {
 			copy3.setSalesPrice(20000);
 			copy3.setState(2);
 			copy3.setModification("");
-			copy3.setKilometer(2000);
+			copy3.setKilometer(70000);
 			copy3.setColor("Blue");
 			copy3.setTaxReturn(true);
 			copy3.setIsInspected(true);

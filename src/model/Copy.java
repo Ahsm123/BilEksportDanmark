@@ -61,7 +61,7 @@ public class Copy extends Car{
 			stateToSet = CarState.OFFER_SENT;
 			break;
 		default:
-			break;
+			stateToSet = CarState.IN_STORAGE;
 		}
 		this.state = stateToSet;
 		
