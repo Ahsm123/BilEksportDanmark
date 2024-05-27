@@ -13,24 +13,28 @@ import org.junit.Test;
 import controller.OrderCtrl;
 import model.Customer;
 import model.Order;
+import model.database.CarDB;
+import model.database.CustomerDB;
+import model.database.InvoiceDB;
+import model.database.OrderDB;
 import model.exceptions.CarAlreadySoldException;
 import model.exceptions.CopyAlreadyInOrderException;
 import model.exceptions.DataAccessException;
 import model.exceptions.EmptyOrderException;
 
-public class OrderCtrlTest {
+public class OrderCtrlTestWithDB {
 
 	private OrderCtrl orderCtrl;
 
 	@Before
-	public void setup() {
-		CustomerDBStub customerDBStub = new CustomerDBStub();
-		CarDBStub carDBStub = new CarDBStub();
-		InvoiceDBStub invoiceDBStub = new InvoiceDBStub();
-		OrderDBStub orderDBStub = new OrderDBStub();
+	public void setup() throws DataAccessException, SQLException {
+		CustomerDB customerDB = new CustomerDB();
+		CarDB carDB = new CarDB();
+		InvoiceDB invoiceDB = new InvoiceDB();
+		OrderDB orderDB = new OrderDB();
 
 		try {
-			orderCtrl = new OrderCtrl(orderDBStub, customerDBStub, carDBStub, invoiceDBStub);
+			orderCtrl = new OrderCtrl(orderDB, customerDB, carDB, invoiceDB);
 		} catch (DataAccessException | SQLException e) {
 			e.printStackTrace();
 		}

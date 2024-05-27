@@ -22,7 +22,7 @@ public class CarServiceAPI {
 		copy1.setIsInspected(false);
 		copy1.setYear(2018);
 		copy1.setRegistrationFee(75000);
-	
+		
 		Copy copy2 = new Copy(40, "Lada", "Riva", "Benzin", 150.00, 65, 20, 140, "Manuel", 4);
 		copy2.setId(2);
 		copy2.setVin("22");
