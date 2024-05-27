@@ -24,7 +24,6 @@ import model.database.DBConnection;
 import model.database.InvoiceDB;
 import model.database.OrderDB;
 import model.exceptions.CarAlreadySoldException;
-import model.exceptions.CopyAlreadyInOrderException;
 import model.exceptions.DataAccessException;
 import model.exceptions.EmptyOrderException;
 
@@ -56,7 +55,7 @@ public class OrderCtrlIntegrationTest {
 	private void setUpDatabase() throws SQLException {
 		try (Statement stmt = connection.createStatement()) {
 			stmt.execute("delete from order");
-			stmt.execute("delete from customer");
+
 
 		}
 	}
@@ -69,7 +68,7 @@ public class OrderCtrlIntegrationTest {
 	private void tearDownDatabase() throws SQLException {
 		try (Statement stmt = connection.createStatement()) {
 			stmt.execute("delete from order");
-			stmt.execute("delete from customer");
+	
 		}
 	}
 
