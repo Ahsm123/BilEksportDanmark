@@ -54,7 +54,7 @@ public class OrderCtrlIntegrationTest {
 
 	private void setUpDatabase() throws SQLException {
 		try (Statement stmt = connection.createStatement()) {
-			stmt.execute("delete from order");
+			stmt.execute("DELETE FROM \"Order\"");
 
 
 		}
@@ -67,7 +67,7 @@ public class OrderCtrlIntegrationTest {
 
 	private void tearDownDatabase() throws SQLException {
 		try (Statement stmt = connection.createStatement()) {
-			stmt.execute("delete from order");
+			stmt.execute("DELETE FROM \"Order\"");
 	
 		}
 	}

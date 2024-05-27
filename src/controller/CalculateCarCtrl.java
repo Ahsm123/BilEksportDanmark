@@ -10,7 +10,7 @@ public class CalculateCarCtrl {
 	private final static double TAX_ROOF = 0.85;
 	private final static double AGE_PENALTY = 0.07;
 	private final static double KM_PENALTY = 0.01;
-	private final static double MIN_PROFIT = 5000;
+	private final static double MIN_PROFIT = 15000;
 	private final static double EXPENSES = 5000;
 
 	public CalculateCarCtrl() {
