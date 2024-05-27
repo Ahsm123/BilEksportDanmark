@@ -180,11 +180,23 @@ public class CalculateCarMenu extends GUIPanel {
     }
 
     private void confirm() {
-    	maingui.switchToJDialog(new PricePopUp(calculateCarCtrl, currentlySelected));
+    	if(currentlySelected != null) {
+    		maingui.switchToJDialog(new PricePopUp(calculateCarCtrl, currentlySelected));
+    	}
+    	else {
+    		showErrorPopup("Ingen bil valgt");
+    	}
+    	
     }
     
     private void searchCar(String vin) {
     	currentlySelected = calculateCarCtrl.importCopy(vin);
-    	createCarOverviewPanel(currentlySelected);
+    	if(currentlySelected != null) {
+    		createCarOverviewPanel(currentlySelected);
+    	}
+    	else {
+    		showErrorPopup("Bil ikke fundet");
+    	}
+    	
     }
 }
