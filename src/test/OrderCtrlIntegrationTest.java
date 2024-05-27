@@ -16,6 +16,7 @@ import org.junit.Test;
 import org.junit.jupiter.api.AfterEach;
 
 import controller.OrderCtrl;
+import model.Copy;
 import model.Customer;
 import model.Order;
 import model.database.CarDB;
@@ -24,6 +25,7 @@ import model.database.DBConnection;
 import model.database.InvoiceDB;
 import model.database.OrderDB;
 import model.exceptions.CarAlreadySoldException;
+import model.exceptions.CustomerNotFound;
 import model.exceptions.DataAccessException;
 import model.exceptions.EmptyOrderException;
 
@@ -56,7 +58,6 @@ public class OrderCtrlIntegrationTest {
 		try (Statement stmt = connection.createStatement()) {
 			stmt.execute("DELETE FROM \"Order\"");
 
-
 		}
 	}
 
@@ -68,7 +69,7 @@ public class OrderCtrlIntegrationTest {
 	private void tearDownDatabase() throws SQLException {
 		try (Statement stmt = connection.createStatement()) {
 			stmt.execute("DELETE FROM \"Order\"");
-	
+
 		}
 	}
 
@@ -83,19 +84,16 @@ public class OrderCtrlIntegrationTest {
 		orderCtrl.confirmOrder();
 
 		// Assert
-		assertEquals("Customer should be found", customer);
+		assertEquals("12345678", customer.getPhoneNo());
 		assertNotNull("Order should be created", order);
 		assertEquals("Order should have one car", 1, order.getCopies().size());
 	}
 
 	@Test
 	public void TC_02_testCreateOrderWithoutPhoneNumber() throws DataAccessException {
-		// Arrange
-		Order order = orderCtrl.createOrder(" ", 1);
-		Customer customer = order.getCustomer();
 
 		// Assert
-		assertNull("Customer should not be found", customer);
+		assertThrows(CustomerNotFound.class, () -> orderCtrl.createOrder(" ", 1));
 	}
 
 	@Test
@@ -138,9 +136,13 @@ public class OrderCtrlIntegrationTest {
 			throws DataAccessException, EmptyOrderException, SQLException {
 
 		// Arrange
-
-		Order order = orderCtrl.createOrder("12345678", 1);
-		Customer customer = order.getCustomer();
+		//Tilføjer den "solgte bil" til en anden ordre, så den er markeret som solgt.
+		Order order0 = orderCtrl.createOrder("12345678", 1);
+		Copy copy = orderCtrl.addCopy("bbcdefgh1234");
+		order0.addCopy(copy);
+		
+		Order order1 = orderCtrl.createOrder("12345678", 1);
+		Customer customer = order1.getCustomer();
 		// Act
 		orderCtrl.addCopy("abcdefgh1234");
 		assertThrows(CarAlreadySoldException.class, () -> orderCtrl.addCopy("bbcdefgh1234"));
@@ -149,8 +151,8 @@ public class OrderCtrlIntegrationTest {
 
 		// Assert
 		assertNotNull("Customer should be found", customer);
-		assertNotNull("Order should be created", order);
-		assertEquals("Order should have one car", 1, order.getCopies().size());
+		assertNotNull("Order should be created", order1);
+		assertEquals("Order should have one car", 1, order1.getCopies().size());
 	}
 
 }
