@@ -21,14 +21,14 @@ public class CalculateCarCtrl {
 		return carServiceApi.importCopy(vin);
 	}
 
-	public double CalculateOffer(Copy copy, double purchasePrice, double salesPrice) {
+	public double CalculateOffer(Copy copy, double salesPrice) {
 		double taxReturn = calculateTaxReturn(copy);
 		double totalIncome = salesPrice + taxReturn;
-        double totalExpenses = purchasePrice + EXPENSES;
-        double maxOffer = totalIncome - totalExpenses - MIN_PROFIT;
+        double maxOffer = totalIncome - EXPENSES - MIN_PROFIT;
         return maxOffer;
 	}
-
+	
+	
 	private double calculateTaxReturn(Copy copy) {
 		double taxReturn = copy.getRegistrationFee() * TAX_ROOF;
 		int carAge = Year.now().getValue() - copy.getYear();

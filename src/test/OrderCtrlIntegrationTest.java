@@ -24,7 +24,6 @@ import model.database.DBConnection;
 import model.database.InvoiceDB;
 import model.database.OrderDB;
 import model.exceptions.CarAlreadySoldException;
-import model.exceptions.CopyAlreadyInOrderException;
 import model.exceptions.DataAccessException;
 import model.exceptions.EmptyOrderException;
 
