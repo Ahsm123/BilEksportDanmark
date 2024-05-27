@@ -16,7 +16,6 @@ public class CalculateCarCtrl {
 
 	public CalculateCarCtrl() {
 		
-
 	}
 
 	public Copy importCopy(String vin) {
