@@ -57,7 +57,7 @@ public class CalculateCarMenu extends GUIPanel {
          vinInputPanel.add(lblVin);
 
          JTextField vinField = new JTextField();
-         vinField.setText("123456789abcdefgh");
+         vinField.setText("123456789abcdefff");
          vinField.setColumns(12);
          vinInputPanel.add(vinField);
 
