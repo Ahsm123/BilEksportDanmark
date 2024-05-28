@@ -1,6 +1,7 @@
 package controller;
 import model.Customer;
 import model.database.CustomerDBIF;
+import model.exceptions.CustomerNotFound;
 import model.exceptions.DataAccessException;
 
 public class CustomerCtrl {
@@ -9,7 +10,7 @@ public class CustomerCtrl {
 	public CustomerCtrl(CustomerDBIF customerDB) {
 		this.customerDB = customerDB;
 	}
-	public Customer findCustomer(String phoneNo) throws DataAccessException {
+	public Customer findCustomer(String phoneNo) throws DataAccessException, CustomerNotFound {
 		return customerDB.findCustomer(phoneNo);
 	}
 	

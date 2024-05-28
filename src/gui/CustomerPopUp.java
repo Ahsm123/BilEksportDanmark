@@ -16,64 +16,36 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import controller.OrderCtrl;
+import gui.supers.GUIDialog;
 import model.exceptions.CustomerNotFound;
 import model.exceptions.DataAccessException;
 import controller.CustomerCtrl;
 
-public class CustomerPopUp extends JDialog {
-	private static final long serialVersionUID = 1L;
-	private static final int PADDING = 5;
-	
+public class CustomerPopUp extends GUIDialog {
 	private OrderCtrl orderCtrl;
-	private Main maingui;
 	
-	private JPanel contentPanel = new JPanel();
 	private JTextField textField;
 
 	public CustomerPopUp(OrderCtrl orderCtrl) {
+		super(300, 150);
         initialize(orderCtrl);
         
-        createContentPanel();
-        createButtonsPanel();
+        createContent();
     }
 
     private void initialize(OrderCtrl orderCtrl) {
     	 this.maingui = Main.getInstance();
-         this.orderCtrl = orderCtrl;
-    	
-         setModal(true);
-         setBounds(100, 100, 450, 300);        
+         this.orderCtrl = orderCtrl;       
     }
 
-    private void createContentPanel() {
-        contentPanel = new JPanel(new BorderLayout());
-        contentPanel.setLayout(new FlowLayout());
-        contentPanel.setBorder(new EmptyBorder(PADDING, PADDING, PADDING, PADDING));
-        getContentPane().add(contentPanel, BorderLayout.CENTER);
-
-        JLabel lblPhone = new JLabel("Telefonnummer");
-        contentPanel.add(lblPhone);
+    private void createContent() {
+    	JLabel lblPhone = new JLabel("Telefonnummer");
+        contentPane.add(lblPhone);
 
         textField = new JTextField();
         textField.setText("12345678");
         textField.setColumns(10);
-        contentPanel.add(textField);
-    }
-
-    private void createButtonsPanel() {
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-        getContentPane().add(buttonPanel, BorderLayout.SOUTH);
-
-        JButton cancelButton = new JButton("Annuller");
-        cancelButton.setActionCommand("Cancel");
-        cancelButton.addActionListener(e -> cancel());
-        buttonPanel.add(cancelButton);
-
-        JButton okButton = new JButton("OK");
-        okButton.setActionCommand("OK");
-        okButton.addActionListener(e -> createOrder());
-        buttonPanel.add(okButton);
+        contentPane.add(textField);
     }
     
 	private void createOrder() {
@@ -91,8 +63,9 @@ public class CustomerPopUp extends JDialog {
 	    	JOptionPane.showMessageDialog(null, "Kunde eksisterer ikke", "Fejl", JOptionPane.PLAIN_MESSAGE);
 	    }
 	}
-	
-	private void cancel() {
-		maingui.goBack();
+
+	@Override
+	protected void confirm() {
+		createOrder();
 	}
 }

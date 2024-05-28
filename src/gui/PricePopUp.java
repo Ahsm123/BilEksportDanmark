@@ -15,45 +15,40 @@ import javax.swing.JTextField;
 
 import controller.CalculateCarCtrl;
 import controller.OrderCtrl;
+import gui.supers.GUIDialog;
 import model.Copy;
 import model.exceptions.CustomerNotFound;
 import model.exceptions.DataAccessException;
 import java.awt.GridLayout;
 import javax.swing.BoxLayout;
 
-public class PricePopUp extends JDialog {
+public class PricePopUp extends GUIDialog {
 	private static final long serialVersionUID = 1L;
-	private static final int PADDING = 5;
-
+	
 	private CalculateCarCtrl calculateCarCtrl;
-	private Main maingui;
+	
+	private Copy copy;
 
-	private JPanel contentPanel = new JPanel();
 	private JTextField textFieldSalesPrice;
 
 	public PricePopUp(CalculateCarCtrl calculateCarCtrl, Copy copy) {
-		initialize(calculateCarCtrl);
+		super(300, 150);
+		initialize(calculateCarCtrl, copy);
 
-		createContentPanel();
-		createButtonsPanel(copy);
+		createContent();
+		
 	}
 
-	private void initialize(CalculateCarCtrl calculateCarCtrl) {
-		this.maingui = Main.getInstance();
+	private void initialize(CalculateCarCtrl calculateCarCtrl, Copy copy) {
+		this.copy = copy;
 		this.calculateCarCtrl = calculateCarCtrl;
 		setModal(true);
 		setBounds(100, 100, 450, 150);        
 	}
 
-	private void createContentPanel() {
-		contentPanel = new JPanel();
-		contentPanel.setBorder(new EmptyBorder(PADDING, PADDING, PADDING, PADDING));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.X_AXIS));
-		contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.X_AXIS));
-
+	private void createContent() {
 		JPanel panel_2 = new JPanel();
-		contentPanel.add(panel_2);
+		contentPane.add(panel_2);
 		panel_2.setLayout(new GridLayout(1, 2, 0, 0));
 		
 		JLabel lblSalesPrice = new JLabel("Salgspris");
@@ -64,23 +59,6 @@ public class PricePopUp extends JDialog {
 		panel_2.add(textFieldSalesPrice);
 	}
 
-	private void createButtonsPanel(Copy copy) {
-		JPanel buttonPanel = new JPanel();
-
-		buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		getContentPane().add(buttonPanel, BorderLayout.SOUTH);
-
-		JButton cancelButton = new JButton("Annuller");
-		cancelButton.setActionCommand("Cancel");
-		cancelButton.addActionListener(e -> cancel());
-		buttonPanel.add(cancelButton);
-
-		JButton okButton = new JButton("OK");
-		okButton.setActionCommand("OK");
-		okButton.addActionListener(e -> calculateCar(copy));
-		buttonPanel.add(okButton);
-	}
-	
 	private void calculateCar(Copy copy) {
 		if(textFieldSalesPrice.getText() == ""){
 			JOptionPane.showMessageDialog(null, "Mangler input", "Fejl", JOptionPane.PLAIN_MESSAGE);
@@ -97,8 +75,9 @@ public class PricePopUp extends JDialog {
 			}
 		}
 	}
-
-	private void cancel() {
-		maingui.goBack();
+	
+	@Override
+	protected void confirm() {
+		calculateCar(copy);
 	}
 }

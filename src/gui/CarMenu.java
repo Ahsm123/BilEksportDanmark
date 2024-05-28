@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import controller.OrderCtrl;
+import gui.supers.GUIPanel;
 import model.database.CarDB;
 import model.database.CustomerDB;
 import model.database.InvoiceDB;
@@ -59,16 +60,12 @@ public class CarMenu extends GUIPanel {
         goBackPanel.setLayout(new BorderLayout(0, 0));
 
         JButton btnBack = new JButton("Gå tilbage");
-        btnBack.addActionListener(e -> goBack());
+        btnBack.addActionListener(e -> cancel());
         goBackPanel.add(btnBack, BorderLayout.CENTER);
 
         JButton btnCalculateCar = new JButton("Beregn bil");
         btnCalculateCar.addActionListener(e -> goCalculateCar());
         buttonsPanel.add(btnCalculateCar);
-    }
-
-    private void goBack() {
-        maingui.goBack();
     }
 
     private void goCalculateCar() {

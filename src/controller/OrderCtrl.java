@@ -39,10 +39,6 @@ public class OrderCtrl {
 	}
 	
 	public Order createOrder(String phoneNo, int employeeId) throws NullPointerException, DataAccessException, CustomerNotFound {
-		Customer customer = customerCtrl.findCustomer(phoneNo);
-		if(customer == null) {
-			throw new CustomerNotFound("Kunde ikke fundet");
-		}
 		currentOrder = new Order(employeeId, customerCtrl.findCustomer(phoneNo));
 		return currentOrder;
 	}

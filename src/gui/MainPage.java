@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import gui.supers.GUIPanel;
 import model.database.DBConnection;
 import model.exceptions.DataAccessException;
 

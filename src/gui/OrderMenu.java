@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import controller.OrderCtrl;
+import gui.supers.GUIPanel;
 import model.database.CarDB;
 import model.database.CustomerDB;
 import model.database.InvoiceDB;
@@ -65,18 +66,14 @@ public class OrderMenu extends GUIPanel {
         goBackPanel.setLayout(new BorderLayout(0, 0));
 
         JButton btnBack = new JButton("Gå tilbage");
-        btnBack.addActionListener(e -> goBack());
+        btnBack.addActionListener(e -> cancel());
         goBackPanel.add(btnBack, BorderLayout.CENTER);
 
         JButton btnOnlineOrder = new JButton("Online ordre");
         //btnOnlineOrder.addActionListener(e -> onlineOrder());
         buttonsPanel.add(btnOnlineOrder);
     }
-
-    private void goBack() {
-        maingui.goBack();
-    }
-
+    
     private void showCustomerPopUp() throws DataAccessException, SQLException {
     	maingui.switchToJDialog(new CustomerPopUp(new OrderCtrl(new OrderDB(), new CustomerDB(), new CarDB(), new InvoiceDB())), true);
     }
