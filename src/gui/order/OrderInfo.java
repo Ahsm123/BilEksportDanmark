@@ -3,7 +3,9 @@ package gui.order;
 import controller.CarCtrl;
 import controller.OrderCtrl;
 import gui.Main;
+import gui.TextInput;
 import gui.supers.GUIPanel;
+import guiExceptions.InvalidVinException;
 import model.Copy;
 import model.Order;
 import model.database.CarDB;
@@ -122,17 +124,22 @@ public class OrderInfo extends GUIPanel {
     }
 
     private void addCar(String input) {
+        TextInput textInput = new TextInput();
+
         try {
-			createCarPanel(input);
-		} 
-        catch (CarAlreadySoldException e) {
-			showErrorPopup("Bil allerede solgt");
-        }
-        catch (SQLException e) {
-        	showErrorPopup("Database fejl");
-        }
-        catch (CopyNotReady e) {
-        	showErrorPopup("Bilen mangler dokumenter og kan derfor ikke sælges");
+            boolean isValidVin = textInput.VINValidator(input);
+
+            if (isValidVin) {
+                createCarPanel(input);
+            }
+        } catch (InvalidVinException e) {
+            showErrorPopup(e.getMessage());
+        } catch (CarAlreadySoldException e) {
+            showErrorPopup("Bil allerede solgt");
+        } catch (SQLException e) {
+            showErrorPopup("Database fejl");
+        } catch (CopyNotReady e) {
+            showErrorPopup("Bilen mangler dokumenter og kan derfor ikke sælges");
         }
     }
 
