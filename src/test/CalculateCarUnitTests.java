@@ -1,12 +1,9 @@
 package test;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+
 
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -16,9 +13,6 @@ import org.junit.Test;
 
 import model.BuyInfo;
 import model.Copy;
-import model.api.*;
-import model.database.BuyInfoDB;
-import controller.BuyInfoCtrl;
 import controller.CalculateCarCtrl;
 import model.exceptions.CarDoesNotMeetRequirementsException;
 import model.exceptions.DataAccessException;
@@ -54,8 +48,6 @@ public class CalculateCarUnitTests {
 		
 		assertFalse("Buy orders list should not be empty", buyOrders.isEmpty()) ;
 		
-		
-		//Somehow check that buyInfo is saved?
 	}
 	
 	@Test
