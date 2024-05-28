@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import controller.CalculateCarCtrl;
 import controller.CarCtrl;
+import gui.supers.GUIPanel;
 import model.Copy;
 import model.database.CarDB;
 import model.exceptions.CarDoesNotMeetRequirementsException;
@@ -179,10 +180,6 @@ public class CalculateCarMenu extends GUIPanel {
         JButton btnConfirm = new JButton("Bekræft");
         btnConfirm.addActionListener(e -> confirm());
         footerPanelInner.add(btnConfirm);
-    }
-
-    private void cancel() {
-        maingui.goBack();
     }
 
     private void confirm() {

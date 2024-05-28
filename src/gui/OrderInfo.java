@@ -2,6 +2,7 @@ package gui;
 
 import controller.CarCtrl;
 import controller.OrderCtrl;
+import gui.supers.GUIPanel;
 import model.Copy;
 import model.Order;
 import model.database.CarDB;
@@ -185,8 +186,9 @@ public class OrderInfo extends GUIPanel {
             showErrorPopup("Ingen bil i ordren");
         }
     }
-
-    private void cancel() {
+    
+    @Override
+	protected void cancel() {
         threadNeedsToRun = false;
         maingui.goBack();
     }

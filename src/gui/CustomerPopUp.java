@@ -16,6 +16,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import controller.OrderCtrl;
+import gui.supers.GUIDialog;
 import model.exceptions.CustomerNotFound;
 import model.exceptions.DataAccessException;
 import controller.CustomerCtrl;

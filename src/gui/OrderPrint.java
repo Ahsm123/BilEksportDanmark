@@ -13,6 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 
+import gui.supers.GUIPanel;
 import model.Copy;
 import model.Order;
 
@@ -165,7 +166,7 @@ public class OrderPrint extends GUIPanel {
 		confirmationPanel.add(btnOrderCancel);
 		
 		JButton btnOrderConfirm = new JButton("Ok");
-		btnOrderConfirm.addActionListener(e ->confirm());
+		btnOrderConfirm.addActionListener(e -> confirm());
 		confirmationPanel.add(btnOrderConfirm);
 	}
 	

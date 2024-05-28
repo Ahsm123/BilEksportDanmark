@@ -1,5 +1,7 @@
 package gui;
 
+import gui.supers.GUIDialog;
+
 public class BuyInfoPopUp extends GUIDialog {
 	private static final long serialVersionUID = 1L;
 

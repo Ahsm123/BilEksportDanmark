@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 
 import controller.CalculateCarCtrl;
 import controller.OrderCtrl;
+import gui.supers.GUIDialog;
 import model.Copy;
 import model.exceptions.CustomerNotFound;
 import model.exceptions.DataAccessException;

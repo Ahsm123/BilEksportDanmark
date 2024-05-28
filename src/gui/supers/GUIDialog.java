@@ -1,4 +1,4 @@
-package gui;
+package gui.supers;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -11,15 +11,17 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import gui.Main;
+
 public abstract class GUIDialog extends JDialog {
 	protected static final long serialVersionUID = 1L;
 	protected static final int PADDING = 5;
+	
 	protected Main maingui;
 	protected JPanel contentPane;
 	
 	private int FRAME_WIDTH;
 	private int FRAME_HEIGHT;
-	
 	
 	public GUIDialog(int width, int height) {
 		maingui = Main.getInstance();
