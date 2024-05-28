@@ -11,6 +11,7 @@ import model.exceptions.CarDoesNotMeetRequirementsException;
 import model.exceptions.DataAccessException;
 
 import java.awt.*;
+import java.sql.SQLException;
 
 public class CalculateCarMenu extends GUIPanel {
 	private static final long serialVersionUID = 1L;
@@ -32,10 +33,13 @@ public class CalculateCarMenu extends GUIPanel {
     	}
     	catch (DataAccessException e){
     		System.out.println(e);
-    	}
+    	} 
+    	catch (SQLException e) {
+			e.printStackTrace();
+		}
     }
     
-    private void init() throws DataAccessException {
+    private void init() throws DataAccessException, SQLException {
     	maingui = Main.getInstance();
     	calculateCarCtrl = new CalculateCarCtrl();
     }

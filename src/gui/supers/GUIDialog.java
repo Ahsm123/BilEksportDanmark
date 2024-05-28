@@ -19,6 +19,7 @@ public abstract class GUIDialog extends JDialog {
 	
 	protected Main maingui;
 	protected JPanel contentPane;
+	protected JPanel buttonsPanel;
 	
 	private int FRAME_WIDTH;
 	private int FRAME_HEIGHT;
@@ -48,23 +49,25 @@ public abstract class GUIDialog extends JDialog {
     }
     
     private void createFooter() {
-		JPanel buttonPanel = new JPanel();
+		buttonsPanel = new JPanel();
 
-		buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		getContentPane().add(buttonPanel, BorderLayout.SOUTH);
+		buttonsPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		getContentPane().add(buttonsPanel, BorderLayout.SOUTH);
 
 		JButton cancelButton = new JButton("Annuller");
 		cancelButton.setActionCommand("Cancel");
 		cancelButton.addActionListener(e -> cancel());
-		buttonPanel.add(cancelButton);
+		buttonsPanel.add(cancelButton);
 
 		JButton okButton = new JButton("OK");
 		okButton.setActionCommand("OK");
 		okButton.addActionListener(e -> confirm());
-		buttonPanel.add(okButton);
+		buttonsPanel.add(okButton);
 	}
     
-    protected abstract void confirm();
+    protected void confirm() {
+    	maingui.resetToMainPage();
+    }
     
     private void cancel() {
     	maingui.goBack();
