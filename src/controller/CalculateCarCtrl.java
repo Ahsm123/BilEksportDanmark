@@ -33,7 +33,7 @@ public class CalculateCarCtrl {
 
 	public Copy importCopy(String vin) throws CarDoesNotMeetRequirementsException {
 		Copy copy = carServiceApi.importCopy(vin);
-		if(copy.getYear() >= 2004 && copy.getYear() <= 2018 && copy.getKilometer() > 50000) {
+		if(copy.getYear() >= 2004 && copy.getYear() <= 2018 && copy.getKilometer() >= 50000) {
 			return copy;
 		} 
 		else {

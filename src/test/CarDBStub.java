@@ -11,7 +11,7 @@ public class CarDBStub implements CarDBIF {
 		switch (vin) {
 		case "1G4HR57Y18U165590":
 			Copy copy0 = new Copy(18, "Ford", "multipla", "Benzin", 10, 80, 12,180, "manuel", 6);
-			copy0.setVin("abcdefgh1234");
+			copy0.setVin("1G4HR57Y18U165590");
 			copy0.setSalesPrice(20000);
 			copy0.setState(2);
 			copy0.setModification(	"");
@@ -23,7 +23,7 @@ public class CarDBStub implements CarDBIF {
 
 		case "KNDJP3A55E7006855":
 			Copy copy1 = new Copy(7, "Ferrari", "Spyder", "Benzin", 30, 480, 3.5, 320, "manuel", 7);
-			copy1.setVin("abcdefgh11235");
+			copy1.setVin("KNDJP3A55E7006855");
 			copy1.setSalesPrice(20000);
 			copy1.setState(2);
 			copy1.setModification("");
@@ -36,7 +36,7 @@ public class CarDBStub implements CarDBIF {
 			//Solgt bil
 		case "5NPEB4AC7CH325431":
 			Copy copy2 = new Copy(20, "Suzuki", "Swift", "Benzin", 10, 120, 9, 220, "automatic", 6);
-			copy2.setVin("bbcdefgh1234");
+			copy2.setVin("5NPEB4AC7CH325431");
 			copy2.setSalesPrice(20000);
 			copy2.setState(2);
 			copy2.setModification("");
@@ -48,7 +48,7 @@ public class CarDBStub implements CarDBIF {
 			
 		case "1HGCT1B73EA082703":
 			Copy copy3 = new Copy(15, "Volve", "V60", "Diesel", 20, 140, 7, 210, "automatic", 7);
-			copy3.setVin("ChangeToCorrentVin");
+			copy3.setVin("1HGCT1B73EA082703");
 			copy3.setSalesPrice(20000);
 			copy3.setState(2);
 			copy3.setModification("");
