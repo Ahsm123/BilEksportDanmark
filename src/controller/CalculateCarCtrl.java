@@ -4,6 +4,7 @@ import java.time.Year;
 
 import model.Copy;
 import model.api.CarServiceAPI;
+import model.exceptions.CarDoesNotMeetRequirementsException;
 
 public class CalculateCarCtrl {
 	private CarServiceAPI carServiceApi;
@@ -17,8 +18,14 @@ public class CalculateCarCtrl {
 		this.carServiceApi = new CarServiceAPI();
 	}
 
-	public Copy importCopy(String vin) {
-		return carServiceApi.importCopy(vin);
+	public Copy importCopy(String vin) throws CarDoesNotMeetRequirementsException {
+		Copy copy = carServiceApi.importCopy(vin);
+		if(copy.getYear() >= 2004 && copy.getYear() <= 2018 && copy.getKilometer() > 50000) {
+			return copy;
+		} else {
+			throw new CarDoesNotMeetRequirementsException("Car does not meet the requirements to be bought");
+		}
+		
 	}
 
 	public double CalculateOffer(Copy copy, double salesPrice) {

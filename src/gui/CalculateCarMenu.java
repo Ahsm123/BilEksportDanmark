@@ -6,6 +6,7 @@ import controller.CalculateCarCtrl;
 import controller.CarCtrl;
 import model.Copy;
 import model.database.CarDB;
+import model.exceptions.CarDoesNotMeetRequirementsException;
 import model.exceptions.DataAccessException;
 
 import java.awt.*;
@@ -70,7 +71,13 @@ public class CalculateCarMenu extends GUIPanel {
          searchLicensePlate.setLayout(new FlowLayout(FlowLayout.RIGHT, PADDING, PADDING));
 
          JButton btnSearchLicensePlate = new JButton("Søg");
-         btnSearchLicensePlate.addActionListener(e -> searchCar(vinField.getText()));
+         btnSearchLicensePlate.addActionListener(e -> {
+			try {
+				searchCar(vinField.getText());
+			} catch (CarDoesNotMeetRequirementsException e1) {
+				e1.printStackTrace();
+			}
+		});
          searchLicensePlate.add(btnSearchLicensePlate);
     }
     
@@ -187,7 +194,7 @@ public class CalculateCarMenu extends GUIPanel {
     	}	
     }
     
-    private void searchCar(String vin) {
+    private void searchCar(String vin) throws CarDoesNotMeetRequirementsException {
     	currentlySelected = calculateCarCtrl.importCopy(vin);
     	if(currentlySelected != null) {
     		createCarOverviewPanel(currentlySelected);
