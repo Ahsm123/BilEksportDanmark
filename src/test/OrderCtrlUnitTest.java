@@ -97,9 +97,6 @@ public class OrderCtrlUnitTest {
 	@Test
 	public void TC_05_testCreateOrderWithPhoneNumberAndSoldCarPlusOne()
 			throws DataAccessException, EmptyOrderException, SQLException {
-		orderCtrl.createOrder("12345678", 1);
-		orderCtrl.addCopy("bbcdefgh1234");
-		orderCtrl.confirmOrder();
 
 		Order order1 = orderCtrl.createOrder("12345678", 1);
 		Customer customer = order1.getCustomer();
