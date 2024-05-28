@@ -44,7 +44,6 @@ public class OrderDB implements OrderDBIF {
 		DBConnection con = DBConnection.getInstance();
 		con.startTransaction();
 		
-		System.out.println(order.getDate() + " " + order.getTotalPrice() + " " + order.isDelivered() + " " + order.getCustomer().getDeliveryAddressId() + " " + order.getCustomer().getId());
 		saveOrder.setString(1, order.getDate());
 		saveOrder.setDouble(2, order.getTotalPrice());
 		saveOrder.setBoolean(3, order.isDelivered());

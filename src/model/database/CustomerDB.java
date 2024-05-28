@@ -49,7 +49,7 @@ public class CustomerDB implements CustomerDBIF {
 	}
 
 	@Override
-	public Customer findCustomer(String phoneNo) throws DataAccessException {
+	public Customer findCustomer(String phoneNo) throws DataAccessException, CustomerNotFound {
 		Customer result =  null;
 
 		try {

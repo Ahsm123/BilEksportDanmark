@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 public abstract class GUIPanel extends JFrame {
-	private static final long serialVersionUID = 1L;
+	protected static final long serialVersionUID = 1L;
 	private int FRAME_WIDTH = 450;
 	private int FRAME_HEIGHT = 300;
 	
