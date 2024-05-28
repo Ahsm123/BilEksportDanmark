@@ -47,6 +47,7 @@ public class CustomerPopUp extends GUIDialog {
         textField.setText("12345678");
         textField.setColumns(10);
         contentPane.add(textField);
+        
     }
     
 	private void createOrder() {
