@@ -4,15 +4,12 @@ import java.util.HashMap;
 
 import model.Seller;
 import model.database.SellerDBIF;
+import model.exceptions.DataAccessException;
 
 public class SellerCtrl {
 	private SellerDBIF sellerDB;
 	
-	private HashMap<String, Seller> sellers;
-	
 	public SellerCtrl(SellerDBIF sellerDB) {
-		sellers = new HashMap<String, Seller>();
-		
 		this.sellerDB = sellerDB;
 	}
 	
@@ -20,10 +17,11 @@ public class SellerCtrl {
 		return sellerDB.findSellerFromPhone(phone);
 	}
 	
-	public void addSeller(String phoneNo) {
-		if(!sellers.containsKey(phoneNo)) {
-        	sellers.put(phoneNo, sellerDB.findSellerFromPhone(phoneNo));
-        }
-        Seller seller = sellers.get(phoneNo);
+	public void saveSeller(String name, String phone, String email, String link) throws DataAccessException {
+		Seller seller = new Seller(name, phone, email);
+		seller.setCarAd(link);
+		sellerDB.saveSeller(seller);
 	}
+	
+	
 }
