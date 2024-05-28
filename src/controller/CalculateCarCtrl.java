@@ -41,7 +41,6 @@ public class CalculateCarCtrl {
 		else {
 			throw new CarDoesNotMeetRequirementsException("Car does not meet the requirements to be bought");
 		}
-
 	}
 
 	public double calculateOffer(Copy copy, double salesPrice) {
@@ -81,5 +80,4 @@ public class CalculateCarCtrl {
 	public Seller findSellerFromPhone(String phone) {
 		return sellerCtrl.findSellerFromPhone(phone);
 	}
-
 }

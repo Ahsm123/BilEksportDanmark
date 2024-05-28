@@ -67,6 +67,13 @@ public class Main {
 		}
 	}
 	
+//	private void printWindows() {
+//		System.out.println();
+//		for(Window window : windowStack) {
+//			System.out.println(window.getClass());
+//		}
+//	}
+	
 	public void resetToMainPage() {
 		while(windowStack.size() > 1) {
 			goBack();
@@ -89,7 +96,7 @@ public class Main {
 		currentFrame = dialog;
 		windowStack.add(currentFrame);
 		
-		dialog.setModalityType(JDialog.ModalityType.APPLICATION_MODAL);
-        dialog.setVisible(true);
+		dialog.setModal(false);
+		dialog.setVisible(true);
 	}
 }
