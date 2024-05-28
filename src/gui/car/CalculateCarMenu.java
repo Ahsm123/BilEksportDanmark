@@ -1,11 +1,13 @@
-package gui;
+package gui.car;
 
 import javax.swing.*;
 
 import controller.CalculateCarCtrl;
 import controller.CarCtrl;
+import gui.Main;
 import gui.supers.GUIPanel;
 import model.Copy;
+import model.Seller;
 import model.database.CarDB;
 import model.exceptions.CarDoesNotMeetRequirementsException;
 import model.exceptions.DataAccessException;
@@ -188,7 +190,7 @@ public class CalculateCarMenu extends GUIPanel {
 
     private void confirm() {
     	if(currentlySelected != null) {
-    		maingui.switchToJDialog(new PricePopUp(calculateCarCtrl, currentlySelected), false);
+    		maingui.switchToJDialog(new PricePopUp(calculateCarCtrl, currentlySelected), true);
     	}
     	else {
     		showErrorPopup("Ingen bil valgt");
@@ -204,4 +206,6 @@ public class CalculateCarMenu extends GUIPanel {
     		showErrorPopup("Bil ikke fundet");
     	}
     }
+    
+    
 }

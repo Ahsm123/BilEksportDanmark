@@ -1,4 +1,4 @@
-package gui;
+package gui.car;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

@@ -1,7 +1,8 @@
-package gui;
+package gui.order;
 
 import controller.CarCtrl;
 import controller.OrderCtrl;
+import gui.Main;
 import gui.supers.GUIPanel;
 import model.Copy;
 import model.Order;
