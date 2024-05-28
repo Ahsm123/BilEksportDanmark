@@ -1,4 +1,4 @@
-package gui;
+package gui.car;
 
 import java.awt.GridLayout;
 import java.sql.SQLException;

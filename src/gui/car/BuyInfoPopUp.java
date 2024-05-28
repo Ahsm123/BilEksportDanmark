@@ -1,4 +1,4 @@
-package gui;
+package gui.car;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;

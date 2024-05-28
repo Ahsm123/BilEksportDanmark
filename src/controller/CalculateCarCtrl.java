@@ -39,7 +39,7 @@ public class CalculateCarCtrl {
 			return copy;
 		} 
 		else {
-			throw new CarDoesNotMeetRequirementsException("Car does not meet the requirements to be bought");
+			throw new CarDoesNotMeetRequirementsException("Bilen overholder ikke kravene");
 		}
 	}
 

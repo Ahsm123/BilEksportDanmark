@@ -1,4 +1,4 @@
-package gui;
+package gui.order;
 
 import java.awt.BorderLayout;
 
@@ -16,6 +16,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import controller.OrderCtrl;
+import gui.Main;
 import gui.supers.GUIDialog;
 import model.exceptions.CustomerNotFound;
 import model.exceptions.DataAccessException;

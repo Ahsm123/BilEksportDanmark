@@ -1,4 +1,4 @@
-package gui;
+package gui.order;
 
 import javax.swing.JPanel;
 

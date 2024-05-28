@@ -1,9 +1,10 @@
-package gui;
+package gui.car;
 
 import javax.swing.*;
 
 import controller.CalculateCarCtrl;
 import controller.CarCtrl;
+import gui.Main;
 import gui.supers.GUIPanel;
 import model.Copy;
 import model.Seller;
