@@ -80,4 +80,8 @@ public class CalculateCarCtrl {
 	public Seller findSellerFromPhone(String phone) {
 		return sellerCtrl.findSellerFromPhone(phone);
 	}
+	
+	public BuyInfo getLatestBuyInfo() {
+		return latestBuyInfo;
+	}
 }

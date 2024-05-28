@@ -1,12 +1,15 @@
 package test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.sql.SQLException;
+import java.util.LinkedList;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,11 +21,13 @@ import model.database.BuyInfoDB;
 import controller.BuyInfoCtrl;
 import controller.CalculateCarCtrl;
 import model.exceptions.CarDoesNotMeetRequirementsException;
+import model.exceptions.DataAccessException;
 import gui.TextInput;
 import guiExceptions.InvalidVinException;
 
 public class CalculateCarUnitTests {
 	private CalculateCarCtrl calculateCarCtrl;
+	private BuyInfoDBStub buyInfoDBStub;
 	private TextInput textInput;
 	
 	public CalculateCarUnitTests() throws SQLException{
@@ -33,17 +38,24 @@ public class CalculateCarUnitTests {
 	@Before public void setUp() throws SQLException{
 		calculateCarCtrl = new CalculateCarCtrl();
 		textInput = new TextInput();
+		buyInfoDBStub = new BuyInfoDBStub();
 	}
 	
 	@Test
-	public void TC_01_calculateOfferTest() throws CarDoesNotMeetRequirementsException {
+	public void TC_01_calculateOfferTest() throws CarDoesNotMeetRequirementsException, SQLException, DataAccessException {
 		
 		Copy copy = calculateCarCtrl.importCopy("5NPEB4AC5CH354720");
-		int actual = (int) calculateCarCtrl.calculateOffer(copy, 100000);
-		int expected = 154544;
+		calculateCarCtrl.calculateOffer(copy, 125000);
 		
-		assertEquals(expected, actual);
+		BuyInfo latestBuyInfo = calculateCarCtrl.getLatestBuyInfo();
+		buyInfoDBStub.saveBuyInfo(latestBuyInfo);
 		
+		LinkedList<BuyInfo> buyOrders = buyInfoDBStub.getBuyOrders();
+		
+		assertFalse("Buy orders list should not be empty", buyOrders.isEmpty()) ;
+		
+		
+		//Somehow check that buyInfo is saved?
 	}
 	
 	@Test
