@@ -92,7 +92,6 @@ public class OrderCtrlIntegrationTest {
 	@Test
 	public void TC_02_testCreateOrderWithoutPhoneNumber() throws DataAccessException {
 
-		// Assert
 		assertThrows(CustomerNotFound.class, () -> orderCtrl.createOrder(" ", 1));
 	}
 

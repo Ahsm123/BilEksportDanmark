@@ -15,6 +15,7 @@ import model.Customer;
 import model.Order;
 import model.exceptions.CarAlreadySoldException;
 import model.exceptions.CopyAlreadyInOrderException;
+import model.exceptions.CustomerNotFound;
 import model.exceptions.DataAccessException;
 import model.exceptions.EmptyOrderException;
 
@@ -47,19 +48,15 @@ public class OrderCtrlUnitTest {
 		orderCtrl.confirmOrder();
 
 		// Assert
-		assertEquals("Customer should be found", customer);
+		assertEquals("12345678", customer.getPhoneNo());
 		assertNotNull("Order should be created", order);
 		assertEquals("Order should have one car", 1, order.getCopies().size());
 	}
 
 	@Test
 	public void TC_02_testCreateOrderWithoutPhoneNumber() throws DataAccessException {
-		// Arrange
-		Order order = orderCtrl.createOrder(" ", 1);
-		Customer customer = order.getCustomer();
-
-		// Assert
-		assertNull("Customer should not be found", customer);
+		
+		assertThrows(CustomerNotFound.class, () -> orderCtrl.createOrder(" ", 1));
 	}
 
 	@Test
@@ -100,21 +97,21 @@ public class OrderCtrlUnitTest {
 	@Test
 	public void TC_05_testCreateOrderWithPhoneNumberAndSoldCarPlusOne()
 			throws DataAccessException, EmptyOrderException, SQLException {
+		orderCtrl.createOrder("12345678", 1);
+		orderCtrl.addCopy("bbcdefgh1234");
+		orderCtrl.confirmOrder();
 
-		// Arrange
+		Order order1 = orderCtrl.createOrder("12345678", 1);
+		Customer customer = order1.getCustomer();
 
-		Order order = orderCtrl.createOrder("12345678", 1);
-		Customer customer = order.getCustomer();
-		// Act
 		orderCtrl.addCopy("abcdefgh1234");
 		assertThrows(CarAlreadySoldException.class, ()-> orderCtrl.addCopy("bbcdefgh1234"));
 		
 		orderCtrl.confirmOrder();
 
-		// Assert
 		assertNotNull("Customer should be found", customer);
-		assertNotNull("Order should be created", order);
-		assertEquals("Order should have one car", 1, order.getCopies().size());
+		assertNotNull("Order should be created", order1);
+		assertEquals("Order should have one car", 1, order1.getCopies().size());
 	}
 
 }
