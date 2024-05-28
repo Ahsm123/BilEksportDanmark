@@ -14,7 +14,9 @@ import controller.OrderCtrl;
 import model.Customer;
 import model.Order;
 import model.exceptions.CarAlreadySoldException;
+import model.exceptions.CarDoesNotMeetRequirementsException;
 import model.exceptions.CopyAlreadyInOrderException;
+import model.exceptions.CopyNotReady;
 import model.exceptions.CustomerNotFound;
 import model.exceptions.DataAccessException;
 import model.exceptions.EmptyOrderException;
@@ -44,7 +46,7 @@ public class OrderCtrlUnitTest {
 		Customer customer = order.getCustomer();
 
 		// Act
-		orderCtrl.addCopy("abcdefgh1234");
+		orderCtrl.addCopy("1G4HR57Y18U165590");
 		orderCtrl.confirmOrder();
 
 		// Assert
@@ -60,21 +62,11 @@ public class OrderCtrlUnitTest {
 	}
 
 	@Test
-	public void TC_03_testCreateOrderWithPhoneNumberAndMultiplyCars()
+	public void TC_03_testAddCarThatIsNotInspected()
 			throws DataAccessException, EmptyOrderException, SQLException {
 
-		// Arrange
-		Order order = orderCtrl.createOrder("12345678", 1);
-		Customer customer = order.getCustomer();
-		// Act
-		orderCtrl.addCopy("abcdefgh1234");
-		orderCtrl.addCopy("abcdefgh11235");
-		orderCtrl.confirmOrder();
+		assertThrows(CopyNotReady.class, () -> orderCtrl.addCopy("1HGCT1B73EA082703"));
 
-		// Assert
-		assertNotNull("Customer should be found", customer);
-		assertNotNull("Order should be created", order);
-		assertEquals("Order should have two cars", 2, order.getCopies().size());
 
 	}
 
@@ -86,7 +78,7 @@ public class OrderCtrlUnitTest {
 		Order order = orderCtrl.createOrder("12345678", 1);
 		Customer customer = order.getCustomer();
 		// Act
-		assertThrows(NullPointerException.class, ()->orderCtrl.addCopy("null_value"));
+		assertThrows(CarAlreadySoldException.class, ()->orderCtrl.addCopy("5NPEB4AC7CH325431"));
 
 		// Assert
 		assertNotNull("Customer should be found", customer);
@@ -101,8 +93,8 @@ public class OrderCtrlUnitTest {
 		Order order1 = orderCtrl.createOrder("12345678", 1);
 		Customer customer = order1.getCustomer();
 
-		orderCtrl.addCopy("abcdefgh1234");
-		assertThrows(CarAlreadySoldException.class, ()-> orderCtrl.addCopy("bbcdefgh1234"));
+		orderCtrl.addCopy("1G4HR57Y18U165590");
+		assertThrows(CarAlreadySoldException.class, ()-> orderCtrl.addCopy("5NPEB4AC7CH325431"));
 		
 		orderCtrl.confirmOrder();
 

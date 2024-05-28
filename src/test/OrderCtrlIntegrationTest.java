@@ -25,6 +25,7 @@ import model.database.DBConnection;
 import model.database.InvoiceDB;
 import model.database.OrderDB;
 import model.exceptions.CarAlreadySoldException;
+import model.exceptions.CopyNotReady;
 import model.exceptions.CustomerNotFound;
 import model.exceptions.DataAccessException;
 import model.exceptions.EmptyOrderException;
@@ -80,7 +81,7 @@ public class OrderCtrlIntegrationTest {
 		Customer customer = order.getCustomer();
 
 		// Act
-		orderCtrl.addCopy("abcdefgh1234");
+		orderCtrl.addCopy("1G4HR57Y18U165590");
 		orderCtrl.confirmOrder();
 
 		// Assert
@@ -95,22 +96,13 @@ public class OrderCtrlIntegrationTest {
 		assertThrows(CustomerNotFound.class, () -> orderCtrl.createOrder(" ", 1));
 	}
 
+
 	@Test
-	public void TC_03_testCreateOrderWithPhoneNumberAndMultiplyCars()
+	public void TC_03_testAddCarThatIsNotInspected()
 			throws DataAccessException, EmptyOrderException, SQLException {
 
-		// Arrange
-		Order order = orderCtrl.createOrder("12345678", 1);
-		Customer customer = order.getCustomer();
-		// Act
-		orderCtrl.addCopy("abcdefgh1234");
-		orderCtrl.addCopy("abcdefgh11235");
-		orderCtrl.confirmOrder();
+		assertThrows(CopyNotReady.class, () -> orderCtrl.addCopy("1HGCT1B73EA082703"));
 
-		// Assert
-		assertNotNull("Customer should be found", customer);
-		assertNotNull("Order should be created", order);
-		assertEquals("Order should have two cars", 2, order.getCopies().size());
 
 	}
 
@@ -122,7 +114,7 @@ public class OrderCtrlIntegrationTest {
 		Order order = orderCtrl.createOrder("12345678", 1);
 		Customer customer = order.getCustomer();
 		// Act
-		assertThrows(NullPointerException.class, () -> orderCtrl.addCopy("null_value"));
+		assertThrows(CarAlreadySoldException.class, () -> orderCtrl.addCopy("5NPEB4AC7CH325431"));
 
 		// Assert
 		assertNotNull("Customer should be found", customer);
@@ -135,17 +127,16 @@ public class OrderCtrlIntegrationTest {
 			throws DataAccessException, EmptyOrderException, SQLException {
 
 		// Arrange
-		//Tilføjer den "solgte bil" til en anden ordre, så den er markeret som solgt.
 		orderCtrl.createOrder("12345678", 1);
-		orderCtrl.addCopy("bbcdefgh1234");
+		orderCtrl.addCopy("5NPEB4AC7CH325431");
 		orderCtrl.confirmOrder();
 		
 		
 		Order order1 = orderCtrl.createOrder("12345678", 1);
 		Customer customer = order1.getCustomer();
 		// Act
-		orderCtrl.addCopy("abcdefgh1234");
-		assertThrows(CarAlreadySoldException.class, () -> orderCtrl.addCopy("bbcdefgh1234"));
+		orderCtrl.addCopy("1G4HR57Y18U165590");
+		assertThrows(CarAlreadySoldException.class, () -> orderCtrl.addCopy("5NPEB4AC7CH325431"));
 
 		orderCtrl.confirmOrder();
 

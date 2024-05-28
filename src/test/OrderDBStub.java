@@ -26,7 +26,7 @@ public class OrderDBStub implements OrderDBIF {
 
 	@Override
 	public boolean isCopyInAnOrder(String vin) throws SQLException {
-		if(vin.equals("bbcdefgh1234")) {
+		if(vin.equals("5NPEB4AC7CH325431")) {
 			return true;
 		}
 		return false;

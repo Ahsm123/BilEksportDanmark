@@ -9,40 +9,53 @@ public class CarDBStub implements CarDBIF {
 	@Override
 	public Copy findCopy(String vin) throws DataAccessException {
 		switch (vin) {
-		case "abcdefgh1234":
-			Copy copy = new Copy(18, "Ford", "multipla", "benzin", 10, 80, 12,180, "manuel", 6);
-			copy.setVin("abcdefgh1234");
-			copy.setSalesPrice(20000);
-			copy.setState(2);
-			copy.setModification(	"");
-			copy.setKilometer(200000);
-			copy.setColor("Blue");
-			copy.setTaxReturn(true);
-			copy.setIsInspected(true);
-			return copy;
+		case "1G4HR57Y18U165590":
+			Copy copy0 = new Copy(18, "Ford", "multipla", "Benzin", 10, 80, 12,180, "manuel", 6);
+			copy0.setVin("abcdefgh1234");
+			copy0.setSalesPrice(20000);
+			copy0.setState(2);
+			copy0.setModification(	"");
+			copy0.setKilometer(200000);
+			copy0.setColor("Blue");
+			copy0.setTaxReturn(true);
+			copy0.setIsInspected(true);
+			return copy0;
 
-		case "abcdefgh11235":
-			Copy copy2 = new Copy(7, "Ferrari", "Spyder", "benzin", 30, 480, 3.5, 320, "manuel", 7);
-			copy2.setVin("abcdefgh11235");
+		case "KNDJP3A55E7006855":
+			Copy copy1 = new Copy(7, "Ferrari", "Spyder", "Benzin", 30, 480, 3.5, 320, "manuel", 7);
+			copy1.setVin("abcdefgh11235");
+			copy1.setSalesPrice(20000);
+			copy1.setState(2);
+			copy1.setModification("");
+			copy1.setKilometer(60000);
+			copy1.setColor("Blue");
+			copy1.setTaxReturn(true);
+			copy1.setIsInspected(true);
+			return copy1;
+			
+			//Solgt bil
+		case "5NPEB4AC7CH325431":
+			Copy copy2 = new Copy(20, "Suzuki", "Swift", "Benzin", 10, 120, 9, 220, "automatic", 6);
+			copy2.setVin("bbcdefgh1234");
 			copy2.setSalesPrice(20000);
 			copy2.setState(2);
 			copy2.setModification("");
-			copy2.setKilometer(60000);
+			copy2.setKilometer(70000);
 			copy2.setColor("Blue");
 			copy2.setTaxReturn(true);
 			copy2.setIsInspected(true);
 			return copy2;
-
-		case "bbcdefgh1234":
-			Copy copy3 = new Copy(20, "Suzuki", "swift", "benzin", 10, 120, 9, 220, "automatic", 6);
-			copy3.setVin("bbcdefgh1234");
+			
+		case "1HGCT1B73EA082703":
+			Copy copy3 = new Copy(15, "Volve", "V60", "Diesel", 20, 140, 7, 210, "automatic", 7);
+			copy3.setVin("ChangeToCorrentVin");
 			copy3.setSalesPrice(20000);
 			copy3.setState(2);
 			copy3.setModification("");
 			copy3.setKilometer(70000);
 			copy3.setColor("Blue");
 			copy3.setTaxReturn(true);
-			copy3.setIsInspected(true);
+			copy3.setIsInspected(false);
 			return copy3;
 			
 		default:
