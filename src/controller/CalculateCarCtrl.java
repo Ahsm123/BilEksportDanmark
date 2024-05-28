@@ -1,10 +1,17 @@
 package controller;
 
-import java.time.Year;
 
+import java.sql.SQLException;
+import java.time.Year;
+import java.util.HashMap;
+
+import model.BuyInfo;
 import model.Copy;
+import model.Seller;
 import model.api.CarServiceAPI;
+import model.database.BuyInfoDB;
 import model.exceptions.CarDoesNotMeetRequirementsException;
+import model.exceptions.DataAccessException;
 
 public class CalculateCarCtrl {
 	private CarServiceAPI carServiceApi;
@@ -13,8 +20,14 @@ public class CalculateCarCtrl {
 	private final static double KM_PENALTY = 0.01;
 	private final static double MIN_PROFIT = 15000;
 	private final static double EXPENSES = 5000;
+	
+	private BuyInfo latestBuyInfo;
+	
+	private BuyInfoCtrl buyInfoCtrl;
+	private SellerCtrl sellerCtrl;
 
-	public CalculateCarCtrl() {
+	public CalculateCarCtrl() throws SQLException {
+		this.buyInfoCtrl = new BuyInfoCtrl(new BuyInfoDB());
 		this.carServiceApi = new CarServiceAPI();
 	}
 
@@ -22,19 +35,22 @@ public class CalculateCarCtrl {
 		Copy copy = carServiceApi.importCopy(vin);
 		if(copy.getYear() >= 2004 && copy.getYear() <= 2018 && copy.getKilometer() > 50000) {
 			return copy;
-		} else {
+		} 
+		else {
 			throw new CarDoesNotMeetRequirementsException("Car does not meet the requirements to be bought");
 		}
 		
 	}
 
-	public double CalculateOffer(Copy copy, double salesPrice) {
+	public double calculateOffer(Copy copy, double salesPrice) {
 		double taxReturn = calculateTaxReturn(copy);
 		double totalIncome = salesPrice + taxReturn;
         double maxOffer = totalIncome - EXPENSES - MIN_PROFIT;
+        
+        latestBuyInfo = new BuyInfo(maxOffer, copy);
+        
         return maxOffer;
 	}
-	
 	
 	private double calculateTaxReturn(Copy copy) {
 		double taxReturn = copy.getRegistrationFee() * TAX_ROOF;
@@ -46,5 +62,12 @@ public class CalculateCarCtrl {
 		}
 		
 		return taxReturn - taxReturn * kmPenalty;
+	}
+	
+	public void saveBuyInfo() throws SQLException, DataAccessException {
+		if(latestBuyInfo == null) {
+			throw new NullPointerException();
+		}
+		buyInfoCtrl.saveBuyInfo(latestBuyInfo);
 	}
 }

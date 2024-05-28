@@ -67,8 +67,9 @@ public class PricePopUp extends GUIDialog {
 			try {
 				double salesPrice = Double.parseDouble(textFieldSalesPrice.getText());
 				
-				double price = calculateCarCtrl.CalculateOffer(copy, salesPrice);
-				JOptionPane.showMessageDialog(null, "Beregnet maks pris: " + price, "Success", JOptionPane.PLAIN_MESSAGE);
+				double price = calculateCarCtrl.calculateOffer(copy, salesPrice);
+			
+				maingui.switchToJDialog(new BuyInfoPopUp(price), true);
 			}
 			catch (Exception e) {
 				JOptionPane.showMessageDialog(null, "Sørg for kun tal er i inputfæltet", "Fejl", JOptionPane.PLAIN_MESSAGE);

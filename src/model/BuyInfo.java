@@ -6,15 +6,10 @@ public class BuyInfo {
 	private Seller seller;
 	private Copy copy;
 	
-	public BuyInfo(double recommendedPrice, double profit, Seller seller, Copy copy) {
+	public BuyInfo(double recommendedPrice, Copy copy) {
 		this.recommendedPrice = recommendedPrice;
-		this.profit = profit;
-		this.seller = seller;
 		this.copy = copy;
-		
 	}
-	
-	
 
 	public double getRecommendedPrice() {
 		return recommendedPrice;
