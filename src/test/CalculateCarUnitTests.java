@@ -75,7 +75,7 @@ public class CalculateCarUnitTests {
 		
 	}
 	@Test
-	public void TC_06_importCopyWith50K() throws CarDoesNotMeetRequirementsException {
+	public void TC_05_importCopyWith50K() throws CarDoesNotMeetRequirementsException {
 		
 		Copy copy = calculateCarCtrl.importCopy("2G4WF5518Y1188740");
 		assertNotNull("Copy should be imported", copy);
@@ -83,20 +83,20 @@ public class CalculateCarUnitTests {
 	}
 
 	@Test
-	public void TC_07_importCopyFrom2003() {
+	public void TC_06_importCopyFrom2003() {
 		assertThrows(CarDoesNotMeetRequirementsException.class, ()-> calculateCarCtrl.importCopy("JF1GE6B68AH507144"));
 
 	}
 	
 	@Test
-	public void TC_08_importCopyFrom2019() {
+	public void TC_07_importCopyFrom2019() {
 		assertThrows(CarDoesNotMeetRequirementsException.class, ()-> calculateCarCtrl.importCopy("3B7HC13ZXTG143211"));
 
 	}
 	
 	
 	@Test
-	public void TC_09_importCopyWithSub50K() {
+	public void TC_08_importCopyWithSub50K() {
 		assertThrows(CarDoesNotMeetRequirementsException.class, ()-> calculateCarCtrl.importCopy("ML32A4HJ5EH043996"));
 	}
 	

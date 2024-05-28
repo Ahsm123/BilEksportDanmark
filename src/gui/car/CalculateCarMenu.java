@@ -5,7 +5,9 @@ import javax.swing.*;
 import controller.CalculateCarCtrl;
 import controller.CarCtrl;
 import gui.Main;
+import gui.TextInput;
 import gui.supers.GUIPanel;
+import guiExceptions.InvalidVinException;
 import model.Copy;
 import model.Seller;
 import model.database.CarDB;
@@ -197,14 +199,23 @@ public class CalculateCarMenu extends GUIPanel {
     	}	
     }
     
-    private void searchCar(String vin) throws CarDoesNotMeetRequirementsException {
-    	currentlySelected = calculateCarCtrl.importCopy(vin);
-    	if(currentlySelected != null) {
-    		createCarOverviewPanel(currentlySelected);
-    	}
-    	else {
-    		showErrorPopup("Bil ikke fundet");
-    	}
+    public void searchCar(String vin) throws CarDoesNotMeetRequirementsException {
+        TextInput textInput = new TextInput();
+
+        try {
+            boolean isValidVin = textInput.VINValidator(vin);
+            
+            if (isValidVin) {
+                currentlySelected = calculateCarCtrl.importCopy(vin);
+                if (currentlySelected != null) {
+                    createCarOverviewPanel(currentlySelected);
+                } else {
+                    showErrorPopup("Bil ikke fundet");
+                }
+            }
+        } catch (InvalidVinException e) {
+            showErrorPopup(e.getMessage());
+        }
     }
     
     
