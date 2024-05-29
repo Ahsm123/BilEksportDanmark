@@ -51,7 +51,7 @@ public class OrderCtrl {
 		else if(isCopyInAnOrder(vin)) {
 			throw new CarAlreadySoldException("Bil allerede solgt");
 		}
-		else if(!copy.isInspected()) {
+		else if(!copy.isInspected() || !copy.isTaxReturn()) {
 			throw new CopyNotReady("Bilen har ikke gyldige dokumenter");
 		}
 		else if(!currentOrder.hasCopy(copy)) {
