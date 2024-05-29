@@ -10,7 +10,9 @@ import javax.swing.JTextField;
 
 import controller.CalculateCarCtrl;
 import controller.SellerCtrl;
+import gui.TextInput;
 import gui.supers.GUIDialog;
+import guiExceptions.InvalidPhoneNumberException;
 import model.Seller;
 import model.database.SellerDB;
 import model.exceptions.DataAccessException;
@@ -49,22 +51,28 @@ public class FindSellerPopUp extends GUIDialog {
 		buttonsPanel.add(saveButton);
 	}
 	
-	@Override
-	protected void confirm() {
-		Seller seller = calculateCarCtrl.findSellerFromPhone(textFieldInput.getText());
-		if(seller != null) {
-			try {
-				calculateCarCtrl.saveBuyInfo(seller);
-				maingui.resetToMainPage();
-			} 
-			catch (SQLException | DataAccessException e) {
-				e.printStackTrace();
-			}
-		}
-		else {
-			showErrorPopup("Sælger er ikke i systemet. Skriv et andet telefonnummer eller tilføj sælgeren");
-		}
-	}
+    protected void confirm() {
+    	TextInput textInput = new TextInput();
+        try {
+            boolean isValidPhone = textInput.phoneNumberValidator(textFieldInput.getText());
+            
+            if (isValidPhone) {
+                Seller seller = calculateCarCtrl.findSellerFromPhone(textFieldInput.getText());
+                if (seller != null) {
+                    try {
+                        calculateCarCtrl.saveBuyInfo(seller);
+                        maingui.resetToMainPage();
+                    } catch (SQLException | DataAccessException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    showErrorPopup("Sælger er ikke i systemet. Skriv et andet telefonnummer eller tilføj sælgeren");
+                }
+            }
+        } catch (InvalidPhoneNumberException e) {
+            showErrorPopup(e.getMessage());
+        }
+    }
 	
 	private void openCreateSeller() {
 		maingui.switchFrameTo(new AddSeller(), true);
