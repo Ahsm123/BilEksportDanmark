@@ -109,17 +109,19 @@ public class OrderCtrlIntegrationTest {
 	@Test
 	public void TC_04_testCreateOrderWithPhoneNumberAndSoldCar()
 			throws DataAccessException, EmptyOrderException, SQLException {
-
+		orderCtrl.createOrder("12345678", 1);
+		orderCtrl.addCopy("5NPEB4AC7CH325431");
+		orderCtrl.confirmOrder();
 		// Arrange
-		Order order = orderCtrl.createOrder("12345678", 1);
-		Customer customer = order.getCustomer();
+		Order order1 = orderCtrl.createOrder("12345678", 1);
+		Customer customer = order1.getCustomer();
 		// Act
 		assertThrows(CarAlreadySoldException.class, () -> orderCtrl.addCopy("5NPEB4AC7CH325431"));
 
 		// Assert
 		assertNotNull("Customer should be found", customer);
-		assertNotNull("Order should be created", order);
-		assertEquals("Order should have one car", 0, order.getCopies().size());
+		assertNotNull("Order should be created", order1);
+		assertEquals("Order should have one car", 0, order1.getCopies().size());
 	}
 
 	@Test

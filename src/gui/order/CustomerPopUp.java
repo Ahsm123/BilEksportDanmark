@@ -1,19 +1,10 @@
 package gui.order;
 
-import java.awt.BorderLayout;
-
-import java.awt.FlowLayout;
 import java.awt.HeadlessException;
 
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import controller.OrderCtrl;
 import gui.Main;
 import gui.TextInput;
@@ -21,7 +12,6 @@ import gui.exceptions.InvalidPhoneNumberException;
 import gui.supers.GUIDialog;
 import model.exceptions.CustomerNotFound;
 import model.exceptions.DataAccessException;
-import controller.CustomerCtrl;
 
 public class CustomerPopUp extends GUIDialog {
 	private OrderCtrl orderCtrl;
