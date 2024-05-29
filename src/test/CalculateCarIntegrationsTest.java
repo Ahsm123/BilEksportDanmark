@@ -48,21 +48,21 @@ public class CalculateCarIntegrationsTest {
 		}
 	}
 	
-	@After
-	public void teardown() throws SQLException {
-		setUpDatabase();
-	}
+//	@After
+//	public void teardown() throws SQLException {
+//		setUpDatabase();
+//	}
 
 	@Test
 	public void TC_01_calculateOfferTest()
 			throws CarDoesNotMeetRequirementsException, SQLException, DataAccessException {
 	
-		Copy copy = calculateCarCtrl.importCopy("5NPEB4AC5CH354720");
-		calculateCarCtrl.calculateOffer(copy, 125000);
-		
 		Seller seller = new Seller("DummySeller", "99999999", "Dummy@Seller.dk");
 		seller.setCarAd("Bilbasen.dk");
 		seller.setId(99);
+		
+		Copy copy = calculateCarCtrl.importCopy("5NPEB4AC5CH354720");
+		calculateCarCtrl.calculateOffer(copy, 125000);
 		
 		BuyInfo latestBuyInfo = calculateCarCtrl.getLatestBuyInfo();
 		latestBuyInfo.setSeller(seller);

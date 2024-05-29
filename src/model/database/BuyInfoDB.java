@@ -26,10 +26,10 @@ public class BuyInfoDB implements BuyInfoDBIF {
 		        "c.mileage, c.manufactorer, c.model, c.fuelType, c.hp, c.co2Emission, c.acceleration, " +
 		        "c.topSpeed, c.gearType, c.noOfGears, cp.* " +
 		        "FROM BuyInfo bi " +
-		        "JOIN copy cp ON bi.copyId = cp.id " +
-		        "JOIN car c ON c.id = cp.car " +
-		        "JOIN seller s ON bi.sellerId = s.personId " +
-		        "JOIN person p ON s.personId = p.id " +
+		        "JOIN Copy cp ON bi.copyId = cp.id " +
+		        "JOIN Car c ON c.id = cp.car " +
+		        "JOIN Seller s ON bi.sellerId = s.personId " +
+		        "JOIN Person p ON s.personId = p.id " +
 		        "WHERE bi.copyId = ?";
 
 	public BuyInfoDB() throws SQLException {
