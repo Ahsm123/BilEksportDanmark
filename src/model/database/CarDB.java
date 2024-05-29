@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import model.Car;
 import model.Copy;
+import model.exceptions.CopyNotFoundException;
 import model.exceptions.DataAccessException;
 
 
@@ -71,21 +72,21 @@ public class CarDB implements CarDBIF {
 
 	@Override
 	public Copy findCopy(String vin) throws DataAccessException {
-		Copy res = null;
+		Copy result = null;
 		try {
 			findByVinPs.setString(1, vin);
 			ResultSet rs = findByVinPs.executeQuery();
 
 			if (rs.next()) {
-				res = buildCopy(rs);
+				result = buildCopy(rs);
 			}
-
 		} 
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return res;
+		if(result == null) {
+			throw new CopyNotFoundException("Copy ikke fundet");
+		}
+		return result;
 	}
-	
-
 }

@@ -3,8 +3,8 @@ package gui;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import guiExceptions.InvalidPhoneNumberException;
-import guiExceptions.InvalidVinException;
+import gui.exceptions.InvalidPhoneNumberException;
+import gui.exceptions.InvalidVinException;
 
 public class TextInput {
 
