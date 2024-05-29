@@ -14,7 +14,7 @@ public class SellerDB implements SellerDBIF{
 	private PreparedStatement findSellerByPhone;
 	private PreparedStatement savePerson;
 	private PreparedStatement saveSeller;
-	private static final String FIND_SELLER_FROM_ID_Q = "select s.*, p.fname, p.lname, p.phone, p.email from Seller s left join person p on s.personId = p.id where p.phone = ?";
+	private static final String FIND_SELLER_FROM_PHONE_Q = "select s.*, p.fname, p.lname, p.phone, p.email from Seller s left join person p on s.personId = p.id where p.phone = ?";
 	private static final String SAVE_PERSON_Q = "insert into person(fName, lName, phone, email, type) values(?, ?, ?, ?, ?)";
 	private static final String SAVE_SELLER_Q = "insert into seller(sellerAd, personId) values(?, ?)";
 
@@ -22,7 +22,7 @@ public class SellerDB implements SellerDBIF{
 	public SellerDB() throws SQLException {
 		try {
 			connection = DBConnection.getInstance().getConnection();
-			findSellerByPhone = connection.prepareStatement(FIND_SELLER_FROM_ID_Q);
+			findSellerByPhone = connection.prepareStatement(FIND_SELLER_FROM_PHONE_Q);
 			savePerson = connection.prepareStatement(SAVE_PERSON_Q, Statement.RETURN_GENERATED_KEYS);
 			saveSeller = connection.prepareStatement(SAVE_SELLER_Q);
 
@@ -40,8 +40,7 @@ public class SellerDB implements SellerDBIF{
 				rs.getString("email"));
 
 		seller.setCarAd(rs.getString("sellerAd"));
-		seller.setId(rs.getInt("id"));
-
+		seller.setId(rs.getInt("personId"));
 
 		return seller;
 	}

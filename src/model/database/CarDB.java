@@ -53,6 +53,7 @@ public class CarDB implements CarDBIF {
 			copy.setState(rs.getInt("state"));
 			copy.setId(rs.getInt("id"));
 			copy.setVin(rs.getString("vin"));
+			copy.setSalesPrice(rs.getDouble("salesPrice"));
 			copy.setPurchasePrice(rs.getDouble("purchasePrice"));
 			copy.setModification(rs.getString("modification"));
 			copy.setKilometer(rs.getInt("kilometer"));
