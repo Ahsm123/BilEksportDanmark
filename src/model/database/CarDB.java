@@ -71,7 +71,7 @@ public class CarDB implements CarDBIF {
 	}
 
 	@Override
-	public Copy findCopy(String vin) throws DataAccessException {
+	public Copy findCopy(String vin) throws DataAccessException, CopyNotFoundException {
 		Copy result = null;
 		try {
 			findByVinPs.setString(1, vin);

@@ -192,7 +192,7 @@ public class CalculateCarMenu extends GUIPanel {
 
     private void confirm() {
     	if(currentlySelected != null) {
-    		maingui.switchToJDialog(new PricePopUp(calculateCarCtrl, currentlySelected), true);
+    		maingui.switchDialogTo(new PricePopUp(calculateCarCtrl, currentlySelected), true);
     	}
     	else {
     		showErrorPopup("Ingen bil valgt");

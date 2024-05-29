@@ -26,6 +26,6 @@ public class BuyInfoPopUp extends GUIDialog {
     }
 	
 	private void save() {
-		maingui.switchToJDialog(new FindSellerPopUp(calculateCarCtrl), true);
+		maingui.switchDialogTo(new FindSellerPopUp(calculateCarCtrl), true);
 	}
 }

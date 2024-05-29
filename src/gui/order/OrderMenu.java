@@ -75,6 +75,6 @@ public class OrderMenu extends GUIPanel {
     }
     
     private void showCustomerPopUp() throws DataAccessException, SQLException {
-    	maingui.switchToJDialog(new CustomerPopUp(new OrderCtrl(new OrderDB(), new CustomerDB(), new CarDB(), new InvoiceDB())), true);
+    	maingui.switchDialogTo(new CustomerPopUp(new OrderCtrl(new OrderDB(), new CustomerDB(), new CarDB(), new InvoiceDB())), true);
     }
 }

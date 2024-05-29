@@ -18,6 +18,8 @@ import model.exceptions.DataAccessException;
 import model.exceptions.EmptyOrderException;
 
 import java.sql.SQLException;
+
+import model.CarState;
 import model.Copy;
 import model.Customer;
 
@@ -44,13 +46,13 @@ public class OrderCtrl {
 		return currentOrder;
 	}
 
-	public Copy addCopy(String vin) throws DataAccessException, SQLException, CopyNotReady, CopyNotFoundException {
+	public Copy addCopy(String vin) throws DataAccessException, SQLException, CopyNotReady, CopyNotFoundException, CopyAlreadyInOrderException, CarAlreadySoldException {
 		Copy copy = carCtrl.findCopy(vin);
 		if(isCopyInAnOrder(vin)) {
 			throw new CarAlreadySoldException("Bil allerede solgt");
 		}
-		else if(!copy.isInspected() || !copy.isTaxReturn()) {
-			throw new CopyNotReady("Bilen har ikke gyldige dokumenter");
+		else if(!copy.isInspected() || !copy.isTaxReturn() || copy.getState() != CarState.IN_STORAGE) {
+			throw new CopyNotReady("Bilen har ikke gyldige dokumenter eller er ikke på lager");
 		}
 		else if(!currentOrder.hasCopy(copy)) {
 			currentOrder.addCopy(copy);

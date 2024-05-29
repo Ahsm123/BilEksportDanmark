@@ -69,7 +69,7 @@ public class PricePopUp extends GUIDialog {
 				
 				double price = calculateCarCtrl.calculateOffer(copy, salesPrice);
 			
-				maingui.switchToJDialog(new BuyInfoPopUp(calculateCarCtrl, price), true);
+				maingui.switchDialogTo(new BuyInfoPopUp(calculateCarCtrl, price), true);
 			}
 			catch (Exception e) {
 				JOptionPane.showMessageDialog(null, "Sørg for kun tal er i inputfæltet", "Fejl", JOptionPane.PLAIN_MESSAGE);

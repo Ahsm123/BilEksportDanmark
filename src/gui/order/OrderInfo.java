@@ -69,7 +69,7 @@ public class OrderInfo extends GUIPanel {
          vinInputPanel.add(lblBarcode);
 
          JTextField barcodeField = new JTextField();
-         barcodeField.setText("123456789abcdefgh");
+         barcodeField.setText("KNDJP3A55E7006855");
          barcodeField.setColumns(10);
          vinInputPanel.add(barcodeField);
 

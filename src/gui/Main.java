@@ -18,7 +18,7 @@ import model.database.OrderDB;
 import model.exceptions.DataAccessException;
 
 public class Main {	
-	private Window currentFrame;
+	private Window currentWindow;
 
 	private LinkedList<Window> windowStack;
 	
@@ -46,24 +46,22 @@ public class Main {
 	
 	private Main() {
 		windowStack = new LinkedList<>();
-        
 	}
 	
-	public void initialize() 
-	{
+	public void initialize() {
 		JFrame mainPage = new MainPage();
 		mainPage.setVisible(true);
-		currentFrame = mainPage;
-		windowStack.add(currentFrame);
+		currentWindow = mainPage;
+		windowStack.add(currentWindow);
 	}
 
 	public void goBack() {
 		if(windowStack.size() > 1) {
 			windowStack.removeLast();
-			currentFrame.dispose();
+			currentWindow.dispose();
 			
-			currentFrame = windowStack.getLast();
-			currentFrame.setVisible(true);
+			currentWindow = windowStack.getLast();
+			currentWindow.setVisible(true);
 		}
 	}
 	
@@ -82,19 +80,19 @@ public class Main {
 	
 	public void switchFrameTo(JFrame jframe, boolean hidePrevious) {
 		if(hidePrevious) {
-			currentFrame.setVisible(false);
+			currentWindow.setVisible(false);
 		}
-		currentFrame = jframe;
-		currentFrame.setVisible(true);
-		windowStack.add(currentFrame);
+		currentWindow = jframe;
+		currentWindow.setVisible(true);
+		windowStack.add(currentWindow);
 	}
 	
-	public void switchToJDialog(JDialog dialog, boolean hidePrevious) {
+	public void switchDialogTo(JDialog dialog, boolean hidePrevious) {
 		if(hidePrevious) {
-			currentFrame.setVisible(false);
+			currentWindow.setVisible(false);
 		}
-		currentFrame = dialog;
-		windowStack.add(currentFrame);
+		currentWindow = dialog;
+		windowStack.add(currentWindow);
 		
 		dialog.setModal(false);
 		dialog.setVisible(true);
