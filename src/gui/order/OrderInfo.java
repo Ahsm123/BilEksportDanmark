@@ -1,6 +1,5 @@
 package gui.order;
 
-import controller.CarCtrl;
 import controller.OrderCtrl;
 import gui.Main;
 import gui.TextInput;
@@ -8,12 +7,10 @@ import gui.exceptions.InvalidVinException;
 import gui.supers.GUIPanel;
 import model.Copy;
 import model.Order;
-import model.database.CarDB;
 import model.exceptions.CarAlreadySoldException;
 import model.exceptions.CopyNotReady;
 import model.exceptions.DataAccessException;
 import model.exceptions.EmptyOrderException;
-
 import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;

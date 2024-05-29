@@ -1,26 +1,14 @@
 package gui.car;
 
-import java.awt.BorderLayout;
-
-import java.awt.FlowLayout;
-import java.awt.HeadlessException;
-
-import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-
 import controller.CalculateCarCtrl;
-import controller.OrderCtrl;
 import gui.supers.GUIDialog;
 import model.Copy;
-import model.exceptions.CustomerNotFound;
-import model.exceptions.DataAccessException;
 import java.awt.GridLayout;
-import javax.swing.BoxLayout;
+
 
 public class PricePopUp extends GUIDialog {
 	private static final long serialVersionUID = 1L;
