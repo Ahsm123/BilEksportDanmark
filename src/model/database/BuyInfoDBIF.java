@@ -9,4 +9,5 @@ public interface BuyInfoDBIF {
 	
 	public void saveBuyInfo(BuyInfo buyInfo) throws SQLException, DataAccessException;
 
+
 }

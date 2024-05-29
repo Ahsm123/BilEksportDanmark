@@ -64,15 +64,9 @@ public class OrderCtrlIntegrationTest {
 
 	@After
 	public void teardown() throws SQLException {
-		tearDownDatabase();
+		setUpDatabase();
 	}
 
-	private void tearDownDatabase() throws SQLException {
-		try (Statement stmt = connection.createStatement()) {
-			stmt.execute("DELETE FROM \"Order\"");
-
-		}
-	}
 
 	@Test
 	public void TC_01_testCreateOrderWithPhoneNumber() throws DataAccessException, EmptyOrderException, SQLException {
@@ -96,13 +90,10 @@ public class OrderCtrlIntegrationTest {
 		assertThrows(CustomerNotFound.class, () -> orderCtrl.createOrder(" ", 1));
 	}
 
-
 	@Test
-	public void TC_03_testAddCarThatIsNotInspected()
-			throws DataAccessException, EmptyOrderException, SQLException {
+	public void TC_03_testAddCarThatIsNotInspected() throws DataAccessException, EmptyOrderException, SQLException {
 
 		assertThrows(CopyNotReady.class, () -> orderCtrl.addCopy("1HGCT1B73EA082703"));
-
 
 	}
 
@@ -132,8 +123,7 @@ public class OrderCtrlIntegrationTest {
 		orderCtrl.createOrder("12345678", 1);
 		orderCtrl.addCopy("5NPEB4AC7CH325431");
 		orderCtrl.confirmOrder();
-		
-		
+
 		Order order1 = orderCtrl.createOrder("12345678", 1);
 		Customer customer = order1.getCustomer();
 		// Act

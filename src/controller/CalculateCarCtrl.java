@@ -23,7 +23,6 @@ public class CalculateCarCtrl {
 	private final static double EXPENSES = 5000;
 
 	private BuyInfo latestBuyInfo;
-
 	private BuyInfoCtrl buyInfoCtrl;
 	private SellerCtrl sellerCtrl;
 
