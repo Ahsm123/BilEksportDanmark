@@ -1,5 +1,7 @@
 package test;
 
+import java.sql.SQLException;
+
 import model.Copy;
 import model.database.CarDBIF;
 import model.exceptions.DataAccessException;
@@ -61,5 +63,11 @@ public class CarDBStub implements CarDBIF {
 		default:
             return null;
 		}
+	}
+
+	@Override
+	public void insertCopy(Copy copy) throws DataAccessException, SQLException {
+		// TODO Auto-generated method stub
+		
 	}
 }

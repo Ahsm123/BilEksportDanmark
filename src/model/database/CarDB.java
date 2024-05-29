@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+
 import model.Car;
 import model.Copy;
 import model.exceptions.CopyNotFoundException;
@@ -14,8 +16,12 @@ import model.exceptions.DataAccessException;
 public class CarDB implements CarDBIF {
 	
 	private static final String FIND_BY_VIN_Q = " SELECT c.mileage, c.manufactorer, c.model, c.fuelType, c.hp, c.co2Emission, c.acceleration, c.topSpeed, c.gearType, c.noOfGears, cp.* FROM \"Copy\" cp LEFT JOIN Car c ON c.id = cp.car where cp.vin = ?";
+	private static final String INSERT_INTO_CAR = "insert into car(mileage, manufactorer, model, fuelType, hp, co2Emission, acceleration, topSpeed, gearType, noOfGears) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String INSERT_INTO_COPY = "insert into \"copy\"(vin, \"state\", modification, kilometer, color, car, taxReturn, isInspected, year, registrationFee, purchasePrice, salesPrice) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	
 	private PreparedStatement findByVinPs;
+	private PreparedStatement insertIntoCar;
+	private PreparedStatement insertIntoCopy;
 	//	private PreparedStatement insertPs;
 	
 	
@@ -28,8 +34,10 @@ public class CarDB implements CarDBIF {
 	public void init() throws DataAccessException {
 		Connection connection = DBConnection.getInstance().getConnection();
 		try {
-			findByVinPs = connection.prepareStatement(FIND_BY_VIN_Q );
-			//			insertPs = connection.prepareStatement(INSERT_Q);
+			findByVinPs = connection.prepareStatement(FIND_BY_VIN_Q);
+			insertIntoCar = connection.prepareStatement(INSERT_INTO_CAR, Statement.RETURN_GENERATED_KEYS);
+			insertIntoCopy = connection.prepareStatement(INSERT_INTO_COPY);
+			
 		} 	
 		catch(SQLException e) {
 			System.out.println("Couldn't connect to the database");
@@ -89,5 +97,40 @@ public class CarDB implements CarDBIF {
 			throw new CopyNotFoundException("Copy ikke fundet");
 		}
 		return result;
+	}
+	
+	public void insertCopy(Copy copy) throws DataAccessException, SQLException {
+		DBConnection dbConnection = DBConnection.getInstance();
+		dbConnection.startTransaction();
+		
+		insertIntoCar.setInt(1, copy.getMilage());
+		insertIntoCar.setString(2, copy.getManufacturer());
+		insertIntoCar.setString(3, copy.getModel());
+		insertIntoCar.setString(4, copy.getFuelType());
+		insertIntoCar.setInt(5, copy.getHp());
+		insertIntoCar.setDouble(6, copy.getCo2Emission());
+		insertIntoCar.setDouble(7, copy.getAcceleration());
+		insertIntoCar.setInt(8, copy.getTopSpeed());
+		insertIntoCar.setString(9, copy.getGearType());
+		insertIntoCar.setInt(10, copy.getNoOfGears());
+		
+		int id = dbConnection.executeInsertWithIdentity(insertIntoCar);
+		
+		insertIntoCopy.setString(1, copy.getVin());
+		insertIntoCopy.setInt(2, copy.getState().ordinal()+1);
+		insertIntoCopy.setString(3, copy.getModification());
+		insertIntoCopy.setInt(4, copy.getKilometer());
+		insertIntoCopy.setString(5, copy.getColor());
+		insertIntoCopy.setInt(6, id);
+		insertIntoCopy.setBoolean(7, copy.isTaxReturn());
+		insertIntoCopy.setBoolean(8, copy.isInspected());
+		insertIntoCopy.setInt(9, copy.getYear());
+		insertIntoCopy.setDouble(10, copy.getRegistrationFee());
+		insertIntoCopy.setDouble(11, copy.getPurchasePrice());
+		insertIntoCopy.setDouble(12, copy.getSalesPrice());
+		
+		insertIntoCopy.execute();
+		
+		dbConnection.commitTransaction();
 	}
 }
