@@ -1,7 +1,5 @@
 package controller;
 
-import java.util.HashMap;
-
 import model.Seller;
 import model.database.SellerDBIF;
 import model.exceptions.DataAccessException;
