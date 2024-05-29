@@ -1,6 +1,7 @@
 package gui.car;
 
 import java.awt.GridLayout;
+
 import java.sql.SQLException;
 
 import javax.swing.JButton;
@@ -12,7 +13,7 @@ import controller.CalculateCarCtrl;
 import controller.SellerCtrl;
 import gui.TextInput;
 import gui.supers.GUIDialog;
-import guiExceptions.InvalidPhoneNumberException;
+import gui.exceptions.InvalidPhoneNumberException;
 import model.Seller;
 import model.database.SellerDB;
 import model.exceptions.DataAccessException;
