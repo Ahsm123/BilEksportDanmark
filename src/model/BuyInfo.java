@@ -10,6 +10,12 @@ public class BuyInfo {
 		this.recommendedPrice = recommendedPrice;
 		this.copy = copy;
 	}
+	
+	public BuyInfo(double recommendedPrice, Copy copy, Seller seller) {
+		this.recommendedPrice = recommendedPrice;
+		this.copy = copy;
+		this.seller = seller;
+	}
 
 	public double getRecommendedPrice() {
 		return recommendedPrice;
@@ -42,7 +48,4 @@ public class BuyInfo {
 	public void setCopy(Copy copy) {
 		this.copy = copy;
 	}
-	
-	
-
 }

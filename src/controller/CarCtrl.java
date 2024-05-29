@@ -3,6 +3,7 @@ package controller;
 import model.Copy;
 import model.database.CarDB;
 import model.database.CarDBIF;
+import model.exceptions.CopyNotFoundException;
 import model.exceptions.DataAccessException;
 
 public class CarCtrl {
@@ -13,7 +14,7 @@ public class CarCtrl {
 		this.carDB = carDB;
 	}
 	
-	public Copy findCopy(String vin) throws DataAccessException{
+	public Copy findCopy(String vin) throws DataAccessException, CopyNotFoundException{
 		return carDB.findCopy(vin);
 	}
 }
