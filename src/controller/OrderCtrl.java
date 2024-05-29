@@ -11,6 +11,7 @@ import model.database.OrderDB;
 import model.database.OrderDBIF;
 import model.exceptions.CarAlreadySoldException;
 import model.exceptions.CopyAlreadyInOrderException;
+import model.exceptions.CopyNotFoundException;
 import model.exceptions.CopyNotReady;
 import model.exceptions.CustomerNotFound;
 import model.exceptions.DataAccessException;
@@ -43,12 +44,9 @@ public class OrderCtrl {
 		return currentOrder;
 	}
 
-	public Copy addCopy(String vin) throws DataAccessException, SQLException, CopyNotReady {
+	public Copy addCopy(String vin) throws DataAccessException, SQLException, CopyNotReady, CopyNotFoundException {
 		Copy copy = carCtrl.findCopy(vin);
-		if(copy == null) {
-			throw new NullPointerException();
-		}
-		else if(isCopyInAnOrder(vin)) {
+		if(isCopyInAnOrder(vin)) {
 			throw new CarAlreadySoldException("Bil allerede solgt");
 		}
 		else if(!copy.isInspected() || !copy.isTaxReturn()) {

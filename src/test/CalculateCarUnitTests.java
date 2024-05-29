@@ -17,7 +17,7 @@ import controller.CalculateCarCtrl;
 import model.exceptions.CarDoesNotMeetRequirementsException;
 import model.exceptions.DataAccessException;
 import gui.TextInput;
-import guiExceptions.InvalidVinException;
+import gui.exceptions.InvalidVinException;
 
 public class CalculateCarUnitTests {
 	private CalculateCarCtrl calculateCarCtrl;

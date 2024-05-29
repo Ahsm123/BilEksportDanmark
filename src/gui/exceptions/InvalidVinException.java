@@ -1,4 +1,4 @@
-package guiExceptions;
+package gui.exceptions;
 
 public class InvalidVinException extends RuntimeException{
 
