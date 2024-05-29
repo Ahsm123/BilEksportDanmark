@@ -69,7 +69,7 @@ public class OrderCtrl {
 
 	public Order confirmOrder() throws SQLException, DataAccessException, EmptyOrderException {
 		if(currentOrder.getCopies().isEmpty()) {
-			throw new EmptyOrderException("No cars in the order");
+			throw new EmptyOrderException("Ingen biler i ordren");
 		}
 		else {
 			orderDB.saveOrder(currentOrder);
