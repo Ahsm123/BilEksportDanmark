@@ -10,7 +10,7 @@ import model.exceptions.CustomerNotFound;
 import model.exceptions.DataAccessException;
 
 public class CustomerDB implements CustomerDBIF {
-
+	private Connection connection;
 	private PreparedStatement findCustomer;
 	private static final String FIND_CUSTOMER_BY_PHONE = "select c.id, c.cvr, c.ssn,"
 			+ " p.fname, p.lname, p.phone, p.email, p.type, da.street, da.streetno, pc.city, pc.postalCode, da.id as deliveryAddressId, co.country from customer c "
@@ -23,9 +23,9 @@ public class CustomerDB implements CustomerDBIF {
 	}
 	
 	private void init() throws DataAccessException{
-		Connection con = DBConnection.getInstance().getConnection();
+		connection = DBConnection.getInstance().getConnection();
 		try {
-			findCustomer = con.prepareStatement(FIND_CUSTOMER_BY_PHONE);
+			findCustomer = connection.prepareStatement(FIND_CUSTOMER_BY_PHONE);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

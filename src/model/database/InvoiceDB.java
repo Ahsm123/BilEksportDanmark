@@ -1,5 +1,6 @@
 package model.database;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -8,15 +9,16 @@ import model.Invoice;
 import model.exceptions.DataAccessException;
 
 public class InvoiceDB implements InvoiceDBIF {
-	
+	private Connection connection;
 	private PreparedStatement saveInvoice;
 	private static final String saveInvoiceQ = 
 			"INSERT INTO Invoice (paymentDate, total, orderId) VALUES (?, ? ,?)";
 
 
 	public InvoiceDB() throws DataAccessException {
+		connection = DBConnection.getInstance().getConnection();
 		try {
-			saveInvoice = DBConnection.getInstance().getConnection().prepareStatement(saveInvoiceQ,Statement.RETURN_GENERATED_KEYS);	
+			saveInvoice = connection.prepareStatement(saveInvoiceQ,Statement.RETURN_GENERATED_KEYS);	
 		}
 		catch(SQLException e) {
 			e.printStackTrace(); 

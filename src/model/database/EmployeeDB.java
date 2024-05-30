@@ -9,6 +9,7 @@ import model.Employee;
 import model.exceptions.DataAccessException;
 
 public class EmployeeDB implements EmployeeDBIF {
+	private Connection connection;
 	private static final String FIND_BY_ID = "select e.id, e.salary, p.fname, p.lname, p.phone, p.email from employee e left join person p on e.personId = p.id where e.id = ?;";
 	private PreparedStatement findById;
 	
@@ -17,7 +18,7 @@ public class EmployeeDB implements EmployeeDBIF {
 	}
 	
 	private void init() throws DataAccessException {
-		Connection connection = DBConnection.getInstance().getConnection();
+		connection = DBConnection.getInstance().getConnection();
 		try {
 			findById = connection.prepareStatement(FIND_BY_ID);
 		} 

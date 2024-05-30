@@ -13,7 +13,7 @@ import model.exceptions.DataAccessException;
 
 
 public class CarDB implements CarDBIF {
-	
+	private Connection connection;
 	private static final String FIND_BY_VIN_Q = " SELECT c.mileage, c.manufactorer, c.model, c.fuelType, c.hp, c.co2Emission, c.acceleration, c.topSpeed, c.gearType, c.noOfGears, cp.* FROM \"Copy\" cp LEFT JOIN Car c ON c.id = cp.car where cp.vin = ?";
 	private static final String INSERT_INTO_CAR = "insert into car(mileage, manufactorer, model, fuelType, hp, co2Emission, acceleration, topSpeed, gearType, noOfGears) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String INSERT_INTO_COPY = "insert into \"copy\"(vin, \"state\", modification, kilometer, color, car, taxReturn, isInspected, year, registrationFee, purchasePrice, salesPrice) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -31,7 +31,7 @@ public class CarDB implements CarDBIF {
 	}
 
 	public void init() throws DataAccessException {
-		Connection connection = DBConnection.getInstance().getConnection();
+		connection = DBConnection.getInstance().getConnection();
 		try {
 			findByVinPs = connection.prepareStatement(FIND_BY_VIN_Q);
 			insertIntoCar = connection.prepareStatement(INSERT_INTO_CAR, Statement.RETURN_GENERATED_KEYS);
