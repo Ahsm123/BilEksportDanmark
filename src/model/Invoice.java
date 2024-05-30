@@ -11,7 +11,7 @@ public class Invoice {
 	
 	public Invoice(String paymentDate, double total, int orderId) {
 		this.paymentDate = paymentDate;
-		this.total = total;
+		this.total = total/euroRandomizer();
 		this.orderId = orderId;
 	}
 	
@@ -20,7 +20,6 @@ public class Invoice {
 		double randomNumber = 7.4 + random.nextDouble() * 0.1;
 		return randomNumber;
 	}
-
 
 	public int getId() {
 		return id;
