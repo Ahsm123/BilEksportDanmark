@@ -6,21 +6,23 @@ public class Invoice {
 	private int id;
 	private int orderId;
 	private double total;
+	private double euroValue;
 	
 	private String paymentDate;
 	
 	public Invoice(String paymentDate, double total, int orderId) {
+		this.euroValue = euroRandomizer();
 		this.paymentDate = paymentDate;
-		this.total = total/euroRandomizer();
+		this.total = total/euroValue;
 		this.orderId = orderId;
 	}
 	
-	public double euroRandomizer() {
+	private double euroRandomizer() {
 		Random random = new Random();
 		double randomNumber = 7.4 + random.nextDouble() * 0.1;
 		return randomNumber;
 	}
-
+	
 	public int getId() {
 		return id;
 	}
@@ -47,7 +49,11 @@ public class Invoice {
 		return orderId;
 	}
 
-
+	public double getEuroValue() {
+		return euroValue;
+	}
+	
+	
 	public void setOrderId(int orderId) {
 		this.orderId = orderId;
 	}

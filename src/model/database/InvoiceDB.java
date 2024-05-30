@@ -12,7 +12,7 @@ public class InvoiceDB implements InvoiceDBIF {
 	private Connection connection;
 	private PreparedStatement saveInvoice;
 	private static final String saveInvoiceQ = 
-			"INSERT INTO Invoice (paymentDate, total, orderId) VALUES (?, ? ,?)";
+			"INSERT INTO Invoice (paymentDate, total, orderId, euroValue) VALUES (?, ? , ?, ?)";
 
 
 	public InvoiceDB() throws DataAccessException {
@@ -33,6 +33,7 @@ public class InvoiceDB implements InvoiceDBIF {
 		saveInvoice.setString(1, invoice.getPaymentDate());
 		saveInvoice.setDouble(2, invoice.getTotal());
 		saveInvoice.setInt(3, invoice.getOrderId());
+		saveInvoice.setDouble(4, invoice.getEuroValue());
 		
 		con.executeInsertWithIdentity(saveInvoice);
 		
