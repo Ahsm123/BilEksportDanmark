@@ -1,13 +1,15 @@
 package gui.car;
 
-import javax.swing.JPanel;
+import java.awt.GridLayout;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
+
 import controller.CalculateCarCtrl;
 import gui.supers.GUIDialog;
 import model.Copy;
-import java.awt.GridLayout;
 
 
 public class PricePopUp extends GUIDialog {

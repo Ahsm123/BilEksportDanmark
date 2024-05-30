@@ -1,13 +1,14 @@
 package controller;
 
+import java.sql.SQLException;
+
+import model.CarState;
+import model.Copy;
+import model.Invoice;
 import model.Order;
-import model.database.CarDB;
 import model.database.CarDBIF;
-import model.database.CustomerDB;
 import model.database.CustomerDBIF;
-import model.database.InvoiceDB;
 import model.database.InvoiceDBIF;
-import model.database.OrderDB;
 import model.database.OrderDBIF;
 import model.exceptions.CarAlreadySoldException;
 import model.exceptions.CopyAlreadyInOrderException;
@@ -16,13 +17,6 @@ import model.exceptions.CopyNotReady;
 import model.exceptions.CustomerNotFound;
 import model.exceptions.DataAccessException;
 import model.exceptions.EmptyOrderException;
-
-import java.sql.SQLException;
-
-import model.CarState;
-import model.Copy;
-import model.Customer;
-import model.Invoice;
 
 public class OrderCtrl {
 	private OrderDBIF orderDB;

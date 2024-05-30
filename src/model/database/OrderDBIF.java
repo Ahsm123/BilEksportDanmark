@@ -1,7 +1,6 @@
 package model.database;
 import java.sql.SQLException;
 
-import model.Copy;
 import model.Order;
 import model.exceptions.DataAccessException;
 

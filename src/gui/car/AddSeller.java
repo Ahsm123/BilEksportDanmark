@@ -12,12 +12,8 @@ import javax.swing.JTextField;
 
 import controller.SellerCtrl;
 import gui.supers.GUIPanel;
-import model.Seller;
 import model.database.SellerDB;
-import model.exceptions.CarDoesNotMeetRequirementsException;
 import model.exceptions.DataAccessException;
-
-import javax.swing.BoxLayout;
 
 public class AddSeller extends GUIPanel {
 

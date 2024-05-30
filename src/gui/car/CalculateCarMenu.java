@@ -1,21 +1,27 @@
 package gui.car;
 
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.sql.SQLException;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import controller.CalculateCarCtrl;
-import controller.CarCtrl;
 import gui.Main;
 import gui.TextInput;
 import gui.exceptions.InvalidVinException;
 import gui.supers.GUIPanel;
 import model.Copy;
-import model.Seller;
+import model.database.BuyInfoDB;
 import model.database.CarDB;
+import model.database.SellerDB;
 import model.exceptions.CarDoesNotMeetRequirementsException;
 import model.exceptions.DataAccessException;
-
-import java.awt.*;
-import java.sql.SQLException;
 
 public class CalculateCarMenu extends GUIPanel {
 	private static final long serialVersionUID = 1L;
@@ -45,7 +51,7 @@ public class CalculateCarMenu extends GUIPanel {
     
     private void init() throws DataAccessException, SQLException {
     	maingui = Main.getInstance();
-    	calculateCarCtrl = new CalculateCarCtrl();
+    	calculateCarCtrl = new CalculateCarCtrl(new CarDB(), new BuyInfoDB(), new  SellerDB());
     }
 
     private void createMainPanel() {
@@ -213,10 +219,9 @@ public class CalculateCarMenu extends GUIPanel {
                     showErrorPopup("Bil ikke fundet");
                 }
             }
-        } catch (InvalidVinException e) {
+        } 
+        catch (InvalidVinException e) {
             showErrorPopup(e.getMessage());
         }
-    }
-    
-    
+    }    
 }

@@ -3,7 +3,6 @@ package controller;
 import java.sql.SQLException;
 
 import model.Copy;
-import model.database.CarDB;
 import model.database.CarDBIF;
 import model.exceptions.CopyNotFoundException;
 import model.exceptions.DataAccessException;
@@ -20,7 +19,7 @@ public class CarCtrl {
 		return carDB.findCopy(vin);
 	}
 	
-	public void insertCopy(Copy copy) throws DataAccessException, SQLException {
-		carDB.insertCopy(copy);
+	public int insertCopy(Copy copy) throws DataAccessException, SQLException {
+		return carDB.insertCopy(copy);
 	}
 }

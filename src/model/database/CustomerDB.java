@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import model.Customer;
 import model.exceptions.CustomerNotFound;
 import model.exceptions.DataAccessException;

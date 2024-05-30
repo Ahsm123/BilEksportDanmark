@@ -1,7 +1,6 @@
 package gui.car;
 
 import java.awt.GridLayout;
-
 import java.sql.SQLException;
 
 import javax.swing.JButton;
@@ -10,12 +9,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import controller.CalculateCarCtrl;
-import controller.SellerCtrl;
 import gui.TextInput;
-import gui.supers.GUIDialog;
 import gui.exceptions.InvalidPhoneNumberException;
+import gui.supers.GUIDialog;
 import model.Seller;
-import model.database.SellerDB;
 import model.exceptions.DataAccessException;
 
 public class FindSellerPopUp extends GUIDialog {

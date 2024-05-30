@@ -2,20 +2,10 @@ package gui;
 
 import java.awt.EventQueue;
 import java.awt.Window;
-import java.sql.SQLException;
 import java.util.LinkedList;
 
-import javax.swing.JFrame;
 import javax.swing.JDialog;
-
-import controller.CustomerCtrl;
-import controller.OrderCtrl;
-import model.Order;
-import model.database.CarDB;
-import model.database.CustomerDB;
-import model.database.InvoiceDB;
-import model.database.OrderDB;
-import model.exceptions.DataAccessException;
+import javax.swing.JFrame;
 
 public class Main {	
 	private Window currentWindow;

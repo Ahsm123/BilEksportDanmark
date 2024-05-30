@@ -2,13 +2,9 @@ package model.database;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import model.BuyInfo;
-import model.Copy;
-import model.Seller;
 import model.exceptions.DataAccessException;
 
 public class BuyInfoDB implements BuyInfoDBIF {
@@ -22,7 +18,8 @@ public class BuyInfoDB implements BuyInfoDBIF {
 			connection = DBConnection.getInstance().getConnection();
 			saveBuyInfo = connection.prepareStatement(SAVE_BUY_INFO_Q);
 			
-		} catch (Exception e) {
+		} 
+		catch (Exception e) {
 			throw new SQLException("", e);
 		}
 
@@ -37,7 +34,4 @@ public class BuyInfoDB implements BuyInfoDBIF {
 			saveBuyInfo.execute();
 			con.commitTransaction();
 	}
-	
-
 }
-

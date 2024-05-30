@@ -1,7 +1,14 @@
 package gui.order;
 
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.sql.SQLException;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import controller.OrderCtrl;
 import gui.supers.GUIPanel;
@@ -10,9 +17,6 @@ import model.database.CustomerDB;
 import model.database.InvoiceDB;
 import model.database.OrderDB;
 import model.exceptions.DataAccessException;
-
-import java.awt.*;
-import java.sql.SQLException;
 
 public class OrderMenu extends GUIPanel {
 

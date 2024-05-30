@@ -66,8 +66,8 @@ public class CarDBStub implements CarDBIF {
 	}
 
 	@Override
-	public void insertCopy(Copy copy) throws DataAccessException, SQLException {
-		// TODO Auto-generated method stub
+	public int insertCopy(Copy copy) throws DataAccessException, SQLException {
+		return  0;
 		
 	}
 }

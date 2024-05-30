@@ -1,7 +1,6 @@
 package test;
 
 import model.Customer;
-import model.Person;
 import model.database.CustomerDBIF;
 import model.exceptions.CustomerNotFound;
 

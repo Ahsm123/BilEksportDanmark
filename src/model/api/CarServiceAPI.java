@@ -11,7 +11,6 @@ public class CarServiceAPI {
 		carList = new HashMap<>();
 		
 		Copy copy0 = new Copy(20, "Volvo", "XC60", "Diesel", 124.00, 210, 8.1, 190, "Automatisk", 8);
-		copy0.setId(10);
 		copy0.setVin("5NPEB4AC5CH354720");
 		copy0.setPurchasePrice(249000);
 		copy0.setState(5);
@@ -23,10 +22,7 @@ public class CarServiceAPI {
 		copy0.setYear(2004);
 		copy0.setRegistrationFee(416000);
 		
-		
-		
 		Copy copy1 = new Copy(17, "Peugeot", "407", "Benzin", 186.00, 213, 9.1, 140, "Manuel", 6);
-		copy1.setId(11);
 		copy1.setVin("JN8AZ08W64W393996");
 		copy1.setPurchasePrice(38900);
 		copy1.setState(5);
@@ -39,7 +35,6 @@ public class CarServiceAPI {
 		copy1.setRegistrationFee(194000);
 		
 		Copy copy2 = new Copy(40, "Lada", "Riva", "Benzin", 150.00, 65, 20, 140, "Manuel", 4);
-		copy2.setId(12);
 		copy2.setVin("2G4WF5518Y1188740");
 		copy2.setPurchasePrice(20000);
 		copy2.setState(5);
@@ -52,7 +47,6 @@ public class CarServiceAPI {
 		copy2.setRegistrationFee(5000);
 		
 		Copy copy3 = new Copy(18, "Opel", "Corsa", "Benzin", 150.00, 90, 12, 189, "Manuel", 5);
-		copy3.setId(13);
 		copy3.setVin("JF1GE6B68AH507144");
 		copy3.setPurchasePrice(20000);
 		copy3.setState(5);
@@ -65,7 +59,6 @@ public class CarServiceAPI {
 		copy3.setRegistrationFee(100000);
 		
 		Copy copy4 = new Copy(24, "BMW", "320", "Diesel", 250.00, 240, 6, 249, "Automatic", 8);
-		copy4.setId(14);
 		copy4.setVin("3B7HC13ZXTG143211");
 		copy4.setPurchasePrice(349000);
 		copy4.setState(5);
@@ -78,7 +71,6 @@ public class CarServiceAPI {
 		copy4.setRegistrationFee(340000);
 		
 		Copy copy5 = new Copy(24, "BMW", "320", "Diesel", 250.00, 240, 6, 249, "Automatic", 8);
-		copy5.setId(14);
 		copy5.setVin("ML32A4HJ5EH043996");
 		copy5.setPurchasePrice(349000);
 		copy5.setState(5);
@@ -91,7 +83,6 @@ public class CarServiceAPI {
 		copy5.setRegistrationFee(340000);
 		
 		Copy copy6 = new Copy(24, "BMW", "320", "Diesel", 250.00, 240, 6, 249, "Automatic", 8);
-		copy6.setId(14);
 		copy6.setVin("xxx");
 		copy6.setPurchasePrice(349000);
 		copy6.setState(5);
@@ -108,11 +99,7 @@ public class CarServiceAPI {
 		carList.put("2G4WF5518Y1188740", copy2);
 		carList.put("JF1GE6B68AH507144", copy3);
 		carList.put("3B7HC13ZXTG143211", copy4);
-		carList.put("ML32A4HJ5EH043996", copy5);
-		
-		
-		
-		
+		carList.put("ML32A4HJ5EH043996", copy5);		
 	}
 	
 	public Copy importCopy(String vin) {

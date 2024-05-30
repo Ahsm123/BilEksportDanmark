@@ -4,20 +4,22 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThrows;
 
-
 import java.sql.SQLException;
 import java.util.LinkedList;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import model.BuyInfo;
-import model.Copy;
 import controller.CalculateCarCtrl;
-import model.exceptions.CarDoesNotMeetRequirementsException;
-import model.exceptions.DataAccessException;
 import gui.TextInput;
 import gui.exceptions.InvalidVinException;
+import model.BuyInfo;
+import model.Copy;
+import model.database.BuyInfoDB;
+import model.database.CarDB;
+import model.database.SellerDB;
+import model.exceptions.CarDoesNotMeetRequirementsException;
+import model.exceptions.DataAccessException;
 
 public class CalculateCarUnitTests {
 	private CalculateCarCtrl calculateCarCtrl;
@@ -29,8 +31,8 @@ public class CalculateCarUnitTests {
 		
 	}
 	
-	@Before public void setUp() throws SQLException{
-		calculateCarCtrl = new CalculateCarCtrl();
+	@Before public void setUp() throws SQLException, DataAccessException{
+		calculateCarCtrl = new CalculateCarCtrl(new CarDB(), new BuyInfoDB(), new SellerDB());
 		textInput = new TextInput();
 		buyInfoDBStub = new BuyInfoDBStub();
 	}

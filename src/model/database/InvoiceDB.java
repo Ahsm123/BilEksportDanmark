@@ -1,16 +1,11 @@
 package model.database;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
-import model.Invoice;
-import model.Order;
-import model.database.*;
-import model.exceptions.DataAccessException;
 
-import java.sql.*;
+import model.Invoice;
+import model.exceptions.DataAccessException;
 
 public class InvoiceDB implements InvoiceDBIF {
 	

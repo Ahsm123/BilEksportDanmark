@@ -2,7 +2,6 @@ package test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 
 import java.sql.SQLException;
@@ -14,8 +13,6 @@ import controller.OrderCtrl;
 import model.Customer;
 import model.Order;
 import model.exceptions.CarAlreadySoldException;
-import model.exceptions.CarDoesNotMeetRequirementsException;
-import model.exceptions.CopyAlreadyInOrderException;
 import model.exceptions.CopyNotReady;
 import model.exceptions.CustomerNotFound;
 import model.exceptions.DataAccessException;

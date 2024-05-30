@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import model.Employee;
-import model.Person;
 import model.exceptions.DataAccessException;
 
 public interface EmployeeDBIF {

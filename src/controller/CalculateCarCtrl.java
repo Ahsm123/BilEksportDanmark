@@ -1,35 +1,38 @@
 package controller;
 
-
 import java.sql.SQLException;
 import java.time.Year;
-import java.util.HashMap;
 
 import model.BuyInfo;
 import model.Copy;
 import model.Seller;
 import model.api.CarServiceAPI;
-import model.database.BuyInfoDB;
-import model.database.SellerDB;
+import model.database.BuyInfoDBIF;
+import model.database.CarDBIF;
+import model.database.SellerDBIF;
 import model.exceptions.CarDoesNotMeetRequirementsException;
 import model.exceptions.DataAccessException;
 
 public class CalculateCarCtrl {
-	private CarServiceAPI carServiceApi;
 	private final static double TAX_ROOF = 0.85;
 	private final static double AGE_PENALTY = 0.07;
 	private final static double KM_PENALTY = 0.01;
 	private final static double MIN_PROFIT = 15000;
 	private final static double EXPENSES = 5000;
-
-	private BuyInfo latestBuyInfo;
+	
+	private CarServiceAPI carServiceApi;
+	
 	private BuyInfoCtrl buyInfoCtrl;
 	private SellerCtrl sellerCtrl;
+	private CarCtrl carCtrl;
+	
+	private BuyInfo latestBuyInfo;
 
-	public CalculateCarCtrl() throws SQLException {
-		this.buyInfoCtrl = new BuyInfoCtrl(new BuyInfoDB());
+	public CalculateCarCtrl(CarDBIF carDBIF, BuyInfoDBIF buyInfoDBIF, SellerDBIF sellerDBIF) throws SQLException {
+		this.carCtrl = new CarCtrl(carDBIF);
+		this.buyInfoCtrl = new BuyInfoCtrl(buyInfoDBIF);
 		this.carServiceApi = new CarServiceAPI();
-		this.sellerCtrl = new SellerCtrl(new SellerDB());
+		this.sellerCtrl = new SellerCtrl(sellerDBIF);
 	}
 
 	public Copy importCopy(String vin) throws CarDoesNotMeetRequirementsException {
@@ -60,7 +63,6 @@ public class CalculateCarCtrl {
 		for(int i = 0; i < carAge; i++){
 			taxReturn -= taxReturn * AGE_PENALTY;
 		}
-
 		return taxReturn - taxReturn * kmPenalty;
 	}
 
@@ -69,6 +71,8 @@ public class CalculateCarCtrl {
 			throw new NullPointerException();
 		}
 		latestBuyInfo.setSeller(seller);
+		int id = carCtrl.insertCopy(latestBuyInfo.getCopy());
+		latestBuyInfo.getCopy().setId(id);
 		buyInfoCtrl.saveBuyInfo(latestBuyInfo);
 	}
 

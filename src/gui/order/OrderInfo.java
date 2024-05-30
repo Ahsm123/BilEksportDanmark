@@ -1,5 +1,20 @@
 package gui.order;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.sql.SQLException;
+import java.util.LinkedList;
+
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
+
 import controller.OrderCtrl;
 import gui.Main;
 import gui.TextInput;
@@ -11,10 +26,6 @@ import model.exceptions.CarAlreadySoldException;
 import model.exceptions.CopyNotReady;
 import model.exceptions.DataAccessException;
 import model.exceptions.EmptyOrderException;
-import javax.swing.*;
-import java.awt.*;
-import java.sql.SQLException;
-import java.util.LinkedList;
 
 public class OrderInfo extends GUIPanel {
 	private static final long serialVersionUID = 1L;
@@ -129,13 +140,17 @@ public class OrderInfo extends GUIPanel {
             if (isValidVin) {
                 createCarPanel(input);
             }
-        } catch (InvalidVinException e) {
+        } 
+        catch (InvalidVinException e) {
             showErrorPopup(e.getMessage());
-        } catch (CarAlreadySoldException e) {
+        } 
+        catch (CarAlreadySoldException e) {
             showErrorPopup("Bil allerede solgt");
-        } catch (SQLException e) {
+        } 
+        catch (SQLException e) {
             showErrorPopup("Database fejl");
-        } catch (CopyNotReady e) {
+        } 
+        catch (CopyNotReady e) {
             showErrorPopup("Bilen mangler dokumenter og kan derfor ikke sælges");
         }
     }

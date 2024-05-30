@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import model.Car;
 import model.Copy;
 import model.exceptions.CopyNotFoundException;
 import model.exceptions.DataAccessException;
@@ -36,7 +35,7 @@ public class CarDB implements CarDBIF {
 		try {
 			findByVinPs = connection.prepareStatement(FIND_BY_VIN_Q);
 			insertIntoCar = connection.prepareStatement(INSERT_INTO_CAR, Statement.RETURN_GENERATED_KEYS);
-			insertIntoCopy = connection.prepareStatement(INSERT_INTO_COPY);
+			insertIntoCopy = connection.prepareStatement(INSERT_INTO_COPY, Statement.RETURN_GENERATED_KEYS);
 			
 		} 	
 		catch(SQLException e) {
@@ -99,7 +98,7 @@ public class CarDB implements CarDBIF {
 		return result;
 	}
 	
-	public void insertCopy(Copy copy) throws DataAccessException, SQLException {
+	public int insertCopy(Copy copy) throws DataAccessException, SQLException {
 		DBConnection dbConnection = DBConnection.getInstance();
 		dbConnection.startTransaction();
 		
@@ -129,8 +128,10 @@ public class CarDB implements CarDBIF {
 		insertIntoCopy.setDouble(11, copy.getPurchasePrice());
 		insertIntoCopy.setDouble(12, copy.getSalesPrice());
 		
-		insertIntoCopy.execute();
+		id = dbConnection.executeInsertWithIdentity(insertIntoCopy);
 		
 		dbConnection.commitTransaction();
+		
+		return id;
 	}
 }

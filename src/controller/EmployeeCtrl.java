@@ -1,7 +1,6 @@
 package controller;
 
 import model.Employee;
-import model.database.EmployeeDB;
 import model.database.EmployeeDBIF;
 import model.exceptions.DataAccessException;
 

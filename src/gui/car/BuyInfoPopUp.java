@@ -2,7 +2,6 @@ package gui.car;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
 
 import controller.CalculateCarCtrl;
 import gui.supers.GUIDialog;
