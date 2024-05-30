@@ -44,21 +44,23 @@ public class CustomerPopUp extends GUIDialog {
     private void createOrder() {
     	TextInput textInput = new TextInput();
         try {
-            
             boolean isValidPhone = textInput.phoneNumberValidator(textField.getText());
-            
             
             if (isValidPhone) {
                 orderCtrl.createOrder(textField.getText(), 1);
                 maingui.switchFrameTo(new OrderInfo(orderCtrl), true);
             }
-        } catch (HeadlessException e) {
+        } 
+        catch (HeadlessException e) {
             JOptionPane.showMessageDialog(null, "Keyboard ikke supported", "Fejl", JOptionPane.PLAIN_MESSAGE);
-        } catch (DataAccessException e) {
+        }
+        catch (DataAccessException e) {
             JOptionPane.showMessageDialog(null, "Database fejl", "Fejl", JOptionPane.PLAIN_MESSAGE);
-        } catch (CustomerNotFound e) {
+        } 
+        catch (CustomerNotFound e) {
             JOptionPane.showMessageDialog(null, "Kunde eksisterer ikke", "Fejl", JOptionPane.PLAIN_MESSAGE);
-        } catch (InvalidPhoneNumberException e) {
+        } 
+        catch (InvalidPhoneNumberException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Fejl", JOptionPane.PLAIN_MESSAGE);
         }
     }

@@ -22,6 +22,7 @@ import java.sql.SQLException;
 import model.CarState;
 import model.Copy;
 import model.Customer;
+import model.Invoice;
 
 public class OrderCtrl {
 	private OrderDBIF orderDB;
@@ -73,7 +74,8 @@ public class OrderCtrl {
 		}
 		else {
 			orderDB.saveOrder(currentOrder);
-			invoiceCtrl.saveInvoiceInDB(currentOrder);
+			Invoice invoice = invoiceCtrl.createInvoice(currentOrder);
+			invoiceCtrl.saveInvoiceInDB(invoice);
 		}
 		return currentOrder;
 	}

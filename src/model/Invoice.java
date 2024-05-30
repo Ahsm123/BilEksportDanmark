@@ -9,9 +9,8 @@ public class Invoice {
 	
 	private String paymentDate;
 	
-	public Invoice(String paymentDate, int id, double total, int orderId) {
+	public Invoice(String paymentDate, double total, int orderId) {
 		this.paymentDate = paymentDate;
-		this.id = id;
 		this.total = total;
 		this.orderId = orderId;
 	}

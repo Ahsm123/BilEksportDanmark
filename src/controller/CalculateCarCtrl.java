@@ -47,7 +47,7 @@ public class CalculateCarCtrl {
 		double totalIncome = salesPrice + taxReturn;
 		double maxOffer = totalIncome - EXPENSES - MIN_PROFIT;
 
-		latestBuyInfo = new BuyInfo(maxOffer, copy);
+		latestBuyInfo = buyInfoCtrl.createBuyInfo(maxOffer, copy);
 
 		return maxOffer;
 	}

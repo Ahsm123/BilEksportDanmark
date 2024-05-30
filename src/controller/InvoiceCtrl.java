@@ -17,8 +17,12 @@ public class InvoiceCtrl {
 
 	}
 
-	public void saveInvoiceInDB(Order order) throws SQLException, DataAccessException {
-		 invoiceDB.saveInvoiceInDB(order);	
+	public void saveInvoiceInDB(Invoice invoice) throws SQLException, DataAccessException {
+		 invoiceDB.saveInvoiceInDB(invoice);	
 
+	}
+	
+	public Invoice createInvoice(Order order) {
+		return new Invoice(order.getDate(), order.getTotalPrice(), order.getId());
 	}
 }

@@ -29,13 +29,13 @@ public class InvoiceDB implements InvoiceDBIF {
 	}
 
 	@Override
-	public void saveInvoiceInDB(Order order) throws SQLException, DataAccessException {
+	public void saveInvoiceInDB(Invoice invoice) throws SQLException, DataAccessException {
 		DBConnection con = DBConnection.getInstance();
 		con.startTransaction();
 		
-		saveInvoice.setString(1, order.getDate());
-		saveInvoice.setDouble(2, order.getTotalPrice());
-		saveInvoice.setInt(3, order.getId());
+		saveInvoice.setString(1, invoice.getPaymentDate());
+		saveInvoice.setDouble(2, invoice.getTotal());
+		saveInvoice.setInt(3, invoice.getOrderId());
 		
 		con.executeInsertWithIdentity(saveInvoice);
 		
