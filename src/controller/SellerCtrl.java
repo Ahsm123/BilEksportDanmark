@@ -20,6 +20,4 @@ public class SellerCtrl {
 		seller.setCarAd(link);
 		sellerDB.saveSeller(seller);
 	}
-	
-	
 }
