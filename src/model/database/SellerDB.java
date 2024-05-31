@@ -47,12 +47,12 @@ public class SellerDB implements SellerDBIF{
 
 	public void saveSeller(Seller seller) throws DataAccessException {
 		DBConnection dbConnection = DBConnection.getInstance();
-		dbConnection.startTransaction();
-
-		String[] name = seller.getName().split(" ");
-
 
 		try {
+			dbConnection.startTransaction();
+
+			String[] name = seller.getName().split(" ");
+
 			savePerson.setString(1, name[0]);
 			savePerson.setString(2, name[1]);
 			savePerson.setString(3, seller.getPhoneNo());
@@ -67,12 +67,10 @@ public class SellerDB implements SellerDBIF{
 			saveSeller.execute();
 
 			dbConnection.commitTransaction();
-		} 
-		catch (SQLException e) {
-			e.printStackTrace();
 		}
-
-
+		catch (DataAccessException | SQLException e) {
+			dbConnection.rollbackTransaction();
+		}
 	}
 
 	@Override
@@ -90,6 +88,5 @@ public class SellerDB implements SellerDBIF{
 			e.printStackTrace();
 		}
 		return result;
-
 	}
 }

@@ -28,10 +28,15 @@ public class BuyInfoDB implements BuyInfoDBIF {
 	public void saveBuyInfo(BuyInfo buyInfo) throws SQLException, DataAccessException{
 			DBConnection con = DBConnection.getInstance();
 			con.startTransaction();
-			saveBuyInfo.setInt(1, buyInfo.getCopy().getId());
-			saveBuyInfo.setInt(2, buyInfo.getSeller().getId());
-			saveBuyInfo.setDouble(3, buyInfo.getRecommendedPrice());
-			saveBuyInfo.execute();
-			con.commitTransaction();
+			try {
+				saveBuyInfo.setInt(1, buyInfo.getCopy().getId());
+				saveBuyInfo.setInt(2, buyInfo.getSeller().getId());
+				saveBuyInfo.setDouble(3, buyInfo.getRecommendedPrice());
+				saveBuyInfo.execute();
+				con.commitTransaction();
+			}
+			catch (DataAccessException | SQLException e) {
+				con.rollbackTransaction();
+			}
 	}
 }

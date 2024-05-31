@@ -41,27 +41,32 @@ public class OrderDB implements OrderDBIF {
 	@Override
 	public void saveOrder(Order order) throws SQLException, DataAccessException {
 		DBConnection con = DBConnection.getInstance();
-		con.startTransaction();
-		
-		saveOrder.setString(1, order.getDate());
-		saveOrder.setDouble(2, order.getTotalPrice());
-		saveOrder.setBoolean(3, order.isDelivered());
-		saveOrder.setInt(4, order.getCustomer().getDeliveryAddressId());
-		saveOrder.setInt(5, order.getCustomer().getId());
-		saveOrder.setInt(6, order.getEmployeeId());
-		
-		order.setId(con.executeInsertWithIdentity(saveOrder));
-		
-		order.getCopies().forEach(copy -> {
-			try {
-				saveCopyOrder(copy.getId(), order.getId());
-			} 
-			catch (SQLException e) {
-				e.printStackTrace();
-			}
-		});
-		
-		con.commitTransaction();
+		try {
+			con.startTransaction();
+			
+			saveOrder.setString(1, order.getDate());
+			saveOrder.setDouble(2, order.getTotalPrice());
+			saveOrder.setBoolean(3, order.isDelivered());
+			saveOrder.setInt(4, order.getCustomer().getDeliveryAddressId());
+			saveOrder.setInt(5, order.getCustomer().getId());
+			saveOrder.setInt(6, order.getEmployeeId());
+			
+			order.setId(con.executeInsertWithIdentity(saveOrder));
+			
+			order.getCopies().forEach(copy -> {
+				try {
+					saveCopyOrder(copy.getId(), order.getId());
+				} 
+				catch (SQLException e) {
+					e.printStackTrace();
+				}
+			});
+			
+			con.commitTransaction();
+		}
+		catch (SQLException | DataAccessException e) {
+			con.rollbackTransaction();
+		}
 	}
 
 	private void saveCopyOrder(int copyId, int orderId) throws SQLException {

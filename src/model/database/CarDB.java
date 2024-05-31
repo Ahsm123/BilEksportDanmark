@@ -21,11 +21,7 @@ public class CarDB implements CarDBIF {
 	private PreparedStatement findByVinPs;
 	private PreparedStatement insertIntoCar;
 	private PreparedStatement insertIntoCopy;
-	//	private PreparedStatement insertPs;
 	
-	
-
-
 	public CarDB() throws DataAccessException {
 		init();
 	}
@@ -102,36 +98,41 @@ public class CarDB implements CarDBIF {
 		DBConnection dbConnection = DBConnection.getInstance();
 		dbConnection.startTransaction();
 		
-		insertIntoCar.setInt(1, copy.getMilage());
-		insertIntoCar.setString(2, copy.getManufacturer());
-		insertIntoCar.setString(3, copy.getModel());
-		insertIntoCar.setString(4, copy.getFuelType());
-		insertIntoCar.setInt(5, copy.getHp());
-		insertIntoCar.setDouble(6, copy.getCo2Emission());
-		insertIntoCar.setDouble(7, copy.getAcceleration());
-		insertIntoCar.setInt(8, copy.getTopSpeed());
-		insertIntoCar.setString(9, copy.getGearType());
-		insertIntoCar.setInt(10, copy.getNoOfGears());
-		
-		int id = dbConnection.executeInsertWithIdentity(insertIntoCar);
-		
-		insertIntoCopy.setString(1, copy.getVin());
-		insertIntoCopy.setInt(2, copy.getState().ordinal()+1);
-		insertIntoCopy.setString(3, copy.getModification());
-		insertIntoCopy.setInt(4, copy.getKilometer());
-		insertIntoCopy.setString(5, copy.getColor());
-		insertIntoCopy.setInt(6, id);
-		insertIntoCopy.setBoolean(7, copy.isTaxReturn());
-		insertIntoCopy.setBoolean(8, copy.isInspected());
-		insertIntoCopy.setInt(9, copy.getYear());
-		insertIntoCopy.setDouble(10, copy.getRegistrationFee());
-		insertIntoCopy.setDouble(11, copy.getPurchasePrice());
-		insertIntoCopy.setDouble(12, copy.getSalesPrice());
-		
-		id = dbConnection.executeInsertWithIdentity(insertIntoCopy);
-		
-		dbConnection.commitTransaction();
-		
+		int id = 0;
+		try {
+			insertIntoCar.setInt(1, copy.getMilage());
+			insertIntoCar.setString(2, copy.getManufacturer());
+			insertIntoCar.setString(3, copy.getModel());
+			insertIntoCar.setString(4, copy.getFuelType());
+			insertIntoCar.setInt(5, copy.getHp());
+			insertIntoCar.setDouble(6, copy.getCo2Emission());
+			insertIntoCar.setDouble(7, copy.getAcceleration());
+			insertIntoCar.setInt(8, copy.getTopSpeed());
+			insertIntoCar.setString(9, copy.getGearType());
+			insertIntoCar.setInt(10, copy.getNoOfGears());
+			
+			id = dbConnection.executeInsertWithIdentity(insertIntoCar);
+			
+			insertIntoCopy.setString(1, copy.getVin());
+			insertIntoCopy.setInt(2, copy.getState().ordinal()+1);
+			insertIntoCopy.setString(3, copy.getModification());
+			insertIntoCopy.setInt(4, copy.getKilometer());
+			insertIntoCopy.setString(5, copy.getColor());
+			insertIntoCopy.setInt(6, id);
+			insertIntoCopy.setBoolean(7, copy.isTaxReturn());
+			insertIntoCopy.setBoolean(8, copy.isInspected());
+			insertIntoCopy.setInt(9, copy.getYear());
+			insertIntoCopy.setDouble(10, copy.getRegistrationFee());
+			insertIntoCopy.setDouble(11, copy.getPurchasePrice());
+			insertIntoCopy.setDouble(12, copy.getSalesPrice());
+			
+			id = dbConnection.executeInsertWithIdentity(insertIntoCopy);
+			
+			dbConnection.commitTransaction();
+		}
+		catch (DataAccessException | SQLException e) {
+			dbConnection.rollbackTransaction();
+		}	
 		return id;
 	}
 }
