@@ -132,6 +132,7 @@ public class CarDB implements CarDBIF {
 		}
 		catch (DataAccessException | SQLException e) {
 			dbConnection.rollbackTransaction();
+			throw e;
 		}	
 		return id;
 	}

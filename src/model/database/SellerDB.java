@@ -45,7 +45,7 @@ public class SellerDB implements SellerDBIF{
 		return seller;
 	}
 
-	public void saveSeller(Seller seller) throws DataAccessException {
+	public void saveSeller(Seller seller) throws DataAccessException, SQLException {
 		DBConnection dbConnection = DBConnection.getInstance();
 
 		try {
@@ -70,6 +70,7 @@ public class SellerDB implements SellerDBIF{
 		}
 		catch (DataAccessException | SQLException e) {
 			dbConnection.rollbackTransaction();
+			throw e;
 		}
 	}
 

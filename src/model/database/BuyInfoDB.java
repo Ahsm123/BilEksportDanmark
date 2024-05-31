@@ -37,6 +37,7 @@ public class BuyInfoDB implements BuyInfoDBIF {
 			}
 			catch (DataAccessException | SQLException e) {
 				con.rollbackTransaction();
+				throw e;
 			}
 	}
 }

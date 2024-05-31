@@ -42,6 +42,7 @@ public class InvoiceDB implements InvoiceDBIF {
 		}
 		catch (SQLException | DataAccessException e) {
 			con.rollbackTransaction();
+			throw e;
 		}
 	}
 }	

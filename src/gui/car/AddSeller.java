@@ -135,7 +135,7 @@ public class AddSeller extends GUIPanel {
 			sellerCtrl.saveSeller(fnameField.getText() + " " + lnameField.getText(), phoneField.getText(), mailField.getText(), linkField.getText());
 			cancel();
 		} 
-		catch (DataAccessException e) {
+		catch (DataAccessException | SQLException e) {
 			e.printStackTrace();
 		}
 	}
